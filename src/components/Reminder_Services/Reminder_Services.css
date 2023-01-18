@@ -1,0 +1,118 @@
+.ReminderServices_main_dev {
+  /* background-color: aqua; */
+  max-width: 1340px;
+  min-width: 310px;
+  margin: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+.row-1 {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  max-width: 1000px;
+  height: 35px;
+  /* border: solid; */
+}
+.row-1 h1 {
+  font-family: "Inter";
+  font-weight: 700;
+  color: #000000;
+  font-size: 24px;
+  margin-left: 15px;
+}
+.row-2 {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  max-width: 1000px;
+  height: 35px;
+  /* border: solid; */
+}
+.row-2 p {
+  color: #0500fa;
+  font-family: "Inter";
+  font-weight: 700;
+  margin-left: 15px;
+}
+.row-2-col-2 {
+  margin-left: auto;
+  margin-right: 5px;
+}
+.row-2-col-2 button {
+  background-color: white;
+  border: none;
+}
+.row-2-col-2 .view-btn {
+  color: #0500fa;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 18px;
+}
+.row-2-col-2 .edit-btn {
+  color: #0500fa;
+  border-left: solid 1px #0500fa;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 18px;
+}
+.row-2-col-2 .delete-btn {
+  color: #0500fa;
+  border-left: solid 1px #0500fa;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 18px;
+}
+.row-3 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  height: 70px;
+  font-family: "Inter";
+  font-weight: 400;
+  /* border: solid; */
+}
+.row-3 p {
+  color: #0d0d0d;
+  font-family: "Inter";
+  font-weight: 400;
+}
+.row-4 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  height: 70px;
+  font-family: "Inter";
+  font-weight: 400;
+  /* border: solid; */
+}
+.row-4 .bs-icon {
+  width: 30px;
+  height: 30px;
+}
+.row-5 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  height: 30px;
+  font-family: "Inter";
+  font-weight: 400;
+  /* border: solid; */
+}
+.row-5 p {
+  color: #000000;
+  font-family: "Inter";
+  font-weight: 400;
+}
