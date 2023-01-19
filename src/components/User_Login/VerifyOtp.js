@@ -2,7 +2,7 @@ import React from "react";
 import "./VerifyOtp.css";
 export default function (){
     return (
-        <div class="card card-1">
+        <div className="card card-1">
             <div className="code">
             <input className="" placeholder="Enter Otp Code"></input>
             </div>
