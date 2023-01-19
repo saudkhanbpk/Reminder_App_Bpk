@@ -13,10 +13,11 @@ export default function Login (){
         navigate("/verifyphone");
     }
     return(
-            <div class="card card-1">
+            <div className="card card-1">
+              <span className="Header"> <h2>Get Started</h2></span> 
         <div className="login">
 <div className="first"> 
-<Button  className="start" variant="primary" onClick={handleLogin} >Get Started</Button><br></br>
+<Button  className="start" variant="primary" onClick={handleLogin} >Login With Phone Number</Button><br></br>
 
 </div>
 <div className="Second">

@@ -10,7 +10,7 @@ export default function (){
         navigate("/verifyOtp")
     }
     return (
-        <div class="card card-1">
+        <div className="card card-1">
         <div className="phone">
         <PhoneInput
       placeholder="Enter phone number"
