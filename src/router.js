@@ -19,6 +19,7 @@ export default function RouterComponent(){
            
             <BrowserRouter>
             <Routes>
+                <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />}/>
                 <Route path="/addFile" element={<AddFile />}/>
                 <Route path="/verifyphone" element={<VerifyPhone />}/>
