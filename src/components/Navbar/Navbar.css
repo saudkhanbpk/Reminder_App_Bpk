@@ -1,0 +1,24 @@
+.navbar{
+    color:black !important;
+    background-color: lightcyan;
+}
+.tr{
+    color: white !important;
+}
+
+.hr{
+    border: 1px solid #000000;
+    }
+
+    .heading{
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+    }
+
+    .icone{
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        font-size: 50px;
+    }
