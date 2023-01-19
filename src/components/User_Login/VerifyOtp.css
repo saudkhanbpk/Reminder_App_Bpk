@@ -1,0 +1,22 @@
+.code{
+    display: flex;
+    margin-top: 100px;
+    justify-content: center;
+    
+}
+
+.Vfy{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    
+}
+.btnsd{
+background-color:#0d6efd ;
+width: 100px;
+height: 35px;
+border-radius: 4px;
+color: white;
+font-weight: bold;
+border: none;
+}
