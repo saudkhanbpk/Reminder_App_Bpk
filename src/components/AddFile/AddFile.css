@@ -9,4 +9,11 @@
     justify-content: center;
     margin-top: 50px;
     font-size: 50px;
+
+}
+.hid{
+    display:none;
+}
+.for{
+    cursor: pointer;
 }
