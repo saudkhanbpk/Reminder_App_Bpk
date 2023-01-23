@@ -17,6 +17,7 @@ export default function Login (){
               <span className="Header"> <h2>Get Started</h2></span> 
         <div className="login">
 <div className="first"> 
+<Button  className="start" variant="primary" onClick={()=>navigate("/loginAdmin")} >Login With UserId</Button><br></br>
 <Button  className="start" variant="primary" onClick={handleLogin} >Login With Phone Number</Button><br></br>
 
 </div>
