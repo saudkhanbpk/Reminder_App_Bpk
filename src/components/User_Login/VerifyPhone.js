@@ -11,6 +11,7 @@ export default function (){
     }
     return (
         <div className="card card-1">
+            <form>
         <div className="phone">
         <PhoneInput
       placeholder="Enter phone number"
@@ -21,6 +22,7 @@ export default function (){
 
         <button  className="btns" onClick={handleOtp} >Send Otp</button>
         </div>
+        </form>
         </div>
         
     )
