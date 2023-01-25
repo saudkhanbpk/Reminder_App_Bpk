@@ -4,6 +4,8 @@ import AddFile from "./components/AddFile/AddFile";
 import LoginAdmin from "./components/User_Login/LoginAdmin";
 import LoginStaff from "./components/User_Login/LoginStaff";
 import ReminderAlert from "./components/Reminder/ReminderAlert"
+import ReminderServices from "./components/Reminder_Services/Reminder_Services";
+import ReminderSetting from "./components/Reminder_Setting/Reminder_Setting";
 import {
     BrowserRouter,
     Route,
@@ -25,6 +27,8 @@ export default function RouterComponent(){
                 <Route path="/loginAdmin" element={<LoginAdmin />}/>
                 <Route path="loginStaff" element={<LoginStaff />}/>
                 <Route path="/reminderAlert" element={<ReminderAlert />}/>
+                <Route path="reminderservices" element={<ReminderServices />} />
+                <Route path="remindersetting" element={<ReminderSetting />} />
             </Routes>
             </BrowserRouter>
     
