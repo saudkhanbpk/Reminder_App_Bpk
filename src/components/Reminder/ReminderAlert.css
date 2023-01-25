@@ -1,0 +1,32 @@
+.serch{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.typ{
+    margin-right: 20px;
+    font-weight: bold;
+    font-size:larger;
+
+}
+.tbl{
+    width: 90%;
+    margin: auto;
+}
+.der{
+    color: white;
+    font-size: larger;
+    cursor: pointer;
+}
+@media only screen and (max-width: 470px) {
+    .tbl{
+        width: 100%;
+        margin: auto;
+    } 
+}
+@media only screen and (max-width: 426px) {
+    .tbl{
+        width: 95%;
+        margin: auto;
+    } 
+}
