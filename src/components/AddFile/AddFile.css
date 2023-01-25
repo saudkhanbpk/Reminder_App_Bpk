@@ -3,7 +3,35 @@
     justify-content: center;
     margin-top: 50px;
 }
+.serh{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.ty{
+    margin-right: 20px;
+    font-weight: bold;
+    font-size:larger;
 
+}
+.added{
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+.Recently{
+    margin-left: 25px;
+    margin-top: 8px;
+}
+.Logout{
+    margin-right: 30px;
+    font-size:25px;
+}
+.Xls{
+    display: flex;
+    padding-right: 10px;
+    justify-content: flex-end;
+}
 .icone{
     display: flex;
     justify-content: center;
