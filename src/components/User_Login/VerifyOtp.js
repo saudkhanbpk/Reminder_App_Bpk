@@ -1,6 +1,6 @@
 import React from "react";
 import "./VerifyOtp.css";
-export default function (){
+export default function verifyOtp (){
     return (
         <div className="card card-1">
             <form>

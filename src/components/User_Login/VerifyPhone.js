@@ -3,7 +3,7 @@ import "./VerifyPhone.css"
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { useNavigate } from "react-router-dom";
-export default function (){
+export default function VerifyPhone (){
     let navigate = useNavigate();
     const [value, setValue] = useState()
     const handleOtp =()=>{
