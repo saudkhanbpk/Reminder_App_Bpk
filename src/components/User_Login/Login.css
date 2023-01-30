@@ -142,6 +142,19 @@ border: 1px solid #000000;
   .signin__Link p {
     color: black;
   }
+  .Signup{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .coler{
+    color: #0d6efd;
+    margin-right:10px !important;
+    font-weight: bold;
+  }
+  .coler:hover{
+    color:#0b5ed7;
+    cursor: pointer;
+  }
   @media only screen and (max-width: 356px) {
     .card {
       margin: auto;

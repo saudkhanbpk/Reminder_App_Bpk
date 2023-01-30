@@ -3,6 +3,7 @@ import Login from "./components/User_Login/Login";
 import AddFile from "./components/AddFile/AddFile";
 import LoginAdmin from "./components/User_Login/LoginAdmin";
 import LoginStaff from "./components/User_Login/LoginStaff";
+import SignUp from "./components/User_Login/SignUp";
 import ReminderAlert from "./components/Reminder/ReminderAlert"
 import ReminderServices from "./components/Reminder_Services/Reminder_Services";
 import ReminderSetting from "./components/Reminder_Setting/Reminder_Setting";
@@ -25,7 +26,8 @@ export default function RouterComponent(){
                 <Route path="/verifyphone" element={<VerifyPhone />}/>
                 <Route path="/verifyOtp" element={<VerifyOtp />}/>
                 <Route path="/loginAdmin" element={<LoginAdmin />}/>
-                <Route path="loginStaff" element={<LoginStaff />}/>
+                <Route path="/loginStaff" element={<LoginStaff />}/>
+                <Route path="/signUp" element={<SignUp />}/>
                 <Route path="/reminderAlert" element={<ReminderAlert />}/>
                 <Route path="reminderservices" element={<ReminderServices />} />
                 <Route path="remindersetting" element={<ReminderSetting />} />
