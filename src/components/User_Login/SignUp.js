@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
     const [loader, setLoader] = useState();
+    const [showpassword, setShowPassword] = useState(false);
 
     const formik = useFormik({
 
@@ -32,7 +33,9 @@ export default function SignUp() {
                     theme: "colored",
                 });
                 setLoader(false)
-                // navigate('/')
+                setTimeout(() => {
+                    navigate('/')
+                  }, 2000);
             }).catch((err) => {
                 toast.error("Something went wrong", {
                     theme: "colored",
@@ -70,7 +73,9 @@ export default function SignUp() {
         }
 
     })
-
+    const showPasswordHandler = () => {
+        setShowPassword(!showpassword)
+    }
 
     let navigate = useNavigate();
     return (
@@ -92,16 +97,25 @@ export default function SignUp() {
                     </div>
                     <div>
                         <span className='Ai'><RiLockPasswordFill /></span>
-                        <input className='box' type="password" id='password' placeholder="Enter your password" values={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} /> <br />
+                        <input className='box' type={showpassword ? "text" : "password"} id='password' placeholder="Enter your password" values={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} /> <br />
                         {formik.touched.password && formik.errors.password ? <div className='er'>{formik.errors.password}</div> : null}
                     </div>
                     <div>
                         <span className='Ai'><RiLockPasswordFill /></span>
-                        <input className='box' type="password" id='confirmPassword' placeholder="Enter your confirm password" values={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} /> <br />
+                        <input className='box' type={showpassword ? "text" : "password"} id='confirmPassword' placeholder="Enter your confirm password" values={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} /> <br />
                         {formik.touched.confirmPassword && formik.errors.confirmPassword ? <div className='er'>{formik.errors.confirmPassword}</div> : null}
                     </div>
+                    <div className="show-password mt-3">
+                        <input
+                            type="checkbox"
+                            name="showPassword"
+                            id="showPassword"
+                            onClick={showPasswordHandler}
+                        />
+                        &nbsp;
+                        <label htmlFor="showPassword">Show Password</label>
+                    </div>
                     <div className='sgup' >
-                        {/* <button className='SiUpBtn' onClick={() => navigate("/")}>SignUp</button> */}
                         <button disabled={loader} className='SiUpBtn'>SignUp</button>
                     </div>
                 </form>

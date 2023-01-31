@@ -8,7 +8,7 @@
     position: relative;
 }
 .inputdataf{
-    margin-top: 70px;
+    margin-top: 40px;
     margin-left: 80px;
 }
 .er{
@@ -17,7 +17,7 @@
 .sgup{
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 20px;
     margin-right: 100px;
 }
 .SiUpBtn{
@@ -55,7 +55,7 @@
 
   @media only screen and (max-width: 523px) {
     .inputdataf{
-        margin-top: 40px;
+        margin-top: 10px;
         margin-left: 80px;
     }
     
@@ -63,7 +63,7 @@
   @media  only screen and (max-width:424px) {
 
      .inputdataf{
-        margin-top: 13px;
+        margin-top: 3px;
         margin-left: 30px;
     }
     .sgup{
@@ -76,7 +76,7 @@
   }
   @media  only screen and (max-width: 379px) {
     .inputdataf{
-        margin-top: 2px;
+        margin-top: 0px;
         /* margin-left: 20px; */
     }
     .sgup{
