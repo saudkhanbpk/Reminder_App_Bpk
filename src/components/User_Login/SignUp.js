@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./SignUp.css";
 import { IoMdContact } from "react-icons/io";
 import { AiTwotoneMail } from "react-icons/ai";
-import { Formik, useFormik } from 'formik';
-
+import { useFormik } from 'formik';
+import { signUp } from '../services/Auth/auth';
+import { toast, ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { RiLockPasswordFill } from "react-icons/ri"
 import { useNavigate } from 'react-router-dom';
-import * as Yup from "yup"
 
 export default function SignUp() {
+    const [loader, setLoader] = useState();
 
     const formik = useFormik({
 
@@ -21,7 +23,24 @@ export default function SignUp() {
             confirmPassword: "",
         },
         onSubmit: values => {
+            setLoader(true)
             console.log("onSubmit", values)
+            signUp(values).then((res) => {
+
+                console.log('welcom', res);
+                toast.success("Data Register Successfully", {
+                    theme: "colored",
+                });
+                setLoader(false)
+                // navigate('/')
+            }).catch((err) => {
+                toast.error("Something went wrong", {
+                    theme: "colored",
+                })
+                console.log('error', err)
+                setLoader(false)
+            })
+
         },
 
         validate: values => {
@@ -43,6 +62,9 @@ export default function SignUp() {
             }
             if (!values.password) {
                 errors.password = "Password Required"
+            }
+            if (values.confirmPassword !== values.password) {
+                errors.confirmPassword = "Password & confirm Password must be same"
             }
             return errors
         }
@@ -80,9 +102,10 @@ export default function SignUp() {
                     </div>
                     <div className='sgup' >
                         {/* <button className='SiUpBtn' onClick={() => navigate("/")}>SignUp</button> */}
-                        <button className='SiUpBtn'>SignUp</button>
+                        <button disabled={loader} className='SiUpBtn'>SignUp</button>
                     </div>
                 </form>
+                <ToastContainer />
             </div>
         </div>
     )
