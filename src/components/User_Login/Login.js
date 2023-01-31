@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 import { FaGoogle } from 'react-icons/fa'
 import { BsMicrosoft } from 'react-icons/bs'
 import { CgMoreR } from 'react-icons/cg'
-import { AiOutlineCheck } from 'react-icons/ai'
 import './Login.css'
 import { useNavigate } from "react-router-dom";
 export default function Login() {

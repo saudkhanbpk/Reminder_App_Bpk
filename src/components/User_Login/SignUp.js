@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./SignUp.css";
 import { IoMdContact } from "react-icons/io";
 import { AiTwotoneMail } from "react-icons/ai";
-import { Formik, useFormik } from 'formik';
-
+import { useFormik } from 'formik';
+import { signUp } from '../services/Auth/auth';
+import { toast, ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { RiLockPasswordFill } from "react-icons/ri"
 import { useNavigate } from 'react-router-dom';
-import * as Yup from "yup"
 
 export default function SignUp() {
+    const [loader, setLoader] = useState();
+    const [showpassword, setShowPassword] = useState(false);
 
     const formik = useFormik({
 
@@ -21,7 +24,26 @@ export default function SignUp() {
             confirmPassword: "",
         },
         onSubmit: values => {
+            setLoader(true)
             console.log("onSubmit", values)
+            signUp(values).then((res) => {
+
+                console.log('welcom', res);
+                toast.success("Data Register Successfully", {
+                    theme: "colored",
+                });
+                setLoader(false)
+                setTimeout(() => {
+                    navigate('/')
+                  }, 2000);
+            }).catch((err) => {
+                toast.error("Something went wrong", {
+                    theme: "colored",
+                })
+                console.log('error', err)
+                setLoader(false)
+            })
+
         },
 
         validate: values => {
@@ -44,11 +66,16 @@ export default function SignUp() {
             if (!values.password) {
                 errors.password = "Password Required"
             }
+            if (values.confirmPassword !== values.password) {
+                errors.confirmPassword = "Password & confirm Password must be same"
+            }
             return errors
         }
 
     })
-
+    const showPasswordHandler = () => {
+        setShowPassword(!showpassword)
+    }
 
     let navigate = useNavigate();
     return (
@@ -70,19 +97,29 @@ export default function SignUp() {
                     </div>
                     <div>
                         <span className='Ai'><RiLockPasswordFill /></span>
-                        <input className='box' type="password" id='password' placeholder="Enter your password" values={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} /> <br />
+                        <input className='box' type={showpassword ? "text" : "password"} id='password' placeholder="Enter your password" values={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} /> <br />
                         {formik.touched.password && formik.errors.password ? <div className='er'>{formik.errors.password}</div> : null}
                     </div>
                     <div>
                         <span className='Ai'><RiLockPasswordFill /></span>
-                        <input className='box' type="password" id='confirmPassword' placeholder="Enter your confirm password" values={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} /> <br />
+                        <input className='box' type={showpassword ? "text" : "password"} id='confirmPassword' placeholder="Enter your confirm password" values={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} /> <br />
                         {formik.touched.confirmPassword && formik.errors.confirmPassword ? <div className='er'>{formik.errors.confirmPassword}</div> : null}
                     </div>
+                    <div className="show-password mt-3">
+                        <input
+                            type="checkbox"
+                            name="showPassword"
+                            id="showPassword"
+                            onClick={showPasswordHandler}
+                        />
+                        &nbsp;
+                        <label htmlFor="showPassword">Show Password</label>
+                    </div>
                     <div className='sgup' >
-                        {/* <button className='SiUpBtn' onClick={() => navigate("/")}>SignUp</button> */}
-                        <button className='SiUpBtn'>SignUp</button>
+                        <button disabled={loader} className='SiUpBtn'>SignUp</button>
                     </div>
                 </form>
+                <ToastContainer />
             </div>
         </div>
     )
