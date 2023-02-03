@@ -5,7 +5,14 @@
 .tr{
     color: white !important;
 }
-
+.btnd{
+    margin-right: -35px;
+    margin-left: 25px;
+    background-color:#0d6efd;
+    color: white;
+    border: none;
+    padding: 3px;
+}
 .hr{
     border: 1px solid #000000;
     }

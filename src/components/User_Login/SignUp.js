@@ -35,7 +35,7 @@ export default function SignUp() {
                 setLoader(false)
                 setTimeout(() => {
                     navigate('/')
-                  }, 2000);
+                }, 2000);
             }).catch((err) => {
                 toast.error("Something went wrong", {
                     theme: "colored",
