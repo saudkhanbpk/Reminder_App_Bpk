@@ -11,28 +11,30 @@ import {
     BrowserRouter,
     Route,
     Routes,
-  } from "react-router-dom";
+} from "react-router-dom";
 import VerifyPhone from "./components/User_Login/VerifyPhone";
 import VerifyOtp from "./components/User_Login/VerifyOtp";
-export default function RouterComponent(){
-    return(
-        
-           
-            <BrowserRouter>
+import Naavbar from "./components/Navbar/Navbar";
+export default function RouterComponent() {
+    return (
+
+
+        <BrowserRouter>
+            <Naavbar />
             <Routes>
                 <Route path="/" element={<Login />} />
-                <Route path="/login" element={<Login />}/>
-                <Route path="/addFile" element={<AddFile />}/>
-                <Route path="/verifyphone" element={<VerifyPhone />}/>
-                <Route path="/verifyOtp" element={<VerifyOtp />}/>
-                <Route path="/loginAdmin" element={<LoginAdmin />}/>
-                <Route path="/loginStaff" element={<LoginStaff />}/>
-                <Route path="/signUp" element={<SignUp />}/>
-                <Route path="/reminderAlert" element={<ReminderAlert />}/>
+                <Route path="/login" element={<Login />} />
+                <Route path="/addFile" element={<AddFile />} />
+                <Route path="/verifyphone" element={<VerifyPhone />} />
+                <Route path="/verifyOtp" element={<VerifyOtp />} />
+                <Route path="/loginAdmin" element={<LoginAdmin />} />
+                <Route path="/loginStaff" element={<LoginStaff />} />
+                <Route path="/signUp" element={<SignUp />} />
+                <Route path="/reminderAlert" element={<ReminderAlert />} />
                 <Route path="reminderservices" element={<ReminderServices />} />
                 <Route path="remindersetting" element={<ReminderSetting />} />
             </Routes>
-            </BrowserRouter>
-    
+        </BrowserRouter>
+
     )
 }
