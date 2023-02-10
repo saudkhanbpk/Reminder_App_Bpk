@@ -13,6 +13,10 @@ export default function Naavbar() {
     navigate("/")
 
   }
+  const handleClear =()=>{
+    localStorage.clear();
+    navigate("/")
+  }
   return (
     <div>
       <Navbar className="navbar" bg="light" expand="lg">
@@ -39,6 +43,13 @@ export default function Naavbar() {
             {
               localStorage.getItem("email") ? (
                 <button className="btnd" onClick={handleClick} >Logout</button>
+              ) : (
+                null
+              )
+            }
+            {
+              localStorage.getItem("loginToken") ? (
+                <button className="btnd" onClick={handleClear}>Logout</button>
               ) : (
                 null
               )

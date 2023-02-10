@@ -15,6 +15,7 @@ import {
 import VerifyPhone from "./components/User_Login/VerifyPhone";
 import VerifyOtp from "./components/User_Login/VerifyOtp";
 import Naavbar from "./components/Navbar/Navbar";
+import PrivateRoutes from "./components/PrivateComponent/PrivateRoutes";
 export default function RouterComponent() {
     return (
 
@@ -22,17 +23,20 @@ export default function RouterComponent() {
         <BrowserRouter>
             <Naavbar />
             <Routes>
+                <Route element={<PrivateRoutes />}>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/addFile" element={<AddFile />} />
+
+                    <Route path="/reminderAlert" element={<ReminderAlert />} />
+                    <Route path="reminderservices" element={<ReminderServices />} />
+                    <Route path="remindersetting" element={<ReminderSetting />} />
+                </Route>
                 <Route path="/" element={<Login />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/addFile" element={<AddFile />} />
-                <Route path="/verifyphone" element={<VerifyPhone />} />
-                <Route path="/verifyOtp" element={<VerifyOtp />} />
+                <Route path="/signUp" element={<SignUp />} />
                 <Route path="/loginAdmin" element={<LoginAdmin />} />
                 <Route path="/loginStaff" element={<LoginStaff />} />
-                <Route path="/signUp" element={<SignUp />} />
-                <Route path="/reminderAlert" element={<ReminderAlert />} />
-                <Route path="reminderservices" element={<ReminderServices />} />
-                <Route path="remindersetting" element={<ReminderSetting />} />
+                <Route path="/verifyphone" element={<VerifyPhone />} />
+                <Route path="/verifyOtp" element={<VerifyOtp />} />
             </Routes>
         </BrowserRouter>
 
