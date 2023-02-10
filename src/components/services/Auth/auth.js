@@ -12,3 +12,14 @@ export function signUp(formdata) {
             })
     })
 }
+export  function userLogin (data){
+  return new Promise((resolve,reject)=>{
+    axios.post (`${API_URL}api/login`,data)
+    .then((response)=>{
+        resolve(response.data);
+    })
+    .catch((error)=>{
+        reject(error);
+    })
+  })  
+}
