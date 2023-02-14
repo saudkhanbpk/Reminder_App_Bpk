@@ -10,22 +10,21 @@ import {
     BrowserRouter,
     Routes,
     useLocation,
-  } from "react-router-dom";
+} from "react-router-dom";
 import VerifyPhone from "./components/User_Login/VerifyPhone";
 import VerifyOtp from "./components/User_Login/VerifyOtp";
-export default function RouterComponent(){
-    return(
-        
-           
-            <BrowserRouter>
+import Test from "./components/AddFile/Test";
+export default function RouterComponent() {
+    return (
+        <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Login />} />
-                <Route path="/login" element={<Login />}/>
-                <Route path="/addFile" element={<AddFile />}/>
-                <Route path="/verifyphone" element={<VerifyPhone />}/>
-                <Route path="/verifyOtp" element={<VerifyOtp />}/>
+                <Route path="/login" element={<Login />} />
+                <Route path="/addFile" element={<AddFile />} />
+                <Route path="/verifyphone" element={<VerifyPhone />} />
+                <Route path="/verifyOtp" element={<VerifyOtp />} />
+                <Route path="/test" element={<Test />} />
             </Routes>
-            </BrowserRouter>
-    
+        </BrowserRouter>
     )
 }

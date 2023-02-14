@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.react-pdf__Page__textContent.textLayer {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.react-pdf__Page__annotations.annotationLayer {
+  height: 150px !important;
+}

@@ -1,19 +1,31 @@
-.heading{
+.heading {
     display: flex;
     justify-content: center;
     margin-top: 50px;
 }
 
-.icone{
+.icone {
     display: flex;
     justify-content: center;
     margin-top: 50px;
     font-size: 50px;
 
 }
-.hid{
-    display:none;
+
+.hid {
+    display: none;
 }
-.for{
+
+.for {
     cursor: pointer;
+}
+
+#add__form {
+    border: solid gray 1px;
+    border-radius: 1rem;
+    padding: 1rem;
+    background: #f2f2f2;
+    box-shadow: 20px 20px 60px #cecece,
+        -20px -20px 60px #ffffff;
+
 }
