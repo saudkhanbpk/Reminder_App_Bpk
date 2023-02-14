@@ -8,7 +8,7 @@ import { toast, ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { RiLockPasswordFill } from "react-icons/ri"
-import {FaUserLock} from "react-icons/fa";
+import { FaUserLock } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
@@ -18,7 +18,7 @@ export default function SignUp() {
     const formik = useFormik({
 
         initialValues: {
-            userNumber:"",
+            userNumber: "",
             name: "",
             email: "",
             phoneNumber: "",
@@ -50,7 +50,7 @@ export default function SignUp() {
 
         validate: values => {
             let errors = {}
-            if (!values.userNumber){
+            if (!values.userNumber) {
                 errors.userNumber = "User Number Required"
             }
             if (!values.name) {
@@ -87,8 +87,8 @@ export default function SignUp() {
         <div>
             <div className="card card-1">
                 <form onSubmit={formik.handleSubmit} className='inputdataf'>
-                <div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <span className='Io'> <FaUserLock /></span>
+                    <div>
+                        <span className='Io'> <FaUserLock /></span>
                         <input className='box' id='userNumber' type="number" placeholder="Enter User Number" value={formik.values.userNumber} onChange={formik.handleChange} onBlur={formik.handleBlur} /> <br />
                         {formik.touched.userNumber && formik.errors.userNumber ? <div className='er'>{formik.errors.userNumber}</div> : null}</div>
                     <div>
