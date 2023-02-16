@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function LoginUser() {
-    const [userId, setUserId] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState('');
     let navigate = useNavigate()
@@ -14,7 +14,7 @@ export default function LoginUser() {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        let payload = { userNumber: userId, password }
+        let payload = { email, password }
         userLogin(payload).then((res) => {
             console.log(res.token)
             localStorage.setItem("loginToken",res.token)
@@ -29,7 +29,7 @@ export default function LoginUser() {
     }
 
     const handleChange = (e) => {
-        setUserId(e.target.value)
+        setEmail(e.target.value)
 
 
     }
@@ -44,7 +44,7 @@ export default function LoginUser() {
         <div className="card card-1">
             <h3 className="staff"><p>Admin</p>/<p className="stf" onClick={() => navigate("/loginStaff")}>Staff</p></h3>
             <form onSubmit={handleSubmit} className="inputForm">
-                <input className="field" type="number" id="userId" value={userId} placeholder="Enter UserId" onChange={handleChange} /> <br />
+                <input className="field" type="text" id="email" value={email} placeholder="Enter Email" onChange={handleChange} /> <br />
                 <input className="field" type={showPassword ? "text" : "password"} id="password" value={password} placeholder="Enter Password" onChange={handlePassword} />
                 <div>
                     <input type="checkbox" onClick={showPasswordHandler} className="check" />&nbsp; show password <br></br>
