@@ -19,7 +19,12 @@ import PrivateRoutes from "./components/PrivateComponent/PrivateRoutes";
 export default function RouterComponent() {
     const [token, setToken] = useState()
     const [googleToken, setGoogleToken] = useState()
+    const [phoneId, setPhoneId] = useState()
 
+    const phoneAuthentication = () => {
+        let uid = localStorage.getItem('uid')
+        setPhoneId(uid)
+    }
     const google = () => {
         let token = localStorage.getItem("email")
         setGoogleToken(token)
@@ -34,11 +39,15 @@ export default function RouterComponent() {
     useEffect(() => {
         google()
     }, [])
+    useEffect(() => {
+        phoneAuthentication()
+    }, [])
+
 
 
     return (
         <BrowserRouter>
-            {token || googleToken ? (<Naavbar setToken={setToken} setGoogleToken={setGoogleToken} />) : (null)}
+            {token || googleToken || phoneId ? (<Naavbar setToken={setToken} setGoogleToken={setGoogleToken} setPhoneId={setPhoneId} />) : (null)}
             <Routes>
                 <Route element={<PrivateRoutes />}>
                     <Route path="/" element={<AddFile />} />
@@ -51,7 +60,7 @@ export default function RouterComponent() {
                 <Route path="/signUp" element={<SignUp />} />
                 <Route path="/loginAdmin" element={<LoginAdmin setToken={setToken} />} />
                 <Route path="/loginStaff" element={<LoginStaff />} />
-                <Route path="/verifyphone" element={<VerifyPhone />} />
+                <Route path="/verifyphone" element={<VerifyPhone setPhoneId={setPhoneId} />} />
                 <Route path="/verifyOtp" element={<VerifyOtp />} />
             </Routes>
         </BrowserRouter>

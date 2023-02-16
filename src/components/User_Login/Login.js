@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { FaGoogle } from 'react-icons/fa'
 import { BsMicrosoft } from 'react-icons/bs'
 import { CgMoreR } from 'react-icons/cg'
-import { auth, provider, providere } from "./config"
+import { auth, provider, providere } from "../../config"
 import { signInWithPopup } from 'firebase/auth'
 import './Login.css'
 import { Link, useNavigate } from "react-router-dom";
