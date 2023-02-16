@@ -1,0 +1,59 @@
+.inputForm {
+    text-align: center;
+}
+
+#login__admin p {
+    color: #fff;
+}
+
+.field {
+    margin-top: 15px;
+    width: 310px;
+}
+
+.inputForm input {
+    width: 80%;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    padding: 0 10px;
+    font-size: 16px;
+    outline: none;
+
+}
+
+.sub {
+    margin-top: 20px;
+    background-color: #0d6efd;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    /* margin-left: 35px; */
+}
+
+.staff {
+    text-align: center;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.stf {
+    cursor: pointer;
+}
+
+.stf::before {
+    content: "/";
+}
+
+.check {
+    margin-top: 20px;
+}
+
+#login__admin {
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+
+}

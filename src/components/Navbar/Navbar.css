@@ -1,24 +1,35 @@
-.navbar{
-    color:black !important;
-    background-color: lightcyan;
+.navbar {
+    color: black !important;
+    background-color: rgb(198, 195, 195);
 }
-.tr{
+
+.tr {
     color: white !important;
 }
 
-.hr{
+.btnd {
+    /* margin-right: -35px; */
+    margin-left: 25px;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.hr {
     border: 1px solid #000000;
-    }
+}
 
-    .heading{
-        display: flex;
-        justify-content: center;
-        margin-top: 50px;
-    }
+.heading {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
 
-    .icone{
-        display: flex;
-        justify-content: center;
-        margin-top: 50px;
-        font-size: 50px;
-    }
+.icone {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    font-size: 50px;
+}
