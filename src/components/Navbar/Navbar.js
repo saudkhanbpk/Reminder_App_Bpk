@@ -6,38 +6,31 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { FiSettings } from 'react-icons/fi';
 import { useNavigate } from "react-router-dom";
-export default function Naavbar() {
+export default function Naavbar({ setToken, setGoogleToken }) {
   let navigate = useNavigate()
   const handleClick = () => {
     localStorage.clear();
-    navigate("/")
+    navigate("/login")
+    setGoogleToken(null)
 
   }
-  const handleClear =()=>{
+  const handleClear = () => {
     localStorage.clear();
-    navigate("/")
+    navigate("/login")
+    setToken(null)
   }
   return (
     <div>
-      <Navbar className="navbar" bg="light" expand="lg">
-        <Container>
-          <Navbar.Brand href="#">Reminder App</Navbar.Brand>
+      <Navbar className="navbar" expand="lg">
+        <Container fluid>
+          <Navbar.Brand href="#">
+            <h6>
+              Reminder App
+            </h6> </Navbar.Brand>
           <Navbar.Toggle className="toggle" aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link onClick={() => navigate('/')}><h6>Home</h6></Nav.Link>
             </Nav>
             <span> < FiSettings /></span>
             {

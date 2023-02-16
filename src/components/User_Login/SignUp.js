@@ -3,7 +3,7 @@ import "./SignUp.css";
 import { IoMdContact } from "react-icons/io";
 import { AiTwotoneMail } from "react-icons/ai";
 import { useFormik } from 'formik';
-import { signUp } from '../services/Auth/auth';
+import { signUp } from '../../services/Auth/auth';
 import { toast, ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { BsFillTelephoneFill } from "react-icons/bs";
@@ -80,7 +80,7 @@ export default function SignUp() {
     let navigate = useNavigate();
     return (
         <div>
-            <div className="card card-1">
+            <div className="card card-1" id="login__admin">
                 <form onSubmit={formik.handleSubmit} className='inputdataf'>
                     <div> <span className='Ai'><AiTwotoneMail /></span>
                         <input className='box' type="text" id='email' placeholder="Enter your email" value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} /> <br />
@@ -113,7 +113,7 @@ export default function SignUp() {
                             onClick={showPasswordHandler}
                         />
                         &nbsp;
-                        <label htmlFor="showPassword">Show Password</label>
+                        <label  className="pasword"htmlFor="showPassword">Show Password</label>
                     </div>
                     <div className='sgup' >
                         <button disabled={loader} className='SiUpBtn'>SignUp</button>

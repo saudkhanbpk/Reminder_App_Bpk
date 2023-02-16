@@ -1,11 +1,11 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginStaff.css"
-import { userLogin } from "../services/Auth/auth"
+import { userLogin } from "../../services/Auth/auth"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-export default function LoginStaff (){
-    const [userId, setUserId] = useState('')
+export default function LoginStaff() {
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState('');
     let navigate = useNavigate()
@@ -13,9 +13,10 @@ export default function LoginStaff (){
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        let payload = { userNumber: userId, password }
+        let payload = { email, password }
         userLogin(payload).then((res) => {
-            console.log(res)
+            console.log(res.token)
+            localStorage.setItem("loginToken",res.token)
             setTimeout(()=>{
                 navigate("/addFile")
                  },1000)
@@ -25,8 +26,9 @@ export default function LoginStaff (){
             toast.error("Something Went Wrong",{theme:"colored"})
         });
     }
+
     const handleChange = (e) => {
-        setUserId(e.target.value)
+        setEmail(e.target.value)
 
 
     }
@@ -37,19 +39,18 @@ export default function LoginStaff (){
         setShowPassword(!showPassword)
     }
     return (
-
-        <div className="card card-1">
-                <h3 className="stfForm"><p className="stf" onClick={()=>navigate("/loginAdmin")}>Admin</p>/<p>Staff</p></h3>
-                <form onSubmit={handleSubmit} className="inputForm">
-                <input className="field" type="number" id="userId" value={userId} placeholder="Enter UserId" onChange={handleChange} /> <br />
-                <input className="field" type={showPassword ? "text" : "password"} id="password" value={password} placeholder="Enter Password" onChange={handlePassword} />
-                <div>
-                    <input type="checkbox" onClick={showPasswordHandler} className="check" />&nbsp; show password <br></br>
+<React.Fragment>
+        <div className="card card-1" id="login__admin">
+        <span className="Header d-flex justify-content-center"><p className="cur" onClick={() => navigate("/loginAdmin")}>Admin</p>/<p >Staff</p></span>
+            <form onSubmit={handleSubmit} className="inputForm">
+                    <input className="field" type="email" id="email" value={email} placeholder="Enter Email" onChange={handleChange} /> <br />
+                    <input className="field" type={showPassword ? "text" : "password"} id="password" value={password} placeholder="Enter Password" onChange={handlePassword} />
+                    <br />
                     <button className="sub" type="submit">Staff Login </button>
-                </div>
-            </form>
-            <ToastContainer />
-        </div>
+                </form>
+                <ToastContainer />
+            </div>
+            </React.Fragment>
 
     )
 }

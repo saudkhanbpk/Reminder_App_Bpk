@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginAdmin.css";
-import { userLogin } from "../services/Auth/auth"
+import { userLogin } from "../../services/Auth/auth"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -19,7 +19,7 @@ export default function LoginUser() {
             console.log(res.token)
             localStorage.setItem("loginToken",res.token)
             setTimeout(()=>{
-                navigate("/addFile")
+                navigate("/")
                  },1000)
             toast.success('User Login Successfully',{theme:"colored"})
         }).catch((err) => {
@@ -41,18 +41,20 @@ export default function LoginUser() {
     }
     return (
 
-        <div className="card card-1">
-            <h3 className="staff"><p>Admin</p>/<p className="stf" onClick={() => navigate("/loginStaff")}>Staff</p></h3>
-            <form onSubmit={handleSubmit} className="inputForm">
-                <input className="field" type="text" id="email" value={email} placeholder="Enter Email" onChange={handleChange} /> <br />
-                <input className="field" type={showPassword ? "text" : "password"} id="password" value={password} placeholder="Enter Password" onChange={handlePassword} />
-                <div>
-                    <input type="checkbox" onClick={showPasswordHandler} className="check" />&nbsp; show password <br></br>
+        <React.Fragment>
+            <div className="card card-1" id="login__admin">
+                <span className="Header d-flex justify-content-center"><p>Admin</p><p className="stf" onClick={() => navigate("/loginStaff")}>Staff</p></span>
+                <form onSubmit={handleSubmit} className="inputForm">
+                    <input className="field" type="email" id="email" value={email} placeholder="Enter Email" onChange={handleChange} /> <br />
+                    <input className="field" type={showPassword ? "text" : "password"} id="password" value={password} placeholder="Enter Password" onChange={handlePassword} />
+                    <br />
+                    
                     <button className="sub" type="submit">Admin Login </button>
-                </div>
-            </form>
-            <ToastContainer />
-        </div>
+                </form>
+                <ToastContainer />
+            </div>
+
+        </React.Fragment>
 
     )
 }

@@ -1,15 +1,18 @@
-.FormInput{
+.FormInput {
     margin: auto;
 }
-.fieldInput{
+
+.fieldInput {
     margin-top: 10px;
     width: 200px;
 }
-.sub{
-    margin-top: 20px;
+
+.sub {
+    /* margin-top: 20px; */
     background-color: #0d6efd;
-    width: 130px;
-    height: 35px;
+    padding: 10px 10px;
+    /* width: 130px; */
+    /* height: 35px; */
     border-radius: 4px;
     color: white;
     font-weight: bold;
@@ -17,8 +20,11 @@
     margin-left: 35px;
 }
 
-.stfForm{
+.stfForm {
     display: flex;
     justify-content: center;
     margin-top: 30px;
+}
+.cur{
+    cursor: pointer;
 }
