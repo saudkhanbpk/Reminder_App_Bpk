@@ -5,8 +5,8 @@ import { userLogin } from "../../services/Auth/auth"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function LoginUser({ setToken }) {
-    const [userId, setUserId] = useState('')
+export default function LoginUser() {
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState('');
     let navigate = useNavigate()
@@ -14,23 +14,22 @@ export default function LoginUser({ setToken }) {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        let payload = { userNumber: userId, password }
+        let payload = { email, password }
         userLogin(payload).then((res) => {
             console.log(res.token)
-            localStorage.setItem("loginToken", res.token)
-            setToken(res.token)
-            setTimeout(() => {
+            localStorage.setItem("loginToken",res.token)
+            setTimeout(()=>{
                 navigate("/")
-            }, 1000)
-            toast.success('User Login Successfully', { theme: "colored" })
+                 },1000)
+            toast.success('User Login Successfully',{theme:"colored"})
         }).catch((err) => {
             console.log(err)
-            toast.error("Something Went Wrong", { theme: "colored" })
+            toast.error("Something Went Wrong",{theme:"colored"})
         });
     }
 
     const handleChange = (e) => {
-        setUserId(e.target.value)
+        setEmail(e.target.value)
 
 
     }
@@ -41,18 +40,21 @@ export default function LoginUser({ setToken }) {
         setShowPassword(!showPassword)
     }
     return (
+
         <React.Fragment>
             <div className="card card-1" id="login__admin">
                 <span className="Header d-flex justify-content-center"><p>Admin</p><p className="stf" onClick={() => navigate("/loginStaff")}>Staff</p></span>
                 <form onSubmit={handleSubmit} className="inputForm">
-                    <input className="field" type="number" id="userId" value={userId} placeholder="Enter UserId" onChange={handleChange} /> <br />
+                    <input className="field" type="email" id="email" value={email} placeholder="Enter Email" onChange={handleChange} /> <br />
                     <input className="field" type={showPassword ? "text" : "password"} id="password" value={password} placeholder="Enter Password" onChange={handlePassword} />
                     <br />
+                    
                     <button className="sub" type="submit">Admin Login </button>
                 </form>
                 <ToastContainer />
             </div>
 
         </React.Fragment>
+
     )
 }

@@ -37,18 +37,18 @@ export default function Login({ setGoogleToken }) {
         <div className="card card-1" id="login__admin">
             <span className="Header">Get Started</span>
             <div className="login mt-4">
-                <div className="first">
-                    <Button className="start" variant="primary" onClick={() => navigate("/loginAdmin")} >Login With UserId</Button><br></br>
-                    <Button className="start" variant="primary" onClick={handleLogin} >Login With Phone Number</Button><br></br>
+                {/* <div className="first">
 
-                </div>
+                </div> */}
                 <div className="Second">
-                    {/* {value ? navigate("/addFile") : */}
-                    <Button className="btn" variant="danger" onClick={handleClick} ><span className="Google" ><FaGoogle /></span>Sign in  with Google</Button>
-                    {/* } */}
+                    <Button className="start" variant="danger" onClick={handleClick} ><span className="Google" ><FaGoogle /></span>Sign in  with Google</Button>
+                    <Button className="started" onClick={handleLogin} >Login With Phone Number</Button><br></br>
                     {value ? navigate("/addFile") :
-                        <Button className="btn" variant="primary" onClick={handleData}  ><span className="Microsoft"><BsMicrosoft /></span>Sign in  with Microsoft</Button>
+                        <Button className="start" variant="primary" onClick={handleData}  ><span className="Microsoft"><BsMicrosoft /></span>Sign in  with Microsoft</Button>
                     }
+                    <Button className="start" variant="primary" onClick={() => navigate("/loginAdmin")} >Login With Email</Button><br></br>
+                    {/* {value ? navigate("/addFile") : */}
+                    {/* } */}
                 </div>
             </div>
             <div className="Signup">
