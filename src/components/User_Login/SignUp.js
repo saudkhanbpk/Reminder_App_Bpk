@@ -3,7 +3,7 @@ import "./SignUp.css";
 import { IoMdContact } from "react-icons/io";
 import { AiTwotoneMail } from "react-icons/ai";
 import { useFormik } from 'formik';
-import { signUp } from '../services/Auth/auth';
+import { signUp } from '../../services/Auth/auth';
 import { toast, ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { BsFillTelephoneFill } from "react-icons/bs";
@@ -85,7 +85,7 @@ export default function SignUp() {
     let navigate = useNavigate();
     return (
         <div>
-            <div className="card card-1">
+            <div className="card card-1" id="login__admin">
                 <form onSubmit={formik.handleSubmit} className='inputdataf'>
                     <div>
                         <span className='Io'> <FaUserLock /></span>

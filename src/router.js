@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Login from "./components/User_Login/Login";
 import AddFile from "./components/AddFile/AddFile";
 import LoginAdmin from "./components/User_Login/LoginAdmin";
@@ -17,23 +17,39 @@ import VerifyOtp from "./components/User_Login/VerifyOtp";
 import Naavbar from "./components/Navbar/Navbar";
 import PrivateRoutes from "./components/PrivateComponent/PrivateRoutes";
 export default function RouterComponent() {
+    const [token, setToken] = useState()
+    const [googleToken, setGoogleToken] = useState()
+
+    const google = () => {
+        let token = localStorage.getItem("email")
+        setGoogleToken(token)
+    }
+    const userToken = () => {
+        let token = localStorage.getItem("loginToken")
+        setToken(token)
+    }
+    useEffect(() => {
+        userToken()
+    }, [])
+    useEffect(() => {
+        google()
+    }, [])
+
+
     return (
-
-
         <BrowserRouter>
-            <Naavbar />
+            {token || googleToken ? (<Naavbar setToken={setToken} setGoogleToken={setGoogleToken} />) : (null)}
             <Routes>
                 <Route element={<PrivateRoutes />}>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/addFile" element={<AddFile />} />
-
+                    <Route path="/" element={<AddFile />} />
+                    {/* <Route path="/login" element={<Login />} /> */}
                     <Route path="/reminderAlert" element={<ReminderAlert />} />
                     <Route path="reminderservices" element={<ReminderServices />} />
                     <Route path="remindersetting" element={<ReminderSetting />} />
                 </Route>
-                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login setGoogleToken={setGoogleToken} />} />
                 <Route path="/signUp" element={<SignUp />} />
-                <Route path="/loginAdmin" element={<LoginAdmin />} />
+                <Route path="/loginAdmin" element={<LoginAdmin setToken={setToken} />} />
                 <Route path="/loginStaff" element={<LoginStaff />} />
                 <Route path="/verifyphone" element={<VerifyPhone />} />
                 <Route path="/verifyOtp" element={<VerifyOtp />} />

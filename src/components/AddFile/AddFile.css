@@ -1,47 +1,66 @@
-.heading{
+.heading {
     display: flex;
     justify-content: center;
     margin-top: 50px;
 }
-.serh{
+
+.serh {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
-.ty{
+
+.ty {
     margin-right: 20px;
     font-weight: bold;
-    font-size:larger;
+    font-size: larger;
 
 }
-.added{
+
+.added {
     display: flex;
     margin-top: 20px;
     justify-content: space-between;
 }
-.Recently{
+
+.Recently {
     margin-left: 25px;
     margin-top: 8px;
 }
-.Logout{
+
+.Logout {
     margin-right: 30px;
-    font-size:25px;
+    font-size: 25px;
 }
-.Xls{
+
+.Xls {
     display: flex;
     padding-right: 10px;
     justify-content: flex-end;
 }
-.icone{
+
+.icone {
     display: flex;
     justify-content: center;
     margin-top: 50px;
     font-size: 50px;
 
 }
-.hid{
-    display:none;
+
+.hid {
+    display: none;
 }
-.for{
+
+.for {
     cursor: pointer;
+}
+
+#add__form {
+    border: solid gray 1px;
+    border-radius: 1rem;
+    padding: 1rem;
+    background: #f2f2f2;
+    box-shadow: 20px 20px 60px #cecece,
+        -20px -20px 60px #ffffff;
+
 }
