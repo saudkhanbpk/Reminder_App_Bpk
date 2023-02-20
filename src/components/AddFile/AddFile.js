@@ -3,6 +3,8 @@ import "./AddFile.css"
 import { GrAddCircle } from 'react-icons/gr';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { postFile } from "../../services/addFile/FilesApi";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function AddFile() {
     const [numPages, setNumPages] = useState(null);
     const [files, setFiles] = useState('');
@@ -10,6 +12,8 @@ export default function AddFile() {
     const [formData1, setFormData1] = useState({})
     const [formData2, setFormData2] = useState({})
     const [mainForm, setMainForm] = useState({})
+    const [step, setStep] = useState(1);
+
     const [counter, setCounter] = useState(0)
     const [counter1, setCounter1] = useState(0)
     const [newDataArray, setNewDataArray] = useState([
@@ -24,9 +28,6 @@ export default function AddFile() {
             currency1: "",
         }
     ])
-
-    console.log("newDataArray", newDataArray)
-
 
 
     const handleAddInput = () => {
@@ -93,7 +94,11 @@ export default function AddFile() {
                             numberOfShares1: textData[
                                 [textData.indexOf("ORDINARY") + 1]
                             ],
-                            currency1: textData[36],
+                            currency1: textData[
+
+                                [textData.indexOf("Capital" + 7)]
+
+                            ],
                             shareType1: textData[37],
                             // number of shares includes number of treasury shares
                             paidUpAmount: textData[
@@ -299,8 +304,17 @@ export default function AddFile() {
             payload
         ).then((res) => {
             console.log(res)
+            toast.success("File Added Successfully", {
+                position: toast.POSITION.TOP_CENTER,
+                theme: "colored"
+
+            })
         }).catch((error) => {
             console.log(error)
+            toast.error("Error Occured", {
+                position: toast.POSITION.TOP_CENTER,
+                theme: "colored"
+            })
         })
     }
 
@@ -343,8 +357,85 @@ export default function AddFile() {
                         </Document>
                     </div>
                 </div>
-                <div className="col-md-5">
-                    {
+                {
+                    files ? (
+                        <div className="col-md-5">
+                            {
+                                step === 1 && (
+                                    <div className="row g-3 mt-5" id="add__form">
+                                        {Object.keys(formData).map((item) => (
+                                            <div className="col-md-6" key={item.id}>
+                                                <label htmlFor="inputZip" className="form-label">{item}</label>
+                                                <input type="text" className="form-control" id="inputZip"
+                                                    name={item} value={formData[item]} onChange={handleChange}
+                                                />
+
+
+                                            </div>
+                                        ))}
+                                        <button
+                                            className="btn__next"
+                                            onClick={() => setStep(2)}
+                                        >Next</button>
+                                    </div>
+
+                                )
+                            }
+                            {
+                                step === 2 && (
+                                    <div className="row g-3 mt-5" id="add__form">
+                                        {Object.keys(formData1).map((item) => (
+                                            <div className="col-md-6" key={item.id}>
+                                                <label htmlFor="inputZip" className="form-label">{item}</label>
+                                                <input type="text" className="form-control" id="inputZip"
+                                                    name={item} value={formData1[item]} onChange={handleChange}
+                                                />
+
+
+                                            </div>
+                                        ))}
+                                        <div className="d-flex">
+
+                                            <button
+                                                className="btn btn-primary"
+                                                onClick={() => setStep(1)}
+                                            >Back</button>
+                                            <button
+                                                className="btn__next"
+                                                onClick={() => setStep(3)}
+                                            >Next</button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                            {
+                                step === 3 && (
+                                    <div className="row g-3 mt-5" id="add__form">
+                                        {Object.keys(formData2).map((item) => (
+                                            <div className="col-md-6" key={item.id}>
+                                                <label htmlFor="inputZip" className="form-label">{item}</label>
+                                                <input type="text" className="form-control" id="inputZip"
+                                                    name={item} value={formData2[item]} onChange={handleChange}
+                                                />
+                                            </div>
+                                        ))}
+                                        <div className="d-flex">
+
+                                            <button
+                                                className="btn btn-primary"
+                                                onClick={() => setStep(2)}
+                                            >Back</button>&nbsp;
+                                            <button
+                                                className="btn__next"
+                                                onClick={handleSubmit}
+                                            >Submit</button>
+                                        </div>
+                                    </div>
+                                )
+
+                            }
+
+                            {/* {
                         files ? (<div className="row g-3 mt-5" id="add__form">
                             {Object.keys(mainForm).map((item) => (
                                 <div className="col-md-6" key={item.id}>
@@ -483,11 +574,17 @@ export default function AddFile() {
                                 <button type="submit" className="btn btn-primary" onClick={handleAddInput}>Add ShareHolder's</button>
                             </div>
                         </div>) : null
-                    }
+                    } */}
 
-                </div>
+                        </div>
+                    ) : (
+                        null
+                    )
+                }
+
                 <div className="col-md-1"></div>
             </div>
+            <ToastContainer />
 
         </div>
     )
