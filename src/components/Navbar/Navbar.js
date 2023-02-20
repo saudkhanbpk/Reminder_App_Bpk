@@ -6,18 +6,18 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { FiSettings } from 'react-icons/fi';
 import { useNavigate } from "react-router-dom";
-export default function Naavbar({ setToken, setGoogleToken }) {
+export default function Naavbar({ setToken, setGoogleToken, setPhoneId }) {
   let navigate = useNavigate()
   const handleClick = () => {
     localStorage.clear();
-    navigate("/login")
     setGoogleToken(null)
-
+    setToken(null)
+    setPhoneId(null)
+    navigate("/login")
   }
   const handleClear = () => {
     localStorage.clear();
     navigate("/login")
-    setToken(null)
   }
   return (
     <div>
@@ -34,19 +34,19 @@ export default function Naavbar({ setToken, setGoogleToken }) {
             </Nav>
             <span> < FiSettings /></span>
             {
-              localStorage.getItem("email") ? (
+              localStorage.getItem("email") || localStorage.getItem("loginToken") || localStorage.getItem('uid') ? (
                 <button className="btnd" onClick={handleClick} >Logout</button>
               ) : (
                 null
               )
             }
-            {
-              localStorage.getItem("loginToken") ? (
+            {/* {
+              (
                 <button className="btnd" onClick={handleClear}>Logout</button>
               ) : (
                 null
               )
-            }
+            } */}
           </Navbar.Collapse>
         </Container>
       </Navbar>

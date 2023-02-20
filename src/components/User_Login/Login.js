@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { FaGoogle } from 'react-icons/fa'
 import { BsMicrosoft } from 'react-icons/bs'
 import { CgMoreR } from 'react-icons/cg'
-import { auth, provider, providere } from "./config"
+import { auth, provider, providere } from "../../config"
 import { signInWithPopup } from 'firebase/auth'
 import './Login.css'
 import { Link, useNavigate } from "react-router-dom";
@@ -46,7 +46,9 @@ export default function Login({ setGoogleToken }) {
                     {value ? navigate("/addFile") :
                         <Button className="start" variant="primary" onClick={handleData}  ><span className="Microsoft"><BsMicrosoft /></span>Sign in  with Microsoft</Button>
                     }
-                    <Button className="start" variant="primary" onClick={() => navigate("/loginAdmin")} >Login With Email</Button><br></br>
+                    <Button className="start" variant="primary" onClick={() => navigate("/loginAdmin")} >
+
+                        Login With Email</Button><br></br>
                     {/* {value ? navigate("/addFile") : */}
                     {/* } */}
                 </div>

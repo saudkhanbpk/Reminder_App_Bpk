@@ -11,12 +11,13 @@
   color: #fff;
 
 }
-.started{
+
+.started {
   background-color: #000000 !important;
   font-size: 20px;
   margin-top: 10px;
   margin-left: 10px;
-  color: #fff; 
+  color: #fff;
 }
 
 .icon {

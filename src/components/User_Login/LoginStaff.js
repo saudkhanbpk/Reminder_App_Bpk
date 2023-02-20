@@ -16,14 +16,14 @@ export default function LoginStaff() {
         let payload = { email, password }
         userLogin(payload).then((res) => {
             console.log(res.token)
-            localStorage.setItem("loginToken",res.token)
-            setTimeout(()=>{
+            localStorage.setItem("loginToken", res.token)
+            setTimeout(() => {
                 navigate("/addFile")
-                 },1000)
-            toast.success('User Login Successfully',{theme:"colored"})
+            }, 1000)
+            toast.success('User Login Successfully', { theme: "colored" })
         }).catch((err) => {
             console.log(err)
-            toast.error("Something Went Wrong",{theme:"colored"})
+            toast.error("Something Went Wrong", { theme: "colored" })
         });
     }
 
@@ -39,18 +39,18 @@ export default function LoginStaff() {
         setShowPassword(!showPassword)
     }
     return (
-<React.Fragment>
-        <div className="card card-1" id="login__admin">
-        <span className="Header d-flex justify-content-center"><p className="cur" onClick={() => navigate("/loginAdmin")}>Admin</p>/<p >Staff</p></span>
-            <form onSubmit={handleSubmit} className="inputForm">
+        <React.Fragment>
+            <div className="card card-1" id="login__admin">
+                <span className="Header d-flex justify-content-center"><p className="cur" onClick={() => navigate("/loginAdmin")}>Admin</p>/<p >Staff</p></span>
+                <form onSubmit={handleSubmit} className="inputForm">
                     <input className="field" type="email" id="email" value={email} placeholder="Enter Email" onChange={handleChange} /> <br />
                     <input className="field" type={showPassword ? "text" : "password"} id="password" value={password} placeholder="Enter Password" onChange={handlePassword} />
                     <br />
-                    <button className="sub" type="submit">Staff Login </button>
+                    <button className="sub" type="submit"> Login </button>
                 </form>
                 <ToastContainer />
             </div>
-            </React.Fragment>
+        </React.Fragment>
 
     )
 }
