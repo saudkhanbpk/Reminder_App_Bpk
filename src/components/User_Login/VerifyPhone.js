@@ -66,12 +66,14 @@ export default function VerifyPhone() {
 
     return (
         <div className="card card-1" id="login__admin">
+            {!flag ? (
 
-            <div className="paragraph">
-                <p>
+                <p className="paragraph ">
                     Enter your phone number to verify your account
                 </p>
-            </div>
+            ) : null
+
+            }
             <div
                 className="py-2 mb-3 mt-1 formBtns"
                 style={{
@@ -110,7 +112,7 @@ export default function VerifyPhone() {
                     </div>
                 )}
             </div>
-            <div style={{ display: flag ? "block" : "none" }}>
+            <div className="formData" style={{ display: flag ? "block" : "none" }}>
 
                 <Form.Group className="mb-3" controlId="formBasicOtp">
                     <Form.Control
@@ -119,7 +121,7 @@ export default function VerifyPhone() {
                         onChange={(e) => setOpt(e.target.value)}
                     />
                 </Form.Group>
-                <div className="button-right">
+                <div className="right button-right">
                     <Link to="/">
                         <Button variant="secondary">Cancel</Button>
                     </Link>
