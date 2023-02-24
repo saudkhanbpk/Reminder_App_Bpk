@@ -67,7 +67,6 @@ export default function VerifyPhone() {
     return (
         <div className="card card-1" id="login__admin">
             {!flag ? (
-
                 <p className="paragraph ">
                     Enter your phone number to verify your account
                 </p>
@@ -98,6 +97,7 @@ export default function VerifyPhone() {
                 <div className="error">
                     {error}
                 </div>
+
 
 
                 <div id="recaptcha-container"></div>
