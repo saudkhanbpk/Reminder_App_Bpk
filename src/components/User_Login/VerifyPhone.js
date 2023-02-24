@@ -8,7 +8,7 @@ import { auth } from '../../config'
 import { Link } from "react-router-dom";
 import { Button, Form } from 'react-bootstrap';
 import { async } from "@firebase/util";
-export default function VerifyPhone() {
+export default function VerifyPhone({ setPhoneId }) {
     let navigate = useNavigate();
     const [value, setValue] = useState()
     const [number, setNumber] = useState("");
@@ -28,6 +28,8 @@ export default function VerifyPhone() {
         } else {
             setApiLoader(true)
             const response = await setUpRecaptcha(number);
+
+
             console.log("responose :", response)
             setResult(response
             )
@@ -54,6 +56,7 @@ export default function VerifyPhone() {
             result.confirm(opt).then((res) => {
                 console.log("res:", res.uid)
                 localStorage.setItem('uid', res.uid)
+                setPhoneId(res.uid)
                 navigate("/")
             }).catch((err) => {
                 console.log("err:", err)
@@ -67,11 +70,11 @@ export default function VerifyPhone() {
     return (
         <div className="card card-1" id="login__admin">
 
-            <div className="paragraph">
+            {/* <div className="paragraph">
                 <p>
                     Enter your phone number to verify your account
                 </p>
-            </div>
+            </div> */}
             <div
                 className="py-2 mb-3 mt-1 formBtns"
                 style={{
@@ -97,8 +100,9 @@ export default function VerifyPhone() {
                     {error}
                 </div>
 
-
-                <div id="recaptcha-container"></div>
+                <div className="recaptcha">
+                    <div id="recaptcha-container"></div>
+                </div>
                 {!apiLoader && (
                     <div className="otp">
                         <button
@@ -110,16 +114,22 @@ export default function VerifyPhone() {
                     </div>
                 )}
             </div>
-            <div style={{ display: flag ? "block" : "none" }}>
+            <div style={{ display: flag ? "block" : "none" }} className="main__opt-div">
 
-                <Form.Group className="mb-3" controlId="formBasicOtp">
+                <p
+                    className=""
+                >
+                    Enter the OTP sent to your number
+                </p>
+
+                <Form.Group className="" controlId="formBasicOtp">
                     <Form.Control
                         type="otp"
                         placeholder="Enter OTP"
                         onChange={(e) => setOpt(e.target.value)}
                     />
                 </Form.Group>
-                <div className="button-right">
+                <div className=" d-flex mt-2 ">
                     <Link to="/">
                         <Button variant="secondary">Cancel</Button>
                     </Link>

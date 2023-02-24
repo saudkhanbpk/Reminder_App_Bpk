@@ -5,7 +5,7 @@ import { userLogin } from "../../services/Auth/auth"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function LoginUser() {
+export default function LoginUser({ setToken }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState('');
@@ -18,6 +18,7 @@ export default function LoginUser() {
         userLogin(payload).then((res) => {
             console.log(res.token)
             localStorage.setItem("loginToken", res.token)
+            setToken(res.token)
             setTimeout(() => {
                 navigate("/")
             }, 1000)
