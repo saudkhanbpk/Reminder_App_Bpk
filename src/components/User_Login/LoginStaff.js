@@ -15,7 +15,7 @@ export default function LoginStaff() {
 
         let payload = { email, password }
         userLogin(payload).then((res) => {
-            console.log(res.token)
+            // console.log(res.token)
             localStorage.setItem("loginToken", res.token)
             setTimeout(() => {
                 navigate("/addFile")
@@ -46,7 +46,7 @@ export default function LoginStaff() {
                     <input className="field" type="email" id="email" value={email} placeholder="Enter Email" onChange={handleChange} /> <br />
                     <input className="field" type={showPassword ? "text" : "password"} id="password" value={password} placeholder="Enter Password" onChange={handlePassword} />
                     <br />
-                    <button className="sub" type="submit"> Login </button>
+                    <button className="sub" type="submit">Staff Login </button>
                 </form>
                 <ToastContainer />
             </div>
