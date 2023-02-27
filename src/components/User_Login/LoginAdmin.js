@@ -16,7 +16,7 @@ export default function LoginUser() {
 
         let payload = { email, password }
         userLogin(payload).then((res) => {
-            console.log(res.token)
+            // console.log(res.token)
             localStorage.setItem("loginToken", res.token)
             setTimeout(() => {
                 navigate("/")
@@ -48,7 +48,7 @@ export default function LoginUser() {
                     <input className="field" type={showPassword ? "text" : "password"} id="password" value={password} placeholder="Enter Password" onChange={handlePassword} />
                     <br />
 
-                    <button className="sub" type="submit">Login </button>
+                    <button className="sub" type="submit">Admin Login </button>
                 </form>
                 <ToastContainer />
             </div>

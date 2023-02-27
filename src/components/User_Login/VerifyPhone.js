@@ -28,11 +28,10 @@ export default function VerifyPhone() {
         } else {
             setApiLoader(true)
             const response = await setUpRecaptcha(number);
-            console.log("responose :", response)
+            // console.log("responose :", response)
             setResult(response
             )
             setFlag(true)
-            // setApiLoader(false)
         }
     }
 
@@ -52,7 +51,7 @@ export default function VerifyPhone() {
             setError("Please enter a valid otp")
         } else {
             result.confirm(opt).then((res) => {
-                console.log("res:", res.uid)
+                // console.log("res:", res.uid)
                 localStorage.setItem('uid', res.uid)
                 navigate("/")
             }).catch((err) => {
@@ -62,7 +61,7 @@ export default function VerifyPhone() {
 
     }
 
-    console.log(opt, number)
+    // console.log(opt, number)
 
     return (
         <div className="card card-1" id="login__admin">

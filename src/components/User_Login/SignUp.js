@@ -25,10 +25,10 @@ export default function SignUp() {
         },
         onSubmit: values => {
             setLoader(true)
-            console.log("onSubmit", values)
+            // console.log("onSubmit", values)
             signUp(values).then((res) => {
 
-                console.log('welcom', res);
+                // console.log('welcom', res);
                 toast.success("Data Register Successfully", {
                     theme: "colored",
                 });

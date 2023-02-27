@@ -45,7 +45,7 @@ export default function Naavbar({ setToken, setGoogleToken, setPhoneId }) {
               (
                 <button className="btnd" onClick={handleClear}>Logout</button>
               ) : (
-                null
+                null      
               )
             } */}
           </Navbar.Collapse>
