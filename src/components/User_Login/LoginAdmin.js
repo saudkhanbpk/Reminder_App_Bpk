@@ -50,7 +50,7 @@ export default function LoginUser({ setToken }) {
                     <input className="field" type={showPassword ? "text" : "password"} id="password" value={password} placeholder="Enter Password" onChange={handlePassword} />
                     <br />
 
-                    <button className="sub" type="submit">Login </button>
+                    <button className="sub" type="submit">Admin Login </button>
                 </form>
                 <ToastContainer />
             </div>

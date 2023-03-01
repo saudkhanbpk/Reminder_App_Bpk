@@ -72,18 +72,18 @@ export default function AddFile() {
 
     const fileUpload = (e) => {
         let file = e.target.files[0]
-        console.log('data', file)
+        // console.log('data', file)
         setFiles(file)
     }
     const handleRenderSuccess = async (page) => {
-        console.log("parameter", page)
+        // console.log("parameter", page)
         const text = await page.getTextContent();
         const getAllDetails = text.items.map((item) => item.str);
-        console.log("getAllDetails", getAllDetails)
+        // console.log("getAllDetails", getAllDetails)
         const textData = getAllDetails.filter((item) => item.trim().length > 0 && item.trim() !== ":" && item.trim() !== "SAMPLE"
             && item.trim() !== "Principal Activities"
         )
-        console.log("textData", textData);
+        // console.log("textData", textData);
         switch (page._pageIndex) {
             case 0:
                 setTimeout
