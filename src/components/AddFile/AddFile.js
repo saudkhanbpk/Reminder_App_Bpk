@@ -401,7 +401,7 @@ export default function AddFile() {
 
     }, [formData, formData1, formData2])
 
-
+    let userId = localStorage.getItem("userId");
     const handleSubmit = (e) => {
         e.preventDefault();
         const filteredFormData = Object.keys(mainForm)
@@ -413,7 +413,7 @@ export default function AddFile() {
 
 
         console.log("filterData", filteredFormData);
-        let payload = { filteredFormData }
+        let payload = { filteredFormData, userId }
         postFile(
             payload
         ).then((res) => {
@@ -1712,7 +1712,14 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData.uen} onChange={handleChange}
+                                                    value={formData.uen} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                uen: e.target.value
+                                                            })
+
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -1720,7 +1727,13 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData.companyName} onChange={handleChange}
+                                                    value={formData.companyName} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                companyName: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -1728,7 +1741,14 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData.formerName} onChange={handleChange}
+                                                    value={formData.formerName} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                formerName: e.target.value
+                                                            })
+
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -1736,7 +1756,14 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData.incorporationDate} onChange={handleChange}
+                                                    value={formData.incorporationDate} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                incorporationDate: e.target.value
+                                                            })
+
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -1744,7 +1771,14 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData.companyType} onChange={handleChange}
+                                                    value={formData.companyType} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                companyType: e.target.value
+                                                            })
+
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -1752,7 +1786,13 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData.status} onChange={handleChange}
+                                                    value={formData.status} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                status: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -1760,7 +1800,13 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData.statusDate} onChange={handleChange}
+                                                    value={formData.statusDate} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                statusDate: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <p>
@@ -1771,7 +1817,13 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData.activities1} onChange={handleChange}
+                                                    value={formData.activities1} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                activities1: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -1779,7 +1831,13 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData.Description1} onChange={handleChange}
+                                                    value={formData.Description1} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                Description1: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
 
@@ -1788,7 +1846,13 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData.activities2} onChange={handleChange}
+                                                    value={formData.activities2} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                activities2: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -1797,7 +1861,14 @@ export default function AddFile() {
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
 
-                                                    value={formData.Description2} onChange={handleChange}
+                                                    value={formData.Description2} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                Description2: e.target.value
+                                                            })
+
+                                                    }
                                                 />
                                             </div>
                                             <p>Capital</p>
@@ -1806,25 +1877,49 @@ export default function AddFile() {
                                                 <div className="col-md-4">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Issued Share Capital</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData.issuedCapital} onChange={handleChange}
+                                                        value={formData.issuedCapital} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    issuedCapital: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-3">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Number of Shares </label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData.numberOfShares1} onChange={handleChange}
+                                                        value={formData.numberOfShares1} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    numberOfShares1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-3">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData.currency1} onChange={handleChange}
+                                                        value={formData.currency1} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    currency1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Share Type</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData.shareType1} onChange={handleChange}
+                                                        value={formData.shareType1} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    shareType1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                             </div>
@@ -1832,25 +1927,49 @@ export default function AddFile() {
                                                 <div className="col-md-4">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Paid-Up Capital</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData.paidUpAmount} onChange={handleChange}
+                                                        value={formData.paidUpAmount} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    paidUpAmount: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-3">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Number of Shares </label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData.numberOfShares2} onChange={handleChange}
+                                                        value={formData.numberOfShares2} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    numberOfShares2: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-3">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData.currency2} onChange={handleChange}
+                                                        value={formData.currency2} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    currency2: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Share Type</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData.shareType2} onChange={handleChange}
+                                                        value={formData.shareType2} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    shareType2: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                             </div>
@@ -1859,7 +1978,13 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData1.RegisteredOfficeAddress} onChange={handleChange}
+                                                    value={formData1.RegisteredOfficeAddress} onChange={
+                                                        (e) =>
+                                                            setFormData1({
+                                                                ...formData1,
+                                                                RegisteredOfficeAddress: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
 
@@ -1868,7 +1993,13 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData1.DateOfAddress} onChange={handleChange}
+                                                    value={formData1.DateOfAddress} onChange={
+                                                        (e) =>
+                                                            setFormData1({
+                                                                ...formData1,
+                                                                DateOfAddress: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <div
@@ -1877,7 +2008,13 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData1.DateOfLastAGM} onChange={handleChange}
+                                                    value={formData1.DateOfLastAGM} onChange={
+                                                        (e) =>
+                                                            setFormData1({
+                                                                ...formData1,
+                                                                DateOfLastAGM: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -1885,7 +2022,13 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData1.DateOfLastAR} onChange={handleChange}
+                                                    value={formData1.DateOfLastAR} onChange={
+                                                        (e) =>
+                                                            setFormData1({
+                                                                ...formData1,
+                                                                DateOfLastAR: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -1893,7 +2036,13 @@ export default function AddFile() {
                                             </div>
                                             <div className="col-md-6">
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData1.FYEAsAtDateOfLastAR} onChange={handleChange}
+                                                    value={formData1.FYEAsAtDateOfLastAR} onChange={
+                                                        (e) =>
+                                                            setFormData1({
+                                                                ...formData1,
+                                                                FYEAsAtDateOfLastAR: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <p>Audit Firms</p>
@@ -1905,7 +2054,13 @@ export default function AddFile() {
                                                         className="form-control"
                                                         id="inputCity"
                                                         value={formData1.Name}
-                                                        onChange={handleChange}
+                                                        onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    Name: e.target.value
+                                                                })
+                                                        }
                                                     />
 
                                                 </div>
@@ -1915,37 +2070,73 @@ export default function AddFile() {
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Name</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersName1} onChange={handleChange}
+                                                        value={formData1.officersName1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersName1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">ID</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersId1} onChange={handleChange}
+                                                        value={formData1.officersId1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersId1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersNationalityCitizenship1} onChange={handleChange}
+                                                        value={formData1.officersNationalityCitizenship1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersNationalityCitizenship1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Source  Address</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersSourceOfAddress1} onChange={handleChange}
+                                                        value={formData1.officersSourceOfAddress1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersSourceOfAddress1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag"> Appointment</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersDateOfAppointment1} onChange={handleChange}
+                                                        value={formData1.officersDateOfAppointment1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersDateOfAppointment1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersPositionHeld1} onChange={handleChange}
+                                                        value={formData1.officersPositionHeld1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersPositionHeld1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                             </div>
@@ -1953,7 +2144,13 @@ export default function AddFile() {
                                                 <div className="col-md-6">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Address</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersAddress1} onChange={handleChange}
+                                                        value={formData1.officersAddress1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersAddress1: e.target.value
+                                                                })
+                                                        }
                                                     />
 
                                                 </div>
@@ -1962,37 +2159,73 @@ export default function AddFile() {
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Name</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersName2} onChange={handleChange}
+                                                        value={formData1.officersName2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersName2: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">ID</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersId2} onChange={handleChange}
+                                                        value={formData1.officersId2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersId2: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersNationalityCitizenship2} onChange={handleChange}
+                                                        value={formData1.officersNationalityCitizenship2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersNationalityCitizenship2: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Source  Address</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersSourceOfAddress2} onChange={handleChange}
+                                                        value={formData1.officersSourceOfAddress2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersSourceOfAddress2: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Appointment</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersDateOfAppointment2} onChange={handleChange}
+                                                        value={formData1.officersDateOfAppointment2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersDateOfAppointment2: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersPositionHeld2} onChange={handleChange}
+                                                        value={formData1.officersPositionHeld2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersPositionHeld2: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                             </div>
@@ -2000,7 +2233,13 @@ export default function AddFile() {
                                                 <div className="col-md-6">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Address</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData1.officersAddress2} onChange={handleChange}
+                                                        value={formData1.officersAddress2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersAddress2: e.target.value
+                                                                })
+                                                        }
                                                     />
 
                                                 </div>
@@ -2012,37 +2251,74 @@ export default function AddFile() {
                                                     <div className="col-md-2">
                                                         <label htmlFor="inputCity" className="form-label label__tag">Name</label>
                                                         <input type="text" className="form-control" id="inputCity"
-                                                            value={formData1.officersName3} onChange={handleChange}
+                                                            value={formData1.officersName3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersName3: e.target.value
+                                                                    })
+                                                            }
                                                         />
                                                     </div>
                                                     <div className="col-md-2">
                                                         <label htmlFor="inputCity" className="form-label label__tag">ID</label>
                                                         <input type="text" className="form-control" id="inputCity"
-                                                            value={formData1.officersId3} onChange={handleChange}
+                                                            value={formData1.officersId3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersId3: e.target.value
+                                                                    })
+                                                            }
                                                         />
                                                     </div>
                                                     <div className="col-md-2">
                                                         <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
                                                         <input type="text" className="form-control" id="inputCity"
-                                                            value={formData1.officersNationalityCitizenship3} onChange={handleChange}
+                                                            value={formData1.officersNationalityCitizenship3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersNationalityCitizenship3: e.target.value
+                                                                    })
+                                                            }
                                                         />
                                                     </div>
                                                     <div className="col-md-2">
                                                         <label htmlFor="inputCity" className="form-label label__tag">Source Address</label>
                                                         <input type="text" className="form-control" id="inputCity"
-                                                            value={formData1.officersSourceOfAddress3} onChange={handleChange}
+                                                            value={formData1.officersSourceOfAddress3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersSourceOfAddress3: e.target.value
+                                                                    })
+                                                            }
                                                         />
                                                     </div>
                                                     <div className="col-md-2">
                                                         <label htmlFor="inputCity" className="form-label label__tag"> Appointment</label>
                                                         <input type="text" className="form-control" id="inputCity"
-                                                            value={formData1.officersDateOfAppointment3} onChange={handleChange}
+                                                            value={formData1.officersDateOfAppointment3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersDateOfAppointment3: e.target.value
+                                                                    })
+                                                            }
                                                         />
                                                     </div>
                                                     <div className="col-md-2">
                                                         <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
                                                         <input type="text" className="form-control" id="inputCity"
-                                                            value={formData1.officersPositionHeld3} onChange={handleChange}
+                                                            value={formData1.officersPositionHeld3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersPositionHeld3: e.target.value
+                                                                    })
+
+                                                            }
                                                         />
                                                     </div>
                                                 </div>
@@ -2050,7 +2326,13 @@ export default function AddFile() {
                                                     <div className="col-md-6">
                                                         <label htmlFor="inputCity" className="form-label label__tag">Address</label>
                                                         <input type="text" className="form-control" id="inputCity"
-                                                            value={formData1.officersAddress3} onChange={handleChange}
+                                                            value={formData1.officersAddress3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersAddress3: e.target.value
+                                                                    })
+                                                            }
                                                         />
 
                                                     </div>
@@ -2170,31 +2452,61 @@ export default function AddFile() {
                                             <div className="col-md-4">
                                                 <label htmlFor="inputCity" className="form-label label__tag">Name</label>
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData2.ShareholderName} onChange={handleChange}
+                                                    value={formData2.ShareholderName} onChange={
+                                                        (e) =>
+                                                            setFormData2({
+                                                                ...formData2,
+                                                                ShareholderName: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-2">
                                                 <label htmlFor="inputCity" className="form-label label__tag">ID</label>
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData2.shareholderId} onChange={handleChange}
+                                                    value={formData2.shareholderId} onChange={
+                                                        (e) =>
+                                                            setFormData2({
+                                                                ...formData2,
+                                                                shareholderId: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-2">
                                                 <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData2.shareholderNationality} onChange={handleChange}
+                                                    value={formData2.shareholderNationality} onChange={
+                                                        (e) =>
+                                                            setFormData2({
+                                                                ...formData2,
+                                                                shareholderNationality: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-2">
                                                 <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData2.shareholderSourceOfAddress} onChange={handleChange}
+                                                    value={formData2.shareholderSourceOfAddress} onChange={
+                                                        (e) =>
+                                                            setFormData2({
+                                                                ...formData2,
+                                                                shareholderSourceOfAddress: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-2">
                                                 <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
                                                 <input type="text" className="form-control" id="inputCity"
-                                                    value={formData2.shareholderAddressChanged} onChange={handleChange}
+                                                    value={formData2.shareholderAddressChanged} onChange={
+                                                        (e) =>
+                                                            setFormData2({
+                                                                ...formData2,
+                                                                shareholderAddressChanged: e.target.value
+                                                            })
+                                                    }
                                                 />
                                             </div>
 
@@ -2202,7 +2514,13 @@ export default function AddFile() {
                                                 <div className="col-md-6">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Address</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData2.shareholderAddress} onChange={handleChange}
+                                                        value={formData2.shareholderAddress} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderAddress: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-6"></div>
@@ -2213,13 +2531,25 @@ export default function AddFile() {
                                                 <div className="col-md-4">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData2.shareholderOrdinaryNumber} onChange={handleChange}
+                                                        value={formData2.shareholderOrdinaryNumber} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderOrdinaryNumber: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-4">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData2.shareholderCurrency} onChange={handleChange}
+                                                        value={formData2.shareholderCurrency} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderCurrency: e.target.value
+                                                                })
+                                                        }
                                                     />
 
                                                 </div>
@@ -2232,31 +2562,63 @@ export default function AddFile() {
                                                 <div className="col-md-4">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Name</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData2.ShareholderName1} onChange={handleChange}
+                                                        value={formData2.ShareholderName1} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+
+                                                                    ...formData2,
+                                                                    ShareholderName1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">ID</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData2.shareholderId1} onChange={handleChange}
+                                                        value={formData2.shareholderId1} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderId1: e.target.value
+                                                                })
+
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData2.shareholderNationality1} onChange={handleChange}
+                                                        value={formData2.shareholderNationality1} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderNationality1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData2.shareholderAddress1} onChange={handleChange}
+                                                        value={formData2.shareholderAddress1} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderAddress1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="col-md-2">
                                                     <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
                                                     <input type="text" className="form-control" id="inputCity"
-                                                        value={formData2.shareholderAddressChanged1} onChange={handleChange}
+                                                        value={formData2.shareholderAddressChanged1} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderAddressChanged1: e.target.value
+                                                                })
+                                                        }
                                                     />
                                                 </div>
 
@@ -2264,7 +2626,13 @@ export default function AddFile() {
                                                     <div className="col-md-6">
                                                         <label htmlFor="inputCity" className="form-label label__tag">Address</label>
                                                         <input type="text" className="form-control" id="inputCity"
-                                                            value={formData2.shareholderAddress1} onChange={handleChange}
+                                                            value={formData2.shareholderAddress1} onChange={
+                                                                (e) =>
+                                                                    setFormData2({
+                                                                        ...formData2,
+                                                                        shareholderAddress1: e.target.value
+                                                                    })
+                                                            }
                                                         />
                                                     </div>
                                                     <div className="col-md-6"></div>
@@ -2275,13 +2643,25 @@ export default function AddFile() {
                                                     <div className="col-md-4">
                                                         <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
                                                         <input type="text" className="form-control" id="inputCity"
-                                                            value={formData2.shareholderOrdinaryNumber1} onChange={handleChange}
+                                                            value={formData2.shareholderOrdinaryNumber1} onChange={
+                                                                (e) =>
+                                                                    setFormData2({
+                                                                        ...formData2,
+                                                                        shareholderOrdinaryNumber1: e.target.value
+                                                                    })
+                                                            }
                                                         />
                                                     </div>
                                                     <div className="col-md-4">
                                                         <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
                                                         <input type="text" className="form-control" id="inputCity"
-                                                            value={formData2.shareholderCurrency1} onChange={handleChange}
+                                                            value={formData2.shareholderCurrency1} onChange={
+                                                                (e) =>
+                                                                    setFormData2({
+                                                                        ...formData2,
+                                                                        shareholderCurrency1: e.target.value
+                                                                    })
+                                                            }
                                                         />
 
                                                     </div>

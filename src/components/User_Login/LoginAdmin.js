@@ -16,8 +16,9 @@ export default function LoginUser({ setToken }) {
 
         let payload = { email, password }
         userLogin(payload).then((res) => {
-            console.log(res.token)
+            console.log(res.user._id)
             localStorage.setItem("loginToken", res.token)
+            localStorage.setItem("userId", res.user._id)
             setToken(res.token)
             setTimeout(() => {
                 navigate("/")

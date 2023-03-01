@@ -69,12 +69,13 @@ export default function VerifyPhone({ setPhoneId }) {
 
     return (
         <div className="card card-1" id="login__admin">
-
-            {/* <div className="paragraph">
-                <p>
+            {!flag ? (
+                <p className="paragraph ">
                     Enter your phone number to verify your account
                 </p>
-            </div> */}
+            ) : null
+
+            }
             <div
                 className="py-2 mb-3 mt-1 formBtns"
                 style={{
@@ -100,9 +101,9 @@ export default function VerifyPhone({ setPhoneId }) {
                     {error}
                 </div>
 
-                <div className="recaptcha">
-                    <div id="recaptcha-container"></div>
-                </div>
+
+
+                <div id="recaptcha-container"></div>
                 {!apiLoader && (
                     <div className="otp">
                         <button
@@ -114,13 +115,7 @@ export default function VerifyPhone({ setPhoneId }) {
                     </div>
                 )}
             </div>
-            <div style={{ display: flag ? "block" : "none" }} className="main__opt-div">
-
-                <p
-                    className=""
-                >
-                    Enter the OTP sent to your number
-                </p>
+            <div className="formData" style={{ display: flag ? "block" : "none" }}>
 
                 <Form.Group className="" controlId="formBasicOtp">
                     <Form.Control
@@ -129,7 +124,7 @@ export default function VerifyPhone({ setPhoneId }) {
                         onChange={(e) => setOpt(e.target.value)}
                     />
                 </Form.Group>
-                <div className=" d-flex mt-2 ">
+                <div className="right button-right">
                     <Link to="/">
                         <Button variant="secondary">Cancel</Button>
                     </Link>
