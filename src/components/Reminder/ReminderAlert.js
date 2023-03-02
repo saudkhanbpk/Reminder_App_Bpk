@@ -4,10 +4,11 @@ import Table from 'react-bootstrap/Table';
 import { AiOutlineEye } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { getFile } from "../../services/addFile/FilesApi";
+import { useDispatch } from 'react-redux'
+import { addFormData } from "../../store/FormdataSlice";
 export default function ReminderAlert() {
-
+  let dispatch = useDispatch()
   const [data, setData] = useState([])
-
   let userId = localStorage.getItem("userId")
 
   const getFiles = () => {
@@ -15,6 +16,9 @@ export default function ReminderAlert() {
     getFile(payload).then((res) => {
       console.log("res", res)
       setData(res.data)
+      dispatch(
+        addFormData(res.data)
+      )
     }).catch((e) => {
       console.log("e", e)
     })

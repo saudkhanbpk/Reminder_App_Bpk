@@ -50,10 +50,12 @@ export default function RouterComponent() {
             {token || googleToken || phoneId ? (<Naavbar setToken={setToken} setGoogleToken={setGoogleToken} setPhoneId={setPhoneId} />) : (null)}
             <Routes>
                 <Route element={<PrivateRoutes />}>
+                    {/* <Route path="/" element={<Login />} /> */}
                     <Route path="/addFile" element={<AddFile />} />
+                    {/* <Route path="/login" element={<Login />} /> */}
                     <Route path="/" element={<ReminderAlert />} />
-                    <Route path="reminderservices" element={<ReminderServices />} />
-                    <Route path="remindersetting" element={<ReminderSetting />} />
+                    <Route path="/reminderservices" element={<ReminderServices />} />
+                    <Route path="/remindersetting" element={<ReminderSetting />} />
                 </Route>
                 <Route path="/login" element={<Login setGoogleToken={setGoogleToken} />} />
                 <Route path="/signUp" element={<SignUp />} />
