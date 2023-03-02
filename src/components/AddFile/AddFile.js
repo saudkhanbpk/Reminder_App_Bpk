@@ -4,40 +4,70 @@ import { GrAddCircle } from 'react-icons/gr';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { postFile } from "../../services/addFile/FilesApi";
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 export default function AddFile() {
+    let navigate = useNavigate();
     const [numPages, setNumPages] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
     const [files, setFiles] = useState('');
     const [formData, setFormData] = useState({})
     const [formData1, setFormData1] = useState({})
     const [formData2, setFormData2] = useState({})
     const [mainForm, setMainForm] = useState({})
     const [step, setStep] = useState(1);
-
     const [counter, setCounter] = useState(0)
     const [counter1, setCounter1] = useState(0)
     const [newDataArray, setNewDataArray] = useState([
         {
-            name2: "",
-            id2: "",
-            nationality1: "",
-            addressChanged2: "",
-            sourceOfAddress2: "",
-            address2: "",
-            ordinaryNumber1: "",
-            currency1: "",
+            name: "",
+            id: "",
+            nationality: "",
+            addressChanged: "",
+            sourceOfAddress: "",
+            address: "",
+            ordinaryNumber: "",
+            currency: "",
+        }
+    ])
+    const [officers, setOfficers] = useState([
+        {
+            name: "",
+            id: "",
+            nationality: "",
+            sourceOfAddress: "",
+            dateOfAppointment: "",
+            address: "",
+            positionHeld: ""
         }
     ])
 
 
-    const handleAddInput = () => {
-        setCounter(counter + 1)
+    const handleSaveCounterInMainForm = () => {
+        setMainForm({
+            ...mainForm, shareholders: newDataArray
+        })
+
+    }
+
+    const handleSaveOfficers = () => {
+        setMainForm({
+            ...mainForm, officers: officers
+        })
+
+    }
+
+    const handleAddShareholder = () => {
+        setCounter1(counter1 + 1)
     }
     const handleAdd = () => {
         setCounter(counter + 1)
     }
     const handleRemoveInput = () => {
         setCounter(counter - 1)
+    }
+    const handleRemoveShareholder = () => {
+        setCounter1(counter1 - 1)
     }
 
     const fileUpload = (e) => {
@@ -59,7 +89,7 @@ export default function AddFile() {
                 setTimeout
                     (() => {
                         setFormData({
-                            ...formData, UEN: textData[
+                            ...formData, uen: textData[
                                 [textData.indexOf("UEN") + 1]
                             ], companyName: textData[
                                 [textData.indexOf("Company Name.") + 1]
@@ -94,19 +124,22 @@ export default function AddFile() {
                             numberOfShares1: textData[
                                 [textData.indexOf("ORDINARY") + 1]
                             ],
-                            currency1: textData[
+                            currency1: textData[32],
 
-                                [textData.indexOf("Capital" + 7)]
-
+                            shareType1: textData[
+                                [textData.indexOf("Issued Share Capital") + 6]
                             ],
-                            shareType1: textData[37],
                             // number of shares includes number of treasury shares
                             paidUpAmount: textData[
                                 [textData.indexOf("Paid-Up Capital") + 4]
                             ],
                             numberOfShares2: getAllDetails[75],
-                            currency2: getAllDetails[77],
-                            shareType2: getAllDetails[94],
+                            currency2: textData[
+                                [textData.indexOf("Paid-Up Capital") + 5]
+                            ],
+                            shareType2: textData[
+                                [textData.indexOf("Paid-Up Capital") + 6]
+                            ],
                         })
                     }, 1000)
 
@@ -187,22 +220,48 @@ export default function AddFile() {
                             officersAddress3: textData[
                                 [textData.indexOf("Date of Appointment") + 25]
                             ],
-                            // officersName4: textData[6756],
-                            // officersId4: textData[23432],
-                            // officersNationalityCitizenship4: textData[23432],
-                            // officersDateOfAppointment4: textData[32423],
-                            // officersSourceOfAddress4: textData[3423],
-                            // officersPositionHeld4: textData[345],
-                            // officersAddress4: textData[436546],
-                            // officersName5: textData[43543],
-                            // officersId5: textData[43543],
-                            // officersNationalityCitizenship5: textData[43534],
-                            // officersDateOfAppointment5: textData[34543],
-                            // officersSourceOfAddress5: textData[43543],
-                            // officersPositionHeld5: textData[43534],
-                            // officersAddress5: textData[43543],
+                            officersName4: textData[[]],
+                            officersId4: textData[
+                                []
+                            ],
+                            officersNationalityCitizenship4: textData[
+                                []
+                            ],
+                            officersDateOfAppointment4: textData[
+                                []
+                            ],
+                            officersSourceOfAddress4: textData[
+                                []
+                            ],
+
+                            officersPositionHeld4: textData[
+                                []
+                            ],
+                            officersAddress4: textData[
+                                []
+                            ],
+                            officersName5: textData[[]],
+                            officersId5: textData[
+                                []
+                            ],
+                            officersNationalityCitizenship5: textData[
+                                []
+                            ],
+                            officersDateOfAppointment5: textData[
+                                []
+                            ],
+                            officersSourceOfAddress5: textData[
+                                []
+                            ],
+
+                            officersPositionHeld5: textData[
+                                []
+                            ],
+                            officersAddress5: textData[
+                                []
+                            ],
                         })
-                    }, 3000)
+                    }, 1000)
 
                 break;
             case 2:
@@ -245,32 +304,34 @@ export default function AddFile() {
                                 [textData.indexOf("Address Changed") + 11]
                             ],
                             shareholderSourceOfAddress1: textData[
-                                [textData.indexOf("Address Changed") + 12]
-                            ],
-                            shareholderAddressChanged1: textData[
                                 [textData.indexOf("Address Changed") + 13]
                             ],
-                            shareholderAddress1: textData[15],
+                            shareholderAddressChanged1: textData[
+                                [textData.indexOf("Address Changed") + 12]
+                            ],
+                            shareholderAddress1: textData[
+                                [textData.indexOf("Address Changed") + 15]
+                            ],
                             shareholderOrdinaryNumber1: textData[
-                                [textData.indexOf("Currency") + 21]
+                                [textData.indexOf("Address Changed") + 21]
                             ],
                             shareholderCurrency1: textData[
-                                [textData.indexOf("Currency") + 22]
+                                [textData.indexOf("Address Changed") + 22]
                             ],
                             ShareholderName2: textData[
-                                [textData.indexOf("Address Changed")]
+                                [textData.indexOf("A Changed")]
                             ],
                             shareholderId2: textData[
-                                [textData.indexOf("Address Changed")]
+                                [textData.indexOf("A Changed")]
                             ],
                             shareholderNationality2: textData[
-                                [textData.indexOf("Address Changed")]
+                                [textData.indexOf("A Changed")]
                             ],
                             shareholderSourceOfAddress2: textData[
-                                [textData.indexOf("Address Changed")]
+                                [textData.indexOf("A Changed")]
                             ],
                             shareholderAddressChanged2: textData[
-                                [textData.indexOf("Address Changed")]
+                                [textData.indexOf("A Changed")]
                             ],
                             shareholderAddress2: textData[15],
                             shareholderOrdinaryNumber2: textData[
@@ -279,9 +340,53 @@ export default function AddFile() {
                             shareholderCurrency2: textData[
                                 [textData.indexOf("Currency")]
                             ],
+                            ShareholderName3: textData[
+                                [textData.indexOf(" ")]
+                            ],
+                            shareholderId3: textData[
+                                [textData.indexOf(" ")]
+                            ],
+                            shareholderNationality3: textData[
+                                [textData.indexOf(" ")]
+                            ],
+                            shareholderSourceOfAddress3: textData[
+                                [textData.indexOf(" ")]
+                            ],
+                            shareholderAddressChanged3: textData[
+                                [textData.indexOf(" ")]
+                            ],
+                            shareholderAddress3: textData[15],
+                            shareholderOrdinaryNumber3: textData[
+                                [textData.indexOf("")]
+                            ],
+                            shareholderCurrency3: textData[
+                                [textData.indexOf("")]
+                            ],
+                            ShareholderName4: textData[
+                                [textData.indexOf("")]
+                            ],
+                            shareholderId4: textData[
+                                [textData.indexOf("")]
+                            ],
+                            shareholderNationality4: textData[
+                                [textData.indexOf("")]
+                            ],
+                            shareholderSourceOfAddress4: textData[
+                                [textData.indexOf("")]
+                            ],
+                            shareholderAddressChanged4: textData[
+                                [textData.indexOf("")]
+                            ],
+                            shareholderAddress4: textData[15],
+                            shareholderOrdinaryNumber4: textData[
+                                [textData.indexOf("")]
+                            ],
+                            shareholderCurrency4: textData[
+                                [textData.indexOf("")]
+                            ],
 
                         })
-                    }, 5000)
+                    }, 1000)
 
                 break;
             default:
@@ -296,19 +401,29 @@ export default function AddFile() {
 
     }, [formData, formData1, formData2])
 
-
+    let userId = localStorage.getItem("userId");
     const handleSubmit = (e) => {
         e.preventDefault();
-        let payload = { mainForm, newDataArray }
+        const filteredFormData = Object.keys(mainForm)
+            .filter((key) => mainForm[key] !== undefined || mainForm[key] !== " ")
+            .reduce((obj, key) => {
+                obj[key] = mainForm[key];
+                return obj;
+            }, {});
+
+
+        console.log("filterData", filteredFormData);
+        let payload = { filteredFormData, userId }
         postFile(
             payload
         ).then((res) => {
             console.log(res)
-            toast.success("File Added Successfully", {
+            toast.success("Thank you your record added successfully", {
                 position: toast.POSITION.TOP_CENTER,
                 theme: "colored"
 
             })
+            navigate('/')
         }).catch((error) => {
             console.log(error)
             toast.error("Error Occured", {
@@ -319,15 +434,28 @@ export default function AddFile() {
     }
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            ...formData1,
-            ...formData2,
-            [e.target.name]: e.target.value
+        setMainForm({ ...mainForm, [e.target.name]: e.target.value })
 
-        })
+
     }
     useEffect(() => { pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`; });
+
+    function onDocumentLoadSuccess({ numPages }) {
+        setNumPages(numPages);
+    }
+
+    function handleNextPage() {
+        setPageNumber(prevPageNumber => prevPageNumber + 1);
+        setStep(step + 1)
+    }
+
+    function handlePrevPage() {
+        setPageNumber(prevPageNumber => prevPageNumber - 1);
+        setStep(step - 1)
+    }
+
+
+
     return (
 
         <div>
@@ -340,9 +468,22 @@ export default function AddFile() {
             </div>
             <div className="row">
                 <div className="col-md-1"></div>
-                <div className="col-md-5">
+                <div className="col-5  col-lg-5 col-md-5 col-xl-5">
                     <div>
-                        <Document file={files}
+                        <h2>Section {pageNumber}</h2>
+                        <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
+                            <Page pageNumber={pageNumber} onRenderSuccess={handleRenderSuccess} />
+                        </Document>
+
+                        <p>
+                            <button disabled={pageNumber <= 1} onClick={handlePrevPage} className="btn btn-primary" >
+                                Previous
+                            </button>&nbsp;
+                            <button disabled={pageNumber >= numPages} onClick={handleNextPage} className="btn btn-success">
+                                Next
+                            </button>
+                        </p>
+                        {/* <Document file={files}
                             onLoadSuccess={({ numPages }) => setNumPages(numPages)}>
                             {Array.from(new Array(numPages), (el, index) => (
                                 <Page
@@ -354,29 +495,204 @@ export default function AddFile() {
                             )
 
                             }
-                        </Document>
+                        </Document> */}
                     </div>
                 </div>
                 {
-                    files ? (
-                        <div className="col-md-5">
+                    files && (
+                        <div className="col-5  col-lg-5 col-md-5 col-xl-5">
                             {
                                 step === 1 && (
                                     <div className="row g-3 mt-5" id="add__form">
-                                        {Object.keys(formData).map((item) => (
-                                            <div className="col-md-6" key={item.id}>
-                                                <label htmlFor="inputZip" className="form-label">{item}</label>
-                                                <input type="text" className="form-control" id="inputZip"
-                                                    name={item} value={formData[item]} onChange={handleChange}
+                                        <p >The Following Are The Brief Particulars of: </p>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">UEN</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData.uen} onChange={(e) =>
+                                                    setFormData({ ...formData, uen: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Company Name</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData.companyName} onChange={(e) =>
+                                                    setFormData({ ...formData, companyName: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Former Name if any</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData.formerName} onChange={
+                                                    (e) => setFormData({ ...formData, formerName: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Incorporation Date</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData.incorporationDate} onChange={
+                                                    (e) => setFormData({ ...formData, incorporationDate: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label"> Company Type</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData.companyType} onChange={
+                                                    (e) => setFormData({ ...formData, companyType: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Status</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData.status} onChange={
+                                                    (e) => setFormData({ ...formData, status: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Status Date</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData.statusDate} onChange={
+                                                    (e) => setFormData({ ...formData, statusDate: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <p>
+                                            Principal Activities
+                                        </p>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Activities (1)</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData.activities1} onChange={
+                                                    (e) => setFormData({ ...formData, activities1: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Description</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData.Description1} onChange={
+                                                    (e) => setFormData({ ...formData, Description1: e.target.value })
+                                                }
+                                            />
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Activities (2)</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData.activities2} onChange={
+                                                    (e) => setFormData({ ...formData, activities2: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Description</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+
+                                                value={formData.Description2} onChange={
+                                                    (e) => setFormData({ ...formData, Description2: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <p>Capital</p>
+
+                                        <div className="row">
+                                            <div className="col-md-4">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Issued Share Capital</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.issuedCapital} onChange={
+                                                        (e) => setFormData({ ...formData, issuedCapital: e.target.value })
+                                                    }
                                                 />
-
-
                                             </div>
-                                        ))}
-                                        <button
-                                            className="btn__next"
+                                            <div className="col-md-3">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Number of Shares </label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.numberOfShares1} onChange={
+                                                        (e) => setFormData({ ...formData, numberOfShares1: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-3">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.currency1} onChange={
+                                                        (e) => setFormData({ ...formData, currency1: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Share Type</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.shareType1} onChange={
+                                                        (e) => setFormData({ ...formData, shareType1: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="row mt-4">
+                                            <div className="col-md-4">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Paid-Up Capital</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.paidUpAmount} onChange={
+                                                        (e) => setFormData({ ...formData, paidUpAmount: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-3">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Number of Shares </label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.numberOfShares2} onChange={
+                                                        (e) => setFormData({ ...formData, numberOfShares2: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-3">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.currency2} onChange={
+                                                        (e) => setFormData({ ...formData, currency2: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Share Type</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.shareType2} onChange={
+                                                        (e) => setFormData({ ...formData, shareType2: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                        {/* <button
+                                            className="btn__next mt-3"
                                             onClick={() => setStep(2)}
-                                        >Next</button>
+                                        >Next</button> */}
                                     </div>
 
                                 )
@@ -384,26 +700,461 @@ export default function AddFile() {
                             {
                                 step === 2 && (
                                     <div className="row g-3 mt-5" id="add__form">
-                                        {Object.keys(formData1).map((item) => (
-                                            <div className="col-md-6" key={item.id}>
-                                                <label htmlFor="inputZip" className="form-label">{item}</label>
-                                                <input type="text" className="form-control" id="inputZip"
-                                                    name={item} value={formData1[item]} onChange={handleChange}
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Registered Office Address</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData1.RegisteredOfficeAddress} onChange={
+                                                    (e) => setFormData1({ ...formData1, RegisteredOfficeAddress: e.target.value })
+                                                }
+                                            />
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Date Of Address</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData1.DateOfAddress} onChange={
+                                                    (e) => setFormData1({ ...formData1, DateOfAddress: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <div
+                                            className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Date Of Last AGM</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData1.DateOfLastAGM} onChange={
+                                                    (e) => setFormData1({ ...formData1, DateOfLastAGM: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">Date Of Last AR</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData1.DateOfLastAR} onChange={
+                                                    (e) => setFormData1({ ...formData1, DateOfLastAR: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <label htmlFor="inputCity" className="form-label">FYE As At Date Of Last AR</label>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData1.FYEAsAtDateOfLastAR} onChange={
+                                                    (e) => setFormData1({ ...formData1, FYEAsAtDateOfLastAR: e.target.value })
+                                                }
+                                            />
+                                        </div>
+                                        <p>Audit Firms</p>
+                                        <div className="row">
+                                            <div className="col-md-12 col-lg-12">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Name </label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    id="inputCity"
+                                                    value={formData1.Name}
+                                                    onChange={
+                                                        (e) => setFormData1({ ...formData1, Name: e.target.value })
+                                                    }
                                                 />
 
+                                            </div>
+                                        </div>
+                                        <p>Officers/Authorized Representative(s)</p>
+                                        <div className="row mt-4">
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersName1} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersName1: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersId1} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersId1: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersNationalityCitizenship1} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersNationalityCitizenship1: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Source  Address</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersSourceOfAddress1} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersSourceOfAddress1: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag"> Appointment</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersDateOfAppointment1} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersDateOfAppointment1: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersPositionHeld1} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersPositionHeld1: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="row mt-3">
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersAddress1} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersAddress1: e.target.value })
+                                                    }
+                                                />
 
                                             </div>
-                                        ))}
+                                        </div>
+                                        <div className="row mt-4">
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersName2} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersName2: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersId2} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersId2: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersNationalityCitizenship2} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersNationalityCitizenship2: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Source  Address</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersSourceOfAddress2} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersSourceOfAddress2: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Appointment</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersDateOfAppointment2} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersDateOfAppointment2: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersPositionHeld2} onChange={
+                                                        (e) => setFormData1({ ...formData1, officersPositionHeld2: e.target.value })
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="row mt-3">
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.officersAddress2} onChange={handleChange}
+                                                />
+
+                                            </div>
+                                        </div>
+                                        {/* {
+                                            formData1.officersName3 !== "" && formData1.officersId3 !== "" && formData1.officersNationalityCitizenship3 !== "" && formData1.officersSourceOfAddress3 !== "" && formData1.officersDateOfAppointment3 !== "" && formData1.officersPositionHeld3 !== "" && formData1.officersAddress3 !== "" ? */}
+                                        <>
+                                            <div className="row mt-4">
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersName3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersId3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersNationalityCitizenship3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Source Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersSourceOfAddress3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag"> Appointment</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersDateOfAppointment3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersPositionHeld3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="row mt-3">
+                                                <div className="col-md-6">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersAddress3} onChange={handleChange}
+                                                    />
+
+                                                </div>
+                                            </div>
+                                        </>
+                                        {/* }
+                                        {
+                                            formData1.officersName4 !== undefined && formData1.officersId4 !== undefined && formData1.officersNationalityCitizenship4 !== undefined && formData1.officersSourceOfAddress4 !== undefined && formData1.officersDateOfAppointment4 !== undefined && formData1.officersPositionHeld4 !== undefined && formData1.officersAddress4 !== undefined ? */}
+                                        <>
+                                            {/* <div className="row mt-4">
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersName4} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersId4} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersNationalityCitizenship4} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Source Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersSourceOfAddress4} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Appointment</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersDateOfAppointment4} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersPositionHeld4} onChange={handleChange}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="row mt-3">
+                                                <div className="col-md-6">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersAddress4} onChange={handleChange}
+                                                    />
+
+                                                </div>
+                                            </div> */}
+                                        </>
+
+
+                                        {/* }
+                                        {
+                                            formData1.officersName5 !== undefined && formData1.officersId5 !== undefined && formData1.officersNationalityCitizenship5 !== undefined && formData1.officersSourceOfAddress5 !== undefined && formData1.officersDateOfAppointment5 !== undefined && formData1.officersPositionHeld5 !== undefined && formData1.officersAddress5 !== undefined ? */}
+                                        {/* <>
+                                            <div className="row mt-4">
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersName5} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersId5} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersNationalityCitizenship5} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity"
+                                                        className="form-label label__tag">Source Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersSourceOfAddress5} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag"> Appointment</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersDateOfAppointment5} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersPositionHeld5} onChange={handleChange}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="row mt-3">
+                                                <div className="col-md-6">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersAddress5} onChange={handleChange}
+                                                    />
+
+                                                </div>
+                                            </div>
+                                        </> */}
+
                                         <div className="d-flex">
 
+                                        </div>
+                                        {
+                                            Array.from(
+                                                {
+                                                    length: counter
+                                                }
+                                            ).map((item, index) => {
+                                                return (
+                                                    <div className="row mt-4">
+                                                        <div className="col-md-2">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={officers.name} onChange={
+                                                                    (e) => setOfficers({ ...officers, name: e.target.value })
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={officers.id} onChange={
+                                                                    (e) => setOfficers({ ...officers, id: e.target.value })
+
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={officers.nationality} onChange={
+                                                                    (e) => setOfficers({ ...officers, nationality: e.target.value })
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                            <label htmlFor="inputCity"
+                                                                className="form-label label__tag">Source Address</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={officers.sourceOfAddress} onChange={
+                                                                    (e) => setOfficers({ ...officers, sourceOfAddress: e.target.value })
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                            <label htmlFor="inputCity" className="form-label label__tag"> Appointment</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={officers.dateOfAppointment} onChange={
+                                                                    (e) => setOfficers({ ...officers, dateOfAppointment: e.target.value })
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={officers.positionHeld} onChange={
+                                                                    (e) => setOfficers({ ...officers, positionHeld: e.target.value })
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div
+                                                            className="row mt-2"
+                                                        >
+                                                            <div className="col-md-6">
+                                                                <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                                <input type="text" className="form-control" id="inputCity"
+                                                                    value={officers.address} onChange={
+                                                                        (e) => setOfficers({ ...officers, address: e.target.value })
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                        <div className="d-flex">
                                             <button
-                                                className="btn btn-primary"
-                                                onClick={() => setStep(1)}
-                                            >Back</button>
+                                                className="btn btn-primary mt-4"
+
+                                                onClick={handleSaveOfficers}
+                                            >
+                                                Add Officers
+                                            </button>
+                                            {
+                                                counter > 0 && (
+                                                    <button
+                                                        className="btn btn-danger mt-4 ms-3"
+                                                        onClick={handleRemoveInput}
+                                                    >
+                                                        Remove Officers
+                                                    </button>
+                                                )
+
+
+                                            }
                                             <button
-                                                className="btn__next"
-                                                onClick={() => setStep(3)}
-                                            >Next</button>
+                                                disabled={
+                                                    !counter
+                                                }
+                                                className="btn btn-primary mt-4 ms-3"
+                                                onClick={handleAddShareholder}
+
+                                            >
+                                                Save
+                                            </button>
                                         </div>
                                     </div>
                                 )
@@ -411,174 +1162,1713 @@ export default function AddFile() {
                             {
                                 step === 3 && (
                                     <div className="row g-3 mt-5" id="add__form">
-                                        {Object.keys(formData2).map((item) => (
-                                            <div className="col-md-6" key={item.id}>
-                                                <label htmlFor="inputZip" className="form-label">{item}</label>
-                                                <input type="text" className="form-control" id="inputZip"
-                                                    name={item} value={formData2[item]} onChange={handleChange}
-                                                />
-                                            </div>
-                                        ))}
-                                        <div className="d-flex">
-
-                                            <button
-                                                className="btn btn-primary"
-                                                onClick={() => setStep(2)}
-                                            >Back</button>&nbsp;
-                                            <button
-                                                className="btn__next"
-                                                onClick={handleSubmit}
-                                            >Submit</button>
-                                        </div>
-                                    </div>
-                                )
-
-                            }
-
-                            {/* {
-                        files ? (<div className="row g-3 mt-5" id="add__form">
-                            {Object.keys(mainForm).map((item) => (
-                                <div className="col-md-6" key={item.id}>
-                                    <label htmlFor="inputZip" className="form-label">{item}</label>
-                                    <input type="text" className="form-control" id="inputZip"
-                                        name={item} value={mainForm[item]} onChange={handleChange}
-                                    />
-                                </div>
-                            ))}
-                            {Array.from(Array(counter)).map((c, index) => {
-                                return (
-                                    <>
-                                        <p style={{
-                                            fontWeight: "bold"
-                                        }}>Shareholder(s)</p>
-                                        <div className="col-md-6">
-                                            <label htmlFor="inputZip" className="form-label">Name</label>
-                                            <input type="text" className="form-control" id="inputZip"
-                                                name="Name"
-                                                onChange={(e) => {
-                                                    setNewDataArray({
-                                                        ...newDataArray,
-                                                        name: e.target.value
+                                        <p>
+                                            Shareholder(s)
+                                        </p>
+                                        <div className="col-md-4">
+                                            <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData2.ShareholderName} onChange={
+                                                    (e) => setFormData2({
+                                                        ...formData2,
+                                                        ShareholderName: e.target.value
                                                     })
-
-                                                }}
-                                                value={newDataArray.name2}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label htmlFor="inputZip" className="form-label">Id</label>
-                                            <input type="text" className="form-control" id="inputZip"
-                                                name="Id"
-                                                onChange={(e) => {
-                                                    setNewDataArray({
-                                                        ...newDataArray,
-                                                        id: e.target.value
-                                                    })
-                                                }}
-                                                value={newDataArray.id2}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label htmlFor="inputZip" className="form-label">NationalityCitizenship</label>
-                                            <input type="text" className="form-control" id="inputZip"
-                                                name="NationalityCitizenshipPlaceOfIncorporationOriginRegistration"
-                                                onChange={(e) => {
-                                                    setNewDataArray({
-                                                        ...newDataArray,
-                                                        nationality: e.target.value
-                                                    })
-
-                                                }}
-                                                value={newDataArray.nationality1}
-
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label htmlFor="inputZip" className="form-label">SourceOfAddress</label>
-                                            <input type="text" className="form-control" id="inputZip"
-                                                name="SourceOfAddress"
-                                                onChange={(e) => {
-                                                    setNewDataArray({
-                                                        ...newDataArray,
-                                                        sourceOfAddress: e.target.value
-                                                    })
-                                                }}
-                                                value={newDataArray.sourceOfAddress2}
-
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label htmlFor="inputZip" className="form-label">AddressChanged</label>
-                                            <input type="text" className="form-control" id="inputZip"
-                                                name="AddressChanged"
-                                                onChange={(e) => {
-                                                    setNewDataArray({
-                                                        ...newDataArray,
-                                                        addressChanged: e.target.value
-                                                    })
-                                                }}
-                                                value={newDataArray.addressChanged2}
-
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label htmlFor="inputZip" className="form-label">Address</label>
-                                            <input type="text" className="form-control" id="inputZip"
-                                                name="Address"
-                                                onChange={(e) => {
-                                                    setNewDataArray({
-                                                        ...newDataArray,
-                                                        address: e.target.value
-                                                    })
-
-                                                }}
-                                                value={newDataArray.address2}
-                                            />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <label htmlFor="inputZip" className="form-label">Ordinary Number</label>
-                                            <input type="text" className="form-control" id="inputZip"
-                                                name="OrdinaryNumber"
-                                                onChange={(e) => {
-                                                    setNewDataArray({
-                                                        ...newDataArray,
-                                                        ordinaryNumber: e.target.value
-                                                    })
-                                                }}
-                                                value={
-                                                    newDataArray.ordinaryNumber1
                                                 }
                                             />
                                         </div>
-                                        <div className="col-md-6">
-                                            <label htmlFor="inputZip" className="form-label">Currency</label>
-                                            <input type="text" className="form-control" id="inputZip"
-                                                name="Currency"
-                                                onChange={(e) => {
-                                                    setNewDataArray({
-                                                        ...newDataArray,
-                                                        currency: e.target.value
+                                        <div className="col-md-2">
+                                            <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData2.shareholderId} onChange={
+                                                    (e) => setFormData2({
+                                                        ...formData2,
+                                                        shareholderId: e.target.value
                                                     })
-                                                }}
-                                                value={newDataArray.currency1}
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-2">
+                                            <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData2.shareholderNationality} onChange={
+                                                    (e) => setFormData2({
+                                                        ...formData2,
+                                                        shareholderNationality: e.target.value
+                                                    })
+
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-2">
+                                            <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData2.shareholderSourceOfAddress} onChange={
+                                                    (e) => setFormData2({
+                                                        ...formData2,
+                                                        shareholderSourceOfAddress: e.target.value
+                                                    })
+
+                                                }
+                                            />
+                                        </div>
+                                        <div className="col-md-2">
+                                            <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
+                                            <input type="text" className="form-control" id="inputCity"
+                                                value={formData2.shareholderAddressChanged} onChange={
+                                                    (e) => setFormData2({
+                                                        ...formData2,
+                                                        shareholderAddressChanged: e.target.value
+                                                    })
+
+                                                }
                                             />
                                         </div>
 
-                                    </>)
-                            })}
-                            <div className="col-6">
-                                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
-                            </div>
+                                        <div className="row mt-4">
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderAddress} onChange={
+                                                        (e) => setFormData2({
+                                                            ...formData2,
+                                                            shareholderAddress: e.target.value
+                                                        })
 
-                            <div className="col-6">
-                                <button type="submit" className="btn btn-primary" onClick={handleAddInput}>Add ShareHolder's</button>
-                            </div>
-                        </div>) : null
-                    } */}
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-6"></div>
 
+                                        </div>
+
+                                        <div className="row mt-4">
+                                            <div className="col-md-4">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderOrdinaryNumber} onChange={
+                                                        (e) => setFormData2({
+                                                            ...formData2,
+                                                            shareholderOrdinaryNumber: e.target.value
+                                                        })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-4">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderCurrency} onChange={
+                                                        (e) => setFormData2({
+                                                            ...formData2,
+                                                            shareholderCurrency: e.target.value
+                                                        })
+                                                    }
+                                                />
+
+                                            </div>
+
+                                        </div>
+                                        {/* {
+                                            formData2.ShareholderName1 !== undefined &&
+                                                formData2.shareholderId1 !== undefined ? */}
+                                        <>
+                                            <div className="col-md-4">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.ShareholderName1} onChange={
+                                                        (e) => setFormData2({
+                                                            ...formData2,
+                                                            ShareholderName1: e.target.value
+                                                        })
+
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderId1} onChange={
+                                                        (e) => setFormData2({
+                                                            ...formData2,
+                                                            shareholderId1: e.target.value
+                                                        })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderNationality1} onChange={
+                                                        (e) => setFormData2({
+                                                            ...formData2,
+                                                            shareholderNationality1: e.target.value
+                                                        })
+
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderAddress1} onChange={
+                                                        (e) => setFormData2({
+                                                            ...formData2,
+                                                            shareholderAddress1: e.target.value
+                                                        })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderAddressChanged1} onChange={
+                                                        (e) => setFormData2({
+                                                            ...formData2,
+                                                            shareholderAddressChanged1: e.target.value
+                                                        })
+                                                    }
+                                                />
+                                            </div>
+
+                                            <div className="row mt-4">
+                                                <div className="col-md-6">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddress1} onChange={
+                                                            (e) => setFormData2({
+                                                                ...formData2,
+                                                                shareholderAddress1: e.target.value
+                                                            })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-6"></div>
+
+                                            </div>
+
+                                            <div className="row mt-4">
+                                                <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderOrdinaryNumber1} onChange={
+                                                            (e) => setFormData2({
+                                                                ...formData2,
+                                                                shareholderOrdinaryNumber1: e.target.value
+                                                            })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderCurrency1} onChange={
+                                                            (e) => setFormData2({
+                                                                ...formData2,
+                                                                shareholderCurrency1: e.target.value
+                                                            })
+                                                        }
+                                                    />
+
+                                                </div>
+
+                                            </div>
+                                        </>
+
+
+                                        <>
+                                            {/* <div className="col-md-4">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.ShareholderName2} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderId2} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderNationality2} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress2} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddressChanged2} onChange={handleChange}
+                                                        />
+                                                    </div>
+
+                                                    <div className="row mt-4">
+                                                        <div className="col-md-6">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={formData2.shareholderAddress2} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-6"></div>
+
+                                                    </div>
+
+                                                    <div className="row mt-4">
+                                                        <div className="col-md-4">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={formData2.shareholderAddress2} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-4">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={formData2.shareholderAddress2} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                    </div> */}
+                                        </> :
+
+                                        {/* {
+                                            formData2.shareholderName3 !== undefined &&
+                                                formData2.id3 !== undefined ? */}
+                                        <>
+                                            {/* <div className="col-md-4">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.ShareholderName3} onChange={handleChange}
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderId3} onChange={handleChange}
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderNationality3} onChange={handleChange}
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderAddress3} onChange={handleChange}
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderAddressChanged3} onChange={handleChange}
+                                                />
+                                            </div>
+
+                                            <div className="row mt-4">
+                                                <div className="col-md-6">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddress3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-6"></div>
+
+                                            </div>
+
+                                            <div className="row mt-4">
+                                                <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddress3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddress3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                            </div> */}
+                                        </>
+                                        {/* }
+                                        {
+                                            formData2.shareholderName4 !== undefined &&
+                                                formData2.id4 !== undefined ? */}
+                                        <>
+                                            {/* <div className="col-md-4">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.ShareholderName4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderId4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderNationality4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddressChanged4} onChange={handleChange}
+                                                        />
+                                                    </div>
+
+                                                    <div className="row mt-4">
+                                                        <div className="col-md-6">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={formData2.shareholderAddress4} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-6"></div>
+
+                                                    </div>
+
+                                                    <div className="row mt-4">
+                                                        <div className="col-md-4">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={formData2.shareholderAddress4} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-4">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={formData2.shareholderAddress4} onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                    </div> */}
+
+                                        </>
+
+                                        <div className="d-flex">
+                                        </div>
+                                        {
+                                            Array.from({ length: counter1 }).map((item, index) => {
+                                                return (
+                                                    <div className="row mt-4">
+                                                        <div className="col-md-4">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={
+                                                                    newDataArray.name
+                                                                } onChange={
+                                                                    (e) =>
+                                                                        setNewDataArray({
+                                                                            ...newDataArray,
+                                                                            name: e.target.value
+                                                                        })
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={newDataArray.id} onChange={
+                                                                    (e) =>
+                                                                        setNewDataArray({
+                                                                            ...newDataArray,
+                                                                            id: e.target.value
+                                                                        })
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={newDataArray.nationality} onChange={
+                                                                    (e) =>
+                                                                        setNewDataArray({
+                                                                            ...newDataArray,
+                                                                            nationality: e.target.value
+                                                                        })
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={
+                                                                    newDataArray.sourceOfAddress
+                                                                } onChange={
+                                                                    (e) =>
+                                                                        setNewDataArray({
+                                                                            ...newDataArray,
+                                                                            sourceOfAddress: e.target.value
+
+                                                                        })
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-2">
+                                                            <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
+                                                            <input type="text" className="form-control" id="inputCity"
+                                                                value={
+                                                                    newDataArray.addressChanged
+                                                                } onChange={
+                                                                    (e) =>
+                                                                        setNewDataArray({
+                                                                            ...newDataArray,
+                                                                            addressChanged: e.target.value
+                                                                        })
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div
+                                                            className="row mt-4">
+                                                            <div className="col-md-6">
+                                                                <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                                <input type="text" className="form-control" id="inputCity"
+                                                                    value={
+                                                                        newDataArray.address
+                                                                    } onChange={(e) => setNewDataArray({ ...newDataArray, address: e.target.value })}
+                                                                />
+                                                            </div>
+                                                            <div className="col-md-6"></div>
+                                                        </div>
+                                                        <div
+                                                            className="row mt-4">
+                                                            <div className="col-md-6">
+                                                                <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
+                                                                <input type="text" className="form-control" id="inputCity"
+                                                                    value={newDataArray.ordinaryNumber} onChange={(e) => setNewDataArray({ ...newDataArray, ordinaryNumber: e.target.value })}
+                                                                />
+                                                            </div>
+                                                            <div className="col-md-6">
+                                                                <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                                <input type="text" className="form-control" id="inputCity"
+                                                                    value={newDataArray.currency} onChange={(e) => setNewDataArray({
+                                                                        ...newDataArray,
+                                                                        currency: e.target.value
+                                                                    })}
+                                                                />
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                )
+                                            })
+                                        }
+                                        <div className="d-flex">
+
+                                            <button
+                                                className="btn btn-primary mt-4"
+                                                onClick={handleAddShareholder}
+                                            >
+                                                Add Shareholder
+                                            </button>
+
+                                            {
+                                                counter1 > 0 && (
+                                                    <button
+                                                        className="btn btn-danger mt-4 ms-3"
+                                                        onClick={handleRemoveShareholder}
+                                                    >
+                                                        Remove shareholder
+                                                    </button>
+
+
+                                                )
+                                            }
+                                            <button
+                                                disabled={
+                                                    !counter1
+                                                }
+                                                className="btn btn-primary mt-4 ms-3"
+                                                onClick={handleSaveCounterInMainForm}
+
+                                            >
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                            {
+                                step === 4 && (
+                                    <>
+                                        <div className="row g-3 mt-5" id="add__form">
+                                            <p >The Following Are The Brief Particulars of: </p>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">UEN</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.uen} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                uen: e.target.value
+                                                            })
+
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Company Name</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.companyName} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                companyName: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Former Name if any</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.formerName} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                formerName: e.target.value
+                                                            })
+
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Incorporation Date</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.incorporationDate} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                incorporationDate: e.target.value
+                                                            })
+
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label"> Company Type</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.companyType} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                companyType: e.target.value
+                                                            })
+
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Status</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.status} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                status: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Status Date</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.statusDate} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                statusDate: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <p>
+                                                Principal Activities
+                                            </p>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Activities (1)</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.activities1} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                activities1: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Description</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.Description1} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                Description1: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Activities (2)</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData.activities2} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                activities2: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Description</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+
+                                                    value={formData.Description2} onChange={
+                                                        (e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                Description2: e.target.value
+                                                            })
+
+                                                    }
+                                                />
+                                            </div>
+                                            <p>Capital</p>
+
+                                            <div className="row">
+                                                <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Issued Share Capital</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData.issuedCapital} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    issuedCapital: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Number of Shares </label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData.numberOfShares1} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    numberOfShares1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData.currency1} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    currency1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Share Type</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData.shareType1} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    shareType1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="row mt-4">
+                                                <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Paid-Up Capital</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData.paidUpAmount} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    paidUpAmount: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Number of Shares </label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData.numberOfShares2} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    numberOfShares2: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData.currency2} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    currency2: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Share Type</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData.shareType2} onChange={
+                                                            (e) =>
+                                                                setFormData({
+                                                                    ...formData,
+                                                                    shareType2: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Registered Office Address</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.RegisteredOfficeAddress} onChange={
+                                                        (e) =>
+                                                            setFormData1({
+                                                                ...formData1,
+                                                                RegisteredOfficeAddress: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Date Of Address</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.DateOfAddress} onChange={
+                                                        (e) =>
+                                                            setFormData1({
+                                                                ...formData1,
+                                                                DateOfAddress: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <div
+                                                className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Date Of Last AGM</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.DateOfLastAGM} onChange={
+                                                        (e) =>
+                                                            setFormData1({
+                                                                ...formData1,
+                                                                DateOfLastAGM: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">Date Of Last AR</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.DateOfLastAR} onChange={
+                                                        (e) =>
+                                                            setFormData1({
+                                                                ...formData1,
+                                                                DateOfLastAR: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label htmlFor="inputCity" className="form-label">FYE As At Date Of Last AR</label>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData1.FYEAsAtDateOfLastAR} onChange={
+                                                        (e) =>
+                                                            setFormData1({
+                                                                ...formData1,
+                                                                FYEAsAtDateOfLastAR: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <p>Audit Firms</p>
+                                            <div className="row">
+                                                <div className="col-md-12 col-lg-12">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Name </label>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        id="inputCity"
+                                                        value={formData1.Name}
+                                                        onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    Name: e.target.value
+                                                                })
+                                                        }
+                                                    />
+
+                                                </div>
+                                            </div>
+                                            <p>Officers/Authorized Representative(s)</p>
+                                            <div className="row mt-4">
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersName1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersName1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersId1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersId1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersNationalityCitizenship1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersNationalityCitizenship1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Source  Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersSourceOfAddress1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersSourceOfAddress1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag"> Appointment</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersDateOfAppointment1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersDateOfAppointment1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersPositionHeld1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersPositionHeld1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="row mt-3">
+                                                <div className="col-md-6">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersAddress1} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersAddress1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+
+                                                </div>
+                                            </div>
+                                            <div className="row mt-4">
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersName2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersName2: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersId2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersId2: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersNationalityCitizenship2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersNationalityCitizenship2: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Source  Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersSourceOfAddress2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersSourceOfAddress2: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Appointment</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersDateOfAppointment2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersDateOfAppointment2: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersPositionHeld2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersPositionHeld2: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="row mt-3">
+                                                <div className="col-md-6">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData1.officersAddress2} onChange={
+                                                            (e) =>
+                                                                setFormData1({
+                                                                    ...formData1,
+                                                                    officersAddress2: e.target.value
+                                                                })
+                                                        }
+                                                    />
+
+                                                </div>
+                                            </div>
+                                            {/* {
+                                                formData1.officersName3 !== "" && formData1.officersId3 !== "" && formData1.officersNationalityCitizenship3 !== "" && formData1.officersSourceOfAddress3 !== "" && formData1.officersDateOfAppointment3 !== "" && formData1.officersPositionHeld3 !== "" && formData1.officersAddress3 !== "" ? */}
+                                            <>
+                                                <div className="row mt-4">
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersName3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersName3: e.target.value
+                                                                    })
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersId3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersId3: e.target.value
+                                                                    })
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersNationalityCitizenship3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersNationalityCitizenship3: e.target.value
+                                                                    })
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Source Address</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersSourceOfAddress3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersSourceOfAddress3: e.target.value
+                                                                    })
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag"> Appointment</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersDateOfAppointment3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersDateOfAppointment3: e.target.value
+                                                                    })
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersPositionHeld3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersPositionHeld3: e.target.value
+                                                                    })
+
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="row mt-3">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersAddress3} onChange={
+                                                                (e) =>
+                                                                    setFormData1({
+                                                                        ...formData1,
+                                                                        officersAddress3: e.target.value
+                                                                    })
+                                                            }
+                                                        />
+
+                                                    </div>
+                                                </div>
+                                            </>
+                                            {/* }
+                                            {
+                                                formData1.officersName4 !== undefined && formData1.officersId4 !== undefined && formData1.officersNationalityCitizenship4 !== undefined && formData1.officersSourceOfAddress4 !== undefined && formData1.officersDateOfAppointment4 !== undefined && formData1.officersPositionHeld4 !== undefined && formData1.officersAddress4 !== undefined ? */}
+                                            <>
+                                                {/* <div className="row mt-4">
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersName4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersId4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersNationalityCitizenship4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Source Address</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersSourceOfAddress4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Appointment</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersDateOfAppointment4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersPositionHeld4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="row mt-3">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersAddress4} onChange={handleChange}
+                                                        />
+
+                                                    </div>
+                                                </div> */}
+                                            </>
+                                            {/*
+
+                                            }
+                                            {
+                                                formData1.officersName5 !== undefined && formData1.officersId5 !== undefined && formData1.officersNationalityCitizenship5 !== undefined && formData1.officersSourceOfAddress5 !== undefined && formData1.officersDateOfAppointment5 !== undefined && formData1.officersPositionHeld5 !== undefined && formData1.officersAddress5 !== undefined ? */}
+                                            <>
+                                                {/* <div className="row mt-4">
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersName5} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersId5} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Citizenship</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersNationalityCitizenship5} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity"
+                                                            className="form-label label__tag">Source Address</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersSourceOfAddress5} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag"> Appointment</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersDateOfAppointment5} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Position Held</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersPositionHeld5} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="row mt-3">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData1.officersAddress5} onChange={handleChange}
+                                                        />
+
+                                                    </div>
+                                                </div> */}
+                                            </>
+                                            {/* } */}
+                                            <p>
+                                                Shareholder(s)
+                                            </p>
+                                            <div className="col-md-4">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.ShareholderName} onChange={
+                                                        (e) =>
+                                                            setFormData2({
+                                                                ...formData2,
+                                                                ShareholderName: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderId} onChange={
+                                                        (e) =>
+                                                            setFormData2({
+                                                                ...formData2,
+                                                                shareholderId: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderNationality} onChange={
+                                                        (e) =>
+                                                            setFormData2({
+                                                                ...formData2,
+                                                                shareholderNationality: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderSourceOfAddress} onChange={
+                                                        (e) =>
+                                                            setFormData2({
+                                                                ...formData2,
+                                                                shareholderSourceOfAddress: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
+                                                <input type="text" className="form-control" id="inputCity"
+                                                    value={formData2.shareholderAddressChanged} onChange={
+                                                        (e) =>
+                                                            setFormData2({
+                                                                ...formData2,
+                                                                shareholderAddressChanged: e.target.value
+                                                            })
+                                                    }
+                                                />
+                                            </div>
+
+                                            <div className="row mt-4">
+                                                <div className="col-md-6">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddress} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderAddress: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-6"></div>
+
+                                            </div>
+
+                                            <div className="row mt-4">
+                                                <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderOrdinaryNumber} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderOrdinaryNumber: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderCurrency} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderCurrency: e.target.value
+                                                                })
+                                                        }
+                                                    />
+
+                                                </div>
+
+                                            </div>
+                                            {/* {
+                                                formData2.ShareholderName1 !== undefined &&
+                                                    formData2.shareholderId1 !== undefined ? */}
+                                            <>
+                                                <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.ShareholderName1} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+
+                                                                    ...formData2,
+                                                                    ShareholderName1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderId1} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderId1: e.target.value
+                                                                })
+
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderNationality1} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderNationality1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddress1} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderAddress1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddressChanged1} onChange={
+                                                            (e) =>
+                                                                setFormData2({
+                                                                    ...formData2,
+                                                                    shareholderAddressChanged1: e.target.value
+                                                                })
+                                                        }
+                                                    />
+                                                </div>
+
+                                                <div className="row mt-4">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress1} onChange={
+                                                                (e) =>
+                                                                    setFormData2({
+                                                                        ...formData2,
+                                                                        shareholderAddress1: e.target.value
+                                                                    })
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6"></div>
+
+                                                </div>
+
+                                                <div className="row mt-4">
+                                                    <div className="col-md-4">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderOrdinaryNumber1} onChange={
+                                                                (e) =>
+                                                                    setFormData2({
+                                                                        ...formData2,
+                                                                        shareholderOrdinaryNumber1: e.target.value
+                                                                    })
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderCurrency1} onChange={
+                                                                (e) =>
+                                                                    setFormData2({
+                                                                        ...formData2,
+                                                                        shareholderCurrency1: e.target.value
+                                                                    })
+                                                            }
+                                                        />
+
+                                                    </div>
+
+                                                </div>
+                                            </>
+                                            {/* }
+                                            {
+                                                formData2.shareholderName2 !== undefined &&
+                                                    formData2.id2 !== undefined ? */}
+                                            <>
+                                                {/* <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.ShareholderName2} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderId2} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderNationality2} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddress2} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddressChanged2} onChange={handleChange}
+                                                    />
+                                                </div>
+
+                                                <div className="row mt-4">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress2} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6"></div>
+
+                                                </div>
+
+                                                <div className="row mt-4">
+                                                    <div className="col-md-4">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress2} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress2} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                </div> */}
+                                            </>
+                                            {/* }
+                                            {
+                                                formData2.shareholderName3 !== undefined &&
+                                                    formData2.id3 !== undefined ? */}
+                                            <>
+                                                {/* <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.ShareholderName3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderId3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderNationality3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddress3} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddressChanged3} onChange={handleChange}
+                                                    />
+                                                </div>
+
+                                                <div className="row mt-4">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress3} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6"></div>
+
+                                                </div> */}
+
+                                                {/* <div className="row mt-4">
+                                                    <div className="col-md-4">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress3} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress3} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                </div> */}
+                                            </>
+                                            {/* }
+                                            {
+                                                formData2.shareholderName4 !== undefined &&
+                                                    formData2.id4 !== undefined ? */}
+                                            <>
+                                                {/* <div className="col-md-4">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Name</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.ShareholderName4} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">ID</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderId4} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Natio/Citizenship</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderNationality4} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">Source Of Addr</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddress4} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label htmlFor="inputCity" className="form-label label__tag">A Changed</label>
+                                                    <input type="text" className="form-control" id="inputCity"
+                                                        value={formData2.shareholderAddressChanged4} onChange={handleChange}
+                                                    />
+                                                </div> */}
+
+                                                {/* <div className="row mt-4">
+                                                    <div className="col-md-6">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Address</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6"></div>
+
+                                                </div> */}
+
+                                                {/* <div className="row mt-4">
+                                                    <div className="col-md-4">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Ordinary(Number)</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <label htmlFor="inputCity" className="form-label label__tag">Currency</label>
+                                                        <input type="text" className="form-control" id="inputCity"
+                                                            value={formData2.shareholderAddress4} onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                </div> */}
+                                            </>
+
+                                            <div className="mt-2">
+
+                                                <button
+                                                    className="btn__next"
+                                                    onClick={handleSubmit}
+                                                >Submit</button>
+                                            </div>
+
+                                        </div>
+
+                                    </>
+                                )
+                            }
                         </div>
-                    ) : (
-                        null
                     )
                 }
 

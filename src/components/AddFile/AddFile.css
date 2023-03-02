@@ -81,3 +81,18 @@
     width: 50%;
     margin-left: 50%;
 }
+
+#add__form p {
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+}
+
+.label__tag {
+    background: #bbb6b6;
+    color: black;
+    padding: 5px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+}
