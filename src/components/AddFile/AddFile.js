@@ -18,6 +18,7 @@ export default function AddFile() {
     const [step, setStep] = useState(1);
     const [counter, setCounter] = useState(0)
     const [counter1, setCounter1] = useState(0)
+    console.log("hellow roel", files)
     const [newDataArray, setNewDataArray] = useState([
         {
             name: "",
@@ -474,15 +475,17 @@ export default function AddFile() {
                         <Document file={files} onLoadSuccess={onDocumentLoadSuccess}>
                             <Page pageNumber={pageNumber} onRenderSuccess={handleRenderSuccess} />
                         </Document>
+                        {files ?
+                            <p>
+                                <button disabled={pageNumber <= 1} onClick={handlePrevPage} className="btn btn-primary" >
+                                    Previous
+                                </button>&nbsp;
+                                <button disabled={pageNumber >= numPages} onClick={handleNextPage} className="btn btn-success">
+                                    Next
+                                </button>
+                            </p> : null
+                        }
 
-                        <p>
-                            <button disabled={pageNumber <= 1} onClick={handlePrevPage} className="btn btn-primary" >
-                                Previous
-                            </button>&nbsp;
-                            <button disabled={pageNumber >= numPages} onClick={handleNextPage} className="btn btn-success">
-                                Next
-                            </button>
-                        </p>
                         {/* <Document file={files}
                             onLoadSuccess={({ numPages }) => setNumPages(numPages)}>
                             {Array.from(new Array(numPages), (el, index) => (

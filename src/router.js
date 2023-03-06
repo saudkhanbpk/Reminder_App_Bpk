@@ -55,13 +55,14 @@ export default function RouterComponent() {
                         <>
                             <Route path="/" element={<GetUser />} />
                             <Route path="/reminderservices" element={<ReminderServices />} />
+                            <Route path="/addFile" element={<AddFile />} />
+                            <Route path="/remindersetting" element={<ReminderSetting />} />
                         </> : <>
                             <Route path="/remindersetting" element={<ReminderSetting />} />
                             <Route path="/addFile" element={<AddFile />} />
                             {/* <Route path="/login" element={<Login />} /> */}
                             <Route path="/" element={<ReminderAlert />} />
                             <Route path="/reminderservices" element={<ReminderServices />} />
-                            <Route path="/remindersetting" element={<ReminderSetting />} />
                         </>
                     }
                 </Route>
