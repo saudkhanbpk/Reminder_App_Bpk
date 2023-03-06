@@ -40,6 +40,15 @@
 
 }
 
+.recaptcha {
+
+    margin-left: 20px;
+}
+
+.main__opt-div {
+    padding: 67px;
+}
+
 .phone__input-info {
     display: flex;
     justify-content: center;

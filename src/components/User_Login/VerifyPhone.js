@@ -8,7 +8,7 @@ import { auth } from '../../config'
 import { Link } from "react-router-dom";
 import { Button, Form } from 'react-bootstrap';
 import { async } from "@firebase/util";
-export default function VerifyPhone() {
+export default function VerifyPhone({ setPhoneId }) {
     let navigate = useNavigate();
     const [value, setValue] = useState()
     const [number, setNumber] = useState("");
@@ -28,7 +28,7 @@ export default function VerifyPhone() {
         } else {
             setApiLoader(true)
             const response = await setUpRecaptcha(number);
-            // console.log("responose :", response)
+            console.log("responose :", response)
             setResult(response
             )
             setFlag(true)
@@ -53,6 +53,7 @@ export default function VerifyPhone() {
             result.confirm(opt).then((res) => {
                 // console.log("res:", res.uid)
                 localStorage.setItem('uid', res.uid)
+                setPhoneId(res.uid)
                 navigate("/")
             }).catch((err) => {
                 console.log("err:", err)
@@ -113,7 +114,7 @@ export default function VerifyPhone() {
             </div>
             <div className="formData" style={{ display: flag ? "block" : "none" }}>
 
-                <Form.Group className="mb-3" controlId="formBasicOtp">
+                <Form.Group className="" controlId="formBasicOtp">
                     <Form.Control
                         type="otp"
                         placeholder="Enter OTP"

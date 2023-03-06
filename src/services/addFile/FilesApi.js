@@ -11,3 +11,14 @@ export function postFile(data) {
     })
   })
 }
+
+export function getFile(data) {
+  return new Promise((resolve, reject) => {
+    axios.post(`${API_URL}api/getFile`, data).then(async (response) => {
+      resolve(response.data)
+
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
