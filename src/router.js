@@ -17,6 +17,7 @@ import VerifyOtp from "./components/User_Login/VerifyOtp";
 import Naavbar from "./components/Navbar/Navbar";
 import PrivateRoutes from "./components/PrivateComponent/PrivateRoutes";
 import RemindersPage from "./components/Reminders/RemindersPage";
+import GetUser from "./components/CreateUser/GetUser";
 export default function RouterComponent() {
     const [token, setToken] = useState(null)
     const [googleToken, setGoogleToken] = useState(null)
@@ -51,13 +52,22 @@ export default function RouterComponent() {
             {token || googleToken || phoneId ? (<Naavbar setToken={setToken} setGoogleToken={setGoogleToken} setPhoneId={setPhoneId} />) : (null)}
             <Routes>
                 <Route element={<PrivateRoutes />}>
-                    {/* <Route path="/" element={<Login />} /> */}
-                    <Route path="/addFile" element={<AddFile />} />
-                    {/* <Route path="/login" element={<Login />} /> */}
-                    <Route path="/" element={<ReminderAlert />} />
-                    <Route path="/reminderservices" element={<ReminderServices />} />
-                    <Route path="/remindersetting" element={<ReminderSetting />} />
-                    <Route path="/reminders/:_id" element={<RemindersPage />} />
+                    {localStorage.getItem("role") === "admin" ?
+                        <>
+                            <Route path="/" element={<GetUser />} />
+                            <Route path="/reminderservices" element={<ReminderServices />} />
+                            <Route path="/addFile" element={<AddFile />} />
+                            <Route path="/remindersetting" element={<ReminderSetting />} />
+                        </> : <>
+                            <Route path="/remindersetting" element={<ReminderSetting />} />
+                            <Route path="/addFile" element={<AddFile />} />
+                            {/* <Route path="/login" element={<Login />} /> */}
+                            <Route path="/" element={<ReminderAlert />} />
+                            <Route path="/reminderservices" element={<ReminderServices />} />
+                            <Route path="/reminders/:_id" element={<RemindersPage />} />
+
+                        </>
+                    }
                 </Route>
                 <Route path="/login" element={<Login setGoogleToken={setGoogleToken} />} />
                 <Route path="/signUp" element={<SignUp />} />

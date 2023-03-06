@@ -33,3 +33,6 @@
     margin-top: 50px;
     font-size: 50px;
 }
+.settingIcon{
+    cursor: pointer;
+}
