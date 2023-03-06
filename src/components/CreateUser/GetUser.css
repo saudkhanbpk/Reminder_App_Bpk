@@ -1,0 +1,56 @@
+.Delete{
+    cursor:pointer;
+    color: red;
+    font-size: 22px;
+}
+.Users{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.Create{
+    background-color: #0d6efd;
+    color: white;
+    border: none !important;
+    height: 30px;
+    border-radius:5px;
+    cursor: pointer;
+}
+.Create:hover{
+    background-color:#0042f6;
+    color: white;
+    border: none !important;
+    height: 30px;
+    border-radius:5px;
+    cursor: pointer;
+}
+.Pagination {
+    display: flex;
+    flex-wrap: wrap !important;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+
+}
+.Pagination button{
+width: 40px;
+height: 40px;
+font-family: inherit;
+font-weight: 600;
+font-size: 16px;
+margin: 0 10px;
+border-radius: 6px;
+cursor: pointer;
+transition: all 0.3s ease;
+background: transparent;
+color:#eee;
+border-color: #eee;
+color: black;
+}
+.Pagination button.active{
+    font-weight: 900;
+    border-color:white;
+    background: #0d6efd;
+    color: white;
+}

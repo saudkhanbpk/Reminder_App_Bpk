@@ -23,3 +23,24 @@ export function userLogin(data) {
             })
     })
 }
+export function getUser (){
+    return new Promise((resolve,reject)=>{
+        axios.get(`${API_URL}api/getAllUser`)
+        .then((response)=>{
+            resolve(response.data);
+        })
+        .catch((error)=>{
+          reject(error);
+        })
+})
+}
+export function deleteUser(payload){
+    return new Promise((resolve,reject)=>{
+        axios.post(`${API_URL}api/deleteUser`,payload)
+        .then((response)=>{
+            resolve(response.data);
+        }).catch((error)=>{
+            reject(error);
+        })
+    })
+}

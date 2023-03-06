@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "./SignUp.css";
 import { IoMdContact } from "react-icons/io";
 import { AiTwotoneMail } from "react-icons/ai";
@@ -13,7 +13,14 @@ import { useNavigate } from 'react-router-dom';
 export default function SignUp() {
     const [loader, setLoader] = useState();
     const [showpassword, setShowPassword] = useState(false);
-
+    const [role, setRole] = useState("user");
+    const[adminId,setAdminId] = useState("")
+    console.log("addd",adminId);
+useEffect(() => {
+let admin=localStorage.getItem("adminId")
+console.log("admin", admin)
+setAdminId(admin)
+}, [])
     const formik = useFormik({
 
         initialValues: {
@@ -21,6 +28,8 @@ export default function SignUp() {
             email: "",
             phoneNumber: "",
             password: "",
+            role:role,
+            createdBy:localStorage.getItem("adminId"),
             confirmPassword: "",
         },
         onSubmit: values => {
