@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./ReminderAlert.css";
 import Table from 'react-bootstrap/Table';
-import { AiOutlineEye } from "react-icons/ai";
+import { AiFillDelete, AiOutlineEye } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { getFile } from "../../services/addFile/FilesApi";
 import { useDispatch } from 'react-redux'
 import { addFormData } from "../../store/FormdataSlice";
+import { useNavigate } from "react-router-dom";
 export default function ReminderAlert() {
   let dispatch = useDispatch()
   const [data, setData] = useState([])
+  let navigate = useNavigate();
   let userId = localStorage.getItem("userId")
 
   const getFiles = () => {
@@ -41,9 +43,8 @@ export default function ReminderAlert() {
           <tr>
             <th>#</th>
             <th>Nextgen Bizfile</th>
-            {/* <th>View</th>
-            <th>Edit</th>
-            <th>Reminders</th> */}
+            <th>Reminders</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -53,9 +54,10 @@ export default function ReminderAlert() {
                 <tr>
                   <td>{index + 1}</td>
                   <td>{item.companyName}</td>
-                  {/* <td className="der" ><AiOutlineEye /></td>
-                  <td className="der" ><FaEdit /></td>
-                  <td>{item.reminder}</td> */}
+                  <td className="der" ><AiOutlineEye onClick={() => navigate(`reminders/${item._id}`)} /></td>
+                  <td className="der" ><FaEdit />
+                    <AiFillDelete />
+                  </td>
                 </tr>
               )
             }

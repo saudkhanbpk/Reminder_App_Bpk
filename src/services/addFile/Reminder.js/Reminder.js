@@ -12,3 +12,14 @@ export function postReminder(data) {
     })
   })
 }
+
+export function getReminders(id) {
+  return new Promise((resolve, reject) => {
+    axios.post(`${API_URL}api/getReminders/${id}`).then(async (response) => {
+      resolve(response.data)
+
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}

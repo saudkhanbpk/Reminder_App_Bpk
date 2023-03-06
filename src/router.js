@@ -16,6 +16,7 @@ import VerifyPhone from "./components/User_Login/VerifyPhone";
 import VerifyOtp from "./components/User_Login/VerifyOtp";
 import Naavbar from "./components/Navbar/Navbar";
 import PrivateRoutes from "./components/PrivateComponent/PrivateRoutes";
+import RemindersPage from "./components/Reminders/RemindersPage";
 export default function RouterComponent() {
     const [token, setToken] = useState(null)
     const [googleToken, setGoogleToken] = useState(null)
@@ -56,6 +57,7 @@ export default function RouterComponent() {
                     <Route path="/" element={<ReminderAlert />} />
                     <Route path="/reminderservices" element={<ReminderServices />} />
                     <Route path="/remindersetting" element={<ReminderSetting />} />
+                    <Route path="/reminders/:_id" element={<RemindersPage />} />
                 </Route>
                 <Route path="/login" element={<Login setGoogleToken={setGoogleToken} />} />
                 <Route path="/signUp" element={<SignUp />} />
