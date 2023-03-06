@@ -16,6 +16,7 @@ import VerifyPhone from "./components/User_Login/VerifyPhone";
 import VerifyOtp from "./components/User_Login/VerifyOtp";
 import Naavbar from "./components/Navbar/Navbar";
 import PrivateRoutes from "./components/PrivateComponent/PrivateRoutes";
+import RemindersPage from "./components/Reminders/RemindersPage";
 import GetUser from "./components/CreateUser/GetUser";
 export default function RouterComponent() {
     const [token, setToken] = useState(null)
@@ -63,6 +64,8 @@ export default function RouterComponent() {
                             {/* <Route path="/login" element={<Login />} /> */}
                             <Route path="/" element={<ReminderAlert />} />
                             <Route path="/reminderservices" element={<ReminderServices />} />
+                            <Route path="/reminders/:_id" element={<RemindersPage />} />
+
                         </>
                     }
                 </Route>
