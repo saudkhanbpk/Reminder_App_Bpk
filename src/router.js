@@ -16,6 +16,7 @@ import VerifyPhone from "./components/User_Login/VerifyPhone";
 import VerifyOtp from "./components/User_Login/VerifyOtp";
 import Naavbar from "./components/Navbar/Navbar";
 import PrivateRoutes from "./components/PrivateComponent/PrivateRoutes";
+import GetUser from "./components/CreateUser/GetUser";
 export default function RouterComponent() {
     const [token, setToken] = useState()
     const [googleToken, setGoogleToken] = useState()
@@ -50,12 +51,18 @@ export default function RouterComponent() {
             {token || googleToken || phoneId ? (<Naavbar setToken={setToken} setGoogleToken={setGoogleToken} setPhoneId={setPhoneId} />) : (null)}
             <Routes>
                 <Route element={<PrivateRoutes />}>
-                    {/* <Route path="/" element={<Login />} /> */}
+                    {localStorage.getItem("role") === "admin" ?
+                      <>
+                        <Route path="/" element={<GetUser/>} />
+                        <Route path="/reminderservices" element={<ReminderServices />} />
+                        </> :<>
+                    <Route path="/remindersetting" element={<ReminderSetting />} />
                     <Route path="/addFile" element={<AddFile />} />
                     {/* <Route path="/login" element={<Login />} /> */}
                     <Route path="/reminderAlert" element={<ReminderAlert />} />
-                    <Route path="/reminderservices" element={<ReminderServices />} />
-                    <Route path="/remindersetting" element={<ReminderSetting />} />
+                    </>
+                    }
+                    {/* <Route path="/" element={<Login />} /> */}
                 </Route>
                 <Route path="/login" element={<Login setGoogleToken={setGoogleToken} />} />
                 <Route path="/signUp" element={<SignUp />} />
