@@ -15,7 +15,6 @@ export default function LoginStaff() {
 
         let payload = { email, password }
         userLogin(payload).then((res) => {
-            // console.log(res.token)
             localStorage.setItem("loginToken", res.token)
             setTimeout(() => {
                 navigate("/addFile")

@@ -12,14 +12,12 @@ export default function GetUser() {
   const [fetchHandle, setFetchHandle] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(6);
-  console.log("fata", data);
   useEffect(() => {
     userData();
   }, [fetchHandle]);
   const userData = () => {
     getUser()
       .then((res) => {
-        console.log("welcom", res.users);
         setData(res.users);
       })
       .catch((err) => {
@@ -29,7 +27,6 @@ export default function GetUser() {
   const deleteUsers = (id) => {
     deleteUser({ _id: id })
       .then((res) => {
-        console.log("welcom", res);
         setFetchHandle(!fetchHandle);
       })
       .catch((err) => {
@@ -66,7 +63,6 @@ export default function GetUser() {
         </thead>
         <tbody>
           {currentPosts?.map((item, index) => {
-            console.log("item in map", item.name);
             return (
               <tr key={index}>
                 <td>{firstPostIndex + index + 1}</td>

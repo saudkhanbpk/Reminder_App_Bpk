@@ -8,11 +8,9 @@ import { AiFillDelete } from 'react-icons/ai';
 function RemindersPage() {
   const [data, setData] = useState([])
   let id = useParams();
-  console.log("id:", id._id)
 
   useEffect(() => {
     getReminders(id._id).then((res) => {
-      console.log("res:", res)
       setData(res)
     })
       .catch((error) => {

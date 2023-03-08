@@ -13,7 +13,6 @@ export default function Login({ setGoogleToken }) {
 
     const handleClick = () => {
         signInWithPopup(auth, provider).then((data) => {
-            // console.log("dasta:", data.user.uid)
             setValue(data.user.email)
             localStorage.setItem('email', data.user.email)
             setGoogleToken(data.user.email)
