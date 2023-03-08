@@ -11,7 +11,6 @@ const ReminderSetting = () => {
     setData(reminder)
   }, [reminder])
 
-  console.log("reminder", reminder)
   const [steps, setSteps] = useState('1');
   const [allData, setAllData] = useState({
     shareHolderName: { name: '', },
@@ -29,7 +28,6 @@ const ReminderSetting = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     postReminder(allData).then((res) => {
-      console.log("res", res)
       toast.success("Reminder Set Successfully", {
         position: toast.POSITION.TOP_CENTER,
         theme: "colored"
