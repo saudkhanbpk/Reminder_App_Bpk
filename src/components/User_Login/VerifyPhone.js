@@ -113,35 +113,29 @@ export default function VerifyPhone({ setPhoneId }) {
 
                 <Form.Group className="" controlId="formBasicOtp">
                     <Form.Control
+                    className="controlForm"
                         type="otp"
                         placeholder="Enter OTP"
                         onChange={(e) => setOpt(e.target.value)}
                     />
                 </Form.Group>
                 <div className="right button-right">
-                    <Link to="/">
-                        <Button variant="secondary">Cancel</Button>
-                    </Link>
-                    &nbsp;
-                    <Button
+                <Button
+                    className="btn1"
                         type="submit"
                         variant="primary"
                         onClick={verifyOtp}
                     >
                         Verify
                     </Button>
+                   
+                    &nbsp;
+                    <Link to="/">
+                        <Button className="btn2" variant="secondary">Cancel</Button>
+                    </Link>
+                  
                 </div>
             </div>
-
-            {/* <div className="phone">
-                    <PhoneInput
-                        placeholder="Enter phone number"
-                        value={value}
-                        onChange={setValue} />
-                </div>
-                <div className="otp">
-                    <button className="btns" onClick={handleOtp} >Send Otp</button>
-                </div> */}
         </div>
 
     )
