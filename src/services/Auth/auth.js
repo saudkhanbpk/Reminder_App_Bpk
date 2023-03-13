@@ -23,6 +23,17 @@ export function userLogin(data) {
             })
     })
 }
+export function forgetPassword(payload){
+    return new Promise((resolve, reject) => {
+        axios.put(`${API_URL}api/forgetPassword`,payload)
+        .then((response)=>{
+            resolve(response.data);
+        })
+        .catch((error)=>{
+            reject(error);
+        })
+    })
+}
 export function getUser (){
     return new Promise((resolve,reject)=>{
         axios.get(`${API_URL}api/getAllUser`)
