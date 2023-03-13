@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./ReminderAlert.css";
 import Table from 'react-bootstrap/Table';
-import { AiFillDelete, AiOutlineEye } from "react-icons/ai";
+import { AiFillDelete, AiOutlineEye, AiOutlinePlusSquare } from "react-icons/ai";
+import { MdOutlineAddAlert } from 'react-icons/md'
 import { FaEdit } from "react-icons/fa";
 import { getFile } from "../../services/addFile/FilesApi";
 import { useDispatch } from 'react-redux'
@@ -54,7 +55,11 @@ export default function ReminderAlert() {
                 <tr>
                   <td>{index + 1}</td>
                   <td>{item.companyName}</td>
-                  <td className="der" ><AiOutlineEye onClick={() => navigate(`reminders/${item._id}`)} /></td>
+                  <td className="der" ><AiOutlineEye onClick={() => navigate(`reminders/${item._id}`)} />&nbsp;&nbsp;
+                    <span className="settingIcon" onClick={() => navigate("/remindersetting")}> <AiOutlinePlusSquare /></span>
+
+                    {/* <MdOutlineAddAlert /> */}
+                  </td>
                   <td className="der" ><FaEdit />
                     <AiFillDelete />
                   </td>

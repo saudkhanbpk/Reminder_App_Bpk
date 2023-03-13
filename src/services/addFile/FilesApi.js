@@ -22,3 +22,17 @@ export function getFile(data) {
     })
   })
 }
+
+export function getAllLength(data) {
+  return new Promise((resolve, reject) => {
+    axios.get(`${API_URL}api/getAllLength`).then(async (response) => {
+      resolve(response.data)
+
+    }
+    ).catch((error) => {
+      reject(error)
+    }
+    )
+  })
+
+}

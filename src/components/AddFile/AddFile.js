@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./AddFile.css"
+import { confirmAlert } from 'react-confirm-alert';
+
 import { GrAddCircle } from 'react-icons/gr';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { postFile } from "../../services/addFile/FilesApi";
@@ -418,13 +420,56 @@ export default function AddFile() {
         postFile(
             payload
         ).then((res) => {
-            console.log(res)
+            console.log(res.result._id)
+            localStorage.setItem("fileId", res.result._id)
             toast.success("Thank you your record added successfully", {
                 position: toast.POSITION.TOP_CENTER,
                 theme: "colored"
 
             })
+            confirmAlert({
+                customUI: ({ onClose }) => {
+                    return (
+                        <div className='custom-ui'>
+                            <h2>You Need Reminder's Now</h2>
+                            {/* <p>You want to delete this file?</p> */}
+                            <button
+                                style={{
+                                    backgroundColor: "transparent",
+                                    border: "solid white 2px",
+                                    color: "white",
+                                    borderRadius: "5px",
+                                    padding: "5px 10px",
+                                    cursor: "pointer",
+                                    outline: "none",
+
+                                }}
+
+                                onClick={onClose}>No</button>&nbsp;&nbsp;&nbsp;
+                            <button
+                                style={{
+                                    backgroundColor: "transparent",
+                                    border: "solid white 2px",
+                                    color: "white",
+                                    borderRadius: "5px",
+                                    padding: "5px 10px",
+                                    cursor: "pointer",
+                                    outline: "none",
+
+                                }}
+                                onClick={() => {
+                                    navigate('/remindersetting')
+                                    onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    );
+                }
+            });
             navigate('/')
+
         }).catch((error) => {
             console.log(error)
             toast.error("Error Occured", {
