@@ -7,7 +7,6 @@ let {totalPost,postsPerPage,setCurrentPage,currentPage} = props
 
   for (let i = 1; i <= Math.ceil(totalPost/postsPerPage); i++) {
     pages.push(i);
-    console.log("Pages qwq",i);
   }
   return (
     <div className='Pagination'>

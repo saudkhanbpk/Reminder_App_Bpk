@@ -63,6 +63,34 @@
 .right{
     margin-left: 102px;
 }
+
+.controlForm{
+    width: 350px;
+    margin: auto;
+}
+.btn1{
+    background-color: #0d6efd;
+    width: 100px;
+    height: 35px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin: auto;
+    margin-top: 30px;
+    margin-left: 37px;
+}
+.btn2{
+    background-color:red;
+    width: 100px;
+    margin: auto;
+    height: 35px;
+    border-radius: 4px;
+    color: white;
+    margin-top: 30px;
+    font-weight: bold;
+    border: none;
+}
 @media only screen and (max-width: 530px) {
     .paragraph {
         font-size: 12px;
@@ -102,6 +130,10 @@
     .right{
         margin-left: 33px;
     }
+    .controlForm{
+        width: 300px;
+        margin: auto;
+    }
 }
 @media only screen and (max-width: 378px) {
     .paragraph {
@@ -121,5 +153,9 @@
     }
     .right{
         margin-left: 8px;
+    }
+    .controlForm{
+        width: 280px;
+        margin: auto;
     }
 }

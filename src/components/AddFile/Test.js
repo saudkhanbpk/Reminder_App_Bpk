@@ -8,11 +8,9 @@ function Test() {
 
   const fileUpload = (e) => {
     let file = e.target.files[0]
-    console.log('data', file)
     setFiles(file)
   }
   useEffect(() => { pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`; });
-  console.log('pdfData', pdfData)
 
   return (
     <>

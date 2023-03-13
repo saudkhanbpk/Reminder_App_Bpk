@@ -3,7 +3,9 @@ import { postReminder } from "../../services/addFile/Reminder.js/Reminder";
 import "./Reminder_Setting.css";
 import { toast, ToastContainer } from 'react-toastify';
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 const ReminderSetting = () => {
+  const id = useParams()
   const [data, setData] = useState([])
   const [email, setEmail] = useState([])
   const [phone, setPhone] = useState([])
@@ -12,14 +14,16 @@ const ReminderSetting = () => {
   const [shareholderName, setShareholderName] = useState([])
   const [officerNames, setOfficerNames] = useState([])
 
-
+  console.log("id", id._id)
 
   const reminder = useSelector((state) => state.data)
+  let filteredData = reminder.formData.filter((item) => item._id === id._id)
+  console.log("filtered", filteredData)
   useEffect(() => {
     setData(reminder)
   }, [reminder])
 
-  let id = localStorage.getItem("fileId")
+  let id1 = localStorage.getItem("fileId")
   const [steps, setSteps] = useState('1');
   const [counter, setCounter] = useState(0)
   const [allData, setAllData] = useState({
@@ -32,7 +36,7 @@ const ReminderSetting = () => {
     annual: false,
     fillingData: '',
     addedPeople: [],
-    fileId: id
+    fileId: id1
   })
 
   console.log("allData", allData)
@@ -51,14 +55,13 @@ const ReminderSetting = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     postReminder(allData).then((res) => {
-      console.log("res", res)
       toast.success("Reminder Set Successfully", {
         position: toast.POSITION.TOP_CENTER,
         theme: "colored"
       })
-      setTimeout(() => {
-        localStorage.removeItem("fileId")
-      }, 5000);
+      // setTimeout(() => {
+      //   localStorage.removeItem("fileId")
+      // }, 5000);
     })
       .catch((e) => console.log(e))
 
@@ -217,8 +220,9 @@ const ReminderSetting = () => {
             <form className="card card-1" id="second__form">
               <h5 className="text-center">Choose Director/Shareholders</h5>
               {
-                data?.formData.map((item, index) => {
+                data?.formData.filter((item, index) => item._id === id._id).map((item, index) => {
                   let shareHoldersArray = [];
+
                   shareHoldersArray.push(
                     item.ShareholderName !== "" || undefined ? item.ShareholderName : '',
                     item.ShareholderName1 !== "" || undefined ? item.ShareholderName1 : '',
@@ -304,7 +308,7 @@ const ReminderSetting = () => {
               }
 
               {
-                data?.formData.map((item, index) => {
+                data?.formData.filter((item, index) => item._id === id._id).map((item, index) => {
                   let officersArray = [];
                   officersArray.push(
                     item.officersName1 !== "" || undefined ? item.officersName1 : '',

@@ -15,10 +15,8 @@ export default function SignUp() {
     const [showpassword, setShowPassword] = useState(false);
     const [role, setRole] = useState("user");
     const[adminId,setAdminId] = useState("")
-    console.log("addd",adminId);
 useEffect(() => {
 let admin=localStorage.getItem("adminId")
-console.log("admin", admin)
 setAdminId(admin)
 }, [])
     const formik = useFormik({
@@ -34,10 +32,8 @@ setAdminId(admin)
         },
         onSubmit: values => {
             setLoader(true)
-            // console.log("onSubmit", values)
             signUp(values).then((res) => {
 
-                // console.log('welcom', res);
                 toast.success("Data Register Successfully", {
                     theme: "colored",
                 });

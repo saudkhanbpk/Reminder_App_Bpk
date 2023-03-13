@@ -19,6 +19,8 @@ import PrivateRoutes from "./components/PrivateComponent/PrivateRoutes";
 import RemindersPage from "./components/Reminders/RemindersPage";
 import GetUser from "./components/CreateUser/GetUser";
 import DashBoard from "./components/Dashboard/DashBoard";
+import BizFiles from "./components/AddFile/BizFiles";
+import ForgetPassword from "./components/User_Login/ForgetPassword";
 export default function RouterComponent() {
     const [token, setToken] = useState(null)
     const [googleToken, setGoogleToken] = useState(null)
@@ -55,12 +57,14 @@ export default function RouterComponent() {
                 <Route element={<PrivateRoutes />}>
                     {localStorage.getItem("role") === "admin" ?
                         <>
-                            <Route path="/" element={<GetUser />} />
+                            <Route path="/getUser" element={<GetUser />} />
                             <Route path="/reminderservices" element={<ReminderServices />} />
                             <Route path="/addFile" element={<AddFile />} />
                             <Route path="/remindersetting" element={<ReminderSetting />} />
+                            <Route path="/bizFiles" element={<BizFiles />} />
+                            <Route path="/" element={< DashBoard />} />
                         </> : <>
-                            <Route path="/remindersetting" element={<ReminderSetting />} />
+                            <Route path="/remindersetting/:_id" element={<ReminderSetting />} />
                             <Route path="/addFile" element={<AddFile />} />
                             {/* <Route path="/login" element={<Login />} /> */}
                             <Route path="/" element={<ReminderAlert />} />
@@ -71,8 +75,8 @@ export default function RouterComponent() {
                     }
                 </Route>
                 <Route path="/login" element={<Login setGoogleToken={setGoogleToken} />} />
-                <Route path="/dashBoard" element={< DashBoard />} />
                 <Route path="/signUp" element={<SignUp />} />
+                <Route path="/forgetPassword" element={<ForgetPassword />} />
                 <Route path="/loginAdmin" element={<LoginAdmin setToken={setToken} />} />
                 <Route path="/loginStaff" element={<LoginStaff />} />
                 <Route path="/verifyphone" element={<VerifyPhone setPhoneId={setPhoneId} />} />

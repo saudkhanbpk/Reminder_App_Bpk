@@ -33,6 +33,10 @@ export default function ReminderAlert() {
     getFiles()
   }, [])
 
+  const handleNavigate = (id) => {
+    navigate(`remindersetting/${id}`)
+  }
+
 
   return (
 
@@ -56,7 +60,7 @@ export default function ReminderAlert() {
                   <td>{index + 1}</td>
                   <td>{item.companyName}</td>
                   <td className="der" ><AiOutlineEye onClick={() => navigate(`reminders/${item._id}`)} />&nbsp;&nbsp;
-                    <span className="settingIcon" onClick={() => navigate("/remindersetting")}> <AiOutlinePlusSquare /></span>
+                    <span className="settingIcon" onClick={() => handleNavigate(item._id)}> <AiOutlinePlusSquare /></span>
 
                     {/* <MdOutlineAddAlert /> */}
                   </td>

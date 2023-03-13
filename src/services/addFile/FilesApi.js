@@ -34,5 +34,14 @@ export function getAllLength(data) {
     }
     )
   })
+}
 
+export function getAllFiles() {
+  return new Promise((resolve, reject) => {
+    axios.get(`${API_URL}api/getAllFiles`).then(async (response) => {
+      resolve(response.data);
+    }).catch((error) => {
+      reject(error);
+    })
+  })
 }

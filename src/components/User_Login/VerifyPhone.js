@@ -28,7 +28,6 @@ export default function VerifyPhone({ setPhoneId }) {
         } else {
             setApiLoader(true)
             const response = await setUpRecaptcha(number);
-            console.log("responose :", response)
             setResult(response
             )
             setFlag(true)
@@ -51,7 +50,6 @@ export default function VerifyPhone({ setPhoneId }) {
             setError("Please enter a valid otp")
         } else {
             result.confirm(opt).then((res) => {
-                // console.log("res:", res.uid)
                 localStorage.setItem('uid', res.uid)
                 setPhoneId(res.uid)
                 navigate("/")
@@ -62,7 +60,6 @@ export default function VerifyPhone({ setPhoneId }) {
 
     }
 
-    // console.log(opt, number)
 
     return (
         <div className="card card-1" id="login__admin">
@@ -116,35 +113,29 @@ export default function VerifyPhone({ setPhoneId }) {
 
                 <Form.Group className="" controlId="formBasicOtp">
                     <Form.Control
+                    className="controlForm"
                         type="otp"
                         placeholder="Enter OTP"
                         onChange={(e) => setOpt(e.target.value)}
                     />
                 </Form.Group>
                 <div className="right button-right">
-                    <Link to="/">
-                        <Button variant="secondary">Cancel</Button>
-                    </Link>
-                    &nbsp;
-                    <Button
+                <Button
+                    className="btn1"
                         type="submit"
                         variant="primary"
                         onClick={verifyOtp}
                     >
                         Verify
                     </Button>
+                   
+                    &nbsp;
+                    <Link to="/">
+                        <Button className="btn2" variant="secondary">Cancel</Button>
+                    </Link>
+                  
                 </div>
             </div>
-
-            {/* <div className="phone">
-                    <PhoneInput
-                        placeholder="Enter phone number"
-                        value={value}
-                        onChange={setValue} />
-                </div>
-                <div className="otp">
-                    <button className="btns" onClick={handleOtp} >Send Otp</button>
-                </div> */}
         </div>
 
     )

@@ -58,3 +58,11 @@
     background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 
 }
+.password{
+    margin-top: 100px;
+    width: 145px;
+    color: white;
+    background-color: #0d6efd ;
+    border: none;
+    margin:auto;
+}

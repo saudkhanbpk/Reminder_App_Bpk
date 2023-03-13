@@ -11,7 +11,6 @@ function RemindersPage() {
 
   useEffect(() => {
     getReminders(id._id).then((res) => {
-      console.log("res:", res.map((item) => console.log("item:werew", item.reminder)))
       setData(res)
     })
       .catch((error) => {

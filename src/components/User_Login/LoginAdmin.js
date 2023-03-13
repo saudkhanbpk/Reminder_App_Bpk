@@ -16,8 +16,6 @@ export default function LoginUser({ setToken }) {
 
         let payload = { email, password }
         userLogin(payload).then((res) => {
-            // console.log(res.token)
-            // console.log(res)
             localStorage.setItem("loginToken", res.token)
             localStorage.setItem("role", res.user.role)
             localStorage.setItem("adminId",res.user._id)
@@ -55,6 +53,7 @@ export default function LoginUser({ setToken }) {
 
                     <button className="sub" type="submit">Login</button>
                 </form>
+                <button className="password" onClick={()=>navigate("/forgetPassword")} >Forgot Password ?</button>
                 <ToastContainer />
             </div>
         </React.Fragment>
