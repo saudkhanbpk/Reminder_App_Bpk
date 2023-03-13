@@ -53,6 +53,7 @@ export default function LoginUser({ setToken }) {
 
                     <button className="sub" type="submit">Login</button>
                 </form>
+                <button className="password" onClick={()=>navigate("/forgetPassword")} >Forgot Password ?</button>
                 <ToastContainer />
             </div>
         </React.Fragment>

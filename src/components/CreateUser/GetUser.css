@@ -16,6 +16,7 @@
     height: 30px;
     border-radius:5px;
     cursor: pointer;
+    margin-left: 400px;
 }
 .Create:hover{
     background-color:#0042f6;
@@ -53,4 +54,9 @@ color: black;
     border-color:white;
     background: #0d6efd;
     color: white;
+}
+.formsData{
+    width: 250px;
+    margin-left: 150px;
+   
 }
