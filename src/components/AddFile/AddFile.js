@@ -408,7 +408,6 @@ export default function AddFile() {
             }, {});
 
 
-        console.log("filterData", filteredFormData);
         let payload = { filteredFormData, userId }
         postFile(
             payload

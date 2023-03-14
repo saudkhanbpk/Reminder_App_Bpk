@@ -4,7 +4,6 @@ import { Table } from "react-bootstrap";
 import { getAllFiles } from '../../services/addFile/FilesApi';
 export default function BizFiles(){
     const [data,setData]=useState([]);
-    console.log("bzfile",data);
 useEffect(()=>{
     getAllData()
 },[])
@@ -30,7 +29,7 @@ return(
             data?.map((item, index) =>{
               
            return   <tr key={index}>
-            <td>{index}</td>
+            <td>{index+1}</td>
                 <td>{item.companyName}</td>
             
               </tr>
