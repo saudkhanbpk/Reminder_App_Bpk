@@ -49,13 +49,6 @@ export default function Naavbar({ setToken, setGoogleToken, setPhoneId }) {
                 null
               )
             }
-            {/* {
-              (
-                <button className="btnd" onClick={handleClear}>Logout</button>
-              ) : (
-                null      
-              )
-            } */}
           </Navbar.Collapse>
         </Container>
       </Navbar>
