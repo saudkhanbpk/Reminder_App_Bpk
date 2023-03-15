@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./ReminderAlert.css";
 import Table from 'react-bootstrap/Table';
-import { AiFillDelete, AiOutlineEye } from "react-icons/ai";
+import { AiFillDelete, AiOutlineEye, AiOutlinePlusSquare } from "react-icons/ai";
+import { MdOutlineAddAlert } from 'react-icons/md'
 import { FaEdit } from "react-icons/fa";
 import { getFile } from "../../services/addFile/FilesApi";
 import { useDispatch } from 'react-redux'
 import { addFormData } from "../../store/FormdataSlice";
 import { useNavigate } from "react-router-dom";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function ReminderAlert() {
   let dispatch = useDispatch()
   const [data, setData] = useState([])
@@ -32,6 +36,78 @@ export default function ReminderAlert() {
     getFiles()
   }, [])
 
+  const getAlertReminder = (id) => {
+    console.log("id in reminder", id)
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className='custom-ui'>
+            <h2>You Need Reminder's Now</h2>
+            {/* <p>You want to delete this file?</p> */}
+            <button
+              style={{
+                backgroundColor: "transparent",
+                border: "solid white 2px",
+                color: "white",
+                borderRadius: "5px",
+                padding: "5px 10px",
+                cursor: "pointer",
+                outline: "none",
+
+              }}
+
+              onClick={onClose}>No</button>&nbsp;&nbsp;&nbsp;
+            <button
+              style={{
+                backgroundColor: "transparent",
+                border: "solid white 2px",
+                color: "white",
+                borderRadius: "5px",
+                padding: "5px 10px",
+                cursor: "pointer",
+                outline: "none",
+
+              }}
+              onClick={() => {
+                navigate(`remindersetting/${id}`)
+
+                onClose();
+              }}
+            >
+              Yes
+            </button>
+          </div>
+        );
+      }
+    });
+  }
+  useEffect(() => {
+    // Check if the function has already been called
+    const isFunctionCalled = localStorage.getItem('isFunctionCalled');
+
+    if (isFunctionCalled) {
+      // Call the function
+      getAlertReminder();
+
+      // Set the flag in localStorage to indicate that the function has been called
+      localStorage.removeItem('isFunctionCalled');
+    }
+  }, []);
+
+
+
+  const handleNavigate = (id) => {
+    const isFunctionCalled = localStorage.getItem('isFunctionCalled');
+    if (isFunctionCalled) {
+      // Call the function
+      getAlertReminder(id);
+      // navigate(`remindersetting/${id}`)
+    }
+    else {
+      navigate(`remindersetting/${id}`)
+    }
+  }
+
 
   return (
 
@@ -54,7 +130,11 @@ export default function ReminderAlert() {
                 <tr>
                   <td>{index + 1}</td>
                   <td>{item.companyName}</td>
-                  <td className="der" ><AiOutlineEye onClick={() => navigate(`reminders/${item._id}`)} /></td>
+                  <td className="der" ><AiOutlineEye onClick={() => navigate(`reminders/${item._id}`)} />&nbsp;&nbsp;
+                    <span className="settingIcon" onClick={() => handleNavigate(item._id)}> <AiOutlinePlusSquare /></span>
+
+                    {/* <MdOutlineAddAlert /> */}
+                  </td>
                   <td className="der" ><FaEdit />
                     <AiFillDelete />
                   </td>

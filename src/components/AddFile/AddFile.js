@@ -421,13 +421,17 @@ export default function AddFile() {
         postFile(
             payload
         ).then((res) => {
-            console.log(res)
+            console.log(res.result._id)
+            localStorage.setItem("fileId", res.result._id)
             toast.success("Thank you your record added successfully", {
                 position: toast.POSITION.TOP_CENTER,
                 theme: "colored"
 
             })
+            localStorage.setItem('isFunctionCalled', false);
+
             navigate('/')
+
         }).catch((error) => {
             console.log(error)
             toast.error("Error Occured", {

@@ -1,9 +1,15 @@
 #first__form {
   padding: 100px 50px;
-
+  height: auto;
 }
 
 #second__form {
   padding: 30px 50px;
   height: auto;
+  width: auto;
+  margin: 10px 20rem;
+}
+
+.form-text {
+  font-size: 13px;
 }

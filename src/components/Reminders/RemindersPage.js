@@ -26,9 +26,9 @@ function RemindersPage() {
         <thead>
           <tr>
             <th>#</th>
-            <th>Email</th>
+            {/* <th>Email</th> */}
             <th>First Reminder</th>
-            <th>Phone Number</th>
+            {/* <th>Phone Number</th> */}
             <th>Second Reminder</th>
             <th>Final Reminder</th>
             <th>Actions</th>
@@ -37,14 +37,17 @@ function RemindersPage() {
         <tbody>
           {
             data.map((item, index) => {
+              console.log("afte map:", item)
               return (
                 <tr>
                   <td>{index + 1}</td>
-                  <td>{item.email}</td>
-                  <td>{item.phone}</td>
-                  <td>{item.firstReminder}</td>
-                  <td>{item.secondReminder}</td>
-                  <td>{item.finalReminder}</td>
+                  {/* <td>{item.email}</td> */}
+                  {/* <td>{item.phone}</td> */}
+                  <td>{item.reminder.firstReminder}</td>
+                  <td>{item.reminder.secondReminder}</td>
+                  <td>{item.reminder.finalReminder}</td>
+                  {/* <td>{item.secondReminder}</td>
+                  <td>{item.finalReminder}</td> */}
                   <td className="der" ><FaEdit />
                     <AiFillDelete />
                   </td>
