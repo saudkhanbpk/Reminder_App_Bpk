@@ -1,24 +1,25 @@
-import React,{useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import "./BizFiles.css"
 import { Table } from "react-bootstrap";
 import { getAllFiles } from '../../services/addFile/FilesApi';
-export default function BizFiles(){
-    const [data,setData]=useState([]);
-    console.log("bzfile",data);
-useEffect(()=>{
+export default function BizFiles() {
+  const [data, setData] = useState([]);
+  console.log("bzfile", data);
+  useEffect(() => {
     getAllData()
-},[])
-const getAllData =()=>{
-    getAllFiles().then((res)=>{
-        setData(res.files);
-    }).catch((err)=>{
-        console.error(err);
+  }, [])
+  const getAllData = () => {
+    getAllFiles().then((res) => {
+      setData(res.files);
+    }).catch((err) => {
+      console.error(err);
     })
-}
-return(
+  }
+  return (
 
     <div className='BizFil'>
-         <Table striped bordered hover variant="dark">
+      {/* <div className="container"> */}
+      <Table striped bordered hover variant="dark">
         <thead>
           <tr>
             <th>#</th>
@@ -26,21 +27,22 @@ return(
           </tr>
         </thead>
         <tbody>
-            {
-            data?.map((item, index) =>{
-              
-           return   <tr key={index}>
-            <td>{index}</td>
+          {
+            data?.map((item, index) => {
+
+              return <tr key={index}>
+                <td>{index}</td>
                 <td>{item.companyName}</td>
-            
+
               </tr>
             })
-            }
-             
-        
+          }
+
+
         </tbody>
       </Table>
-</div>
-)
+      {/* </div> */}
+    </div>
+  )
 
 }

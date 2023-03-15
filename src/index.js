@@ -5,6 +5,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './store/Store'
 import reportWebVitals from './reportWebVitals';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

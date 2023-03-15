@@ -96,3 +96,11 @@
     font-size: 14px;
     font-weight: 600;
 }
+
+.custom-ui {
+    background-color: #28BAE6;
+    color: white;
+    padding: 34px;
+    border-radius: 10px;
+
+}

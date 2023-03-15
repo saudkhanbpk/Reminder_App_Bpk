@@ -33,7 +33,7 @@ export default function Naavbar({ setToken, setGoogleToken, setPhoneId }) {
             <Nav className="me-auto">
               <Nav.Link onClick={() => navigate('/')}><h6>Home</h6></Nav.Link>
               {
-                localStorage.getItem('role')==='admin' ? (
+                localStorage.getItem('role') === 'admin' ? (
                   <>
                     <Nav.Link onClick={() => navigate("/getUser")}><h6>Users</h6></Nav.Link>
                     <Nav.Link onClick={() => navigate("/bizFiles")}><h6>BizFiles</h6></Nav.Link>
@@ -41,7 +41,6 @@ export default function Naavbar({ setToken, setGoogleToken, setPhoneId }) {
                 ) : null}
               <Nav.Link onClick={() => navigate("/addFile")}><h6>Add File</h6></Nav.Link>
             </Nav>
-            <span className="settingIcon" onClick={() => navigate("/remindersetting")}> < FiSettings /></span>
             {
               localStorage.getItem("email") || localStorage.getItem("loginToken") || localStorage.getItem('uid') ? (
                 <button className="btnd" onClick={handleClick} >Logout</button>
