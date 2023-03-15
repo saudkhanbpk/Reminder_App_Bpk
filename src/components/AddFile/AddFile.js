@@ -4,9 +4,10 @@ import { GrAddCircle } from 'react-icons/gr';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { postFile } from "../../services/addFile/FilesApi";
 import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 export default function AddFile() {
+    let id = useParams()
     let navigate = useNavigate();
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
@@ -18,6 +19,7 @@ export default function AddFile() {
     const [step, setStep] = useState(1);
     const [counter, setCounter] = useState(0)
     const [counter1, setCounter1] = useState(0)
+    const [userId,setUserId]=useState('')
     const [newDataArray, setNewDataArray] = useState([
         {
             name: "",
@@ -396,8 +398,15 @@ export default function AddFile() {
         }
 
     }, [formData, formData1, formData2])
-
-    let userId = localStorage.getItem("userId");
+    useEffect(()=>{
+    if (localStorage.getItem("role")==="admin"){
+    let userId=id
+    setUserId(userId)
+    }else{
+        let userId = localStorage.getItem("userId")
+        setUserId(userId)
+ }
+},[])
     const handleSubmit = (e) => {
         e.preventDefault();
         const filteredFormData = Object.keys(mainForm)
@@ -408,7 +417,7 @@ export default function AddFile() {
             }, {});
 
 
-        let payload = { filteredFormData, userId }
+        let payload = { filteredFormData, userId}
         postFile(
             payload
         ).then((res) => {

@@ -15,7 +15,7 @@ const getAllData =()=>{
     })
 }
 return(
-
+<div className='container'>
     <div className='BizFil'>
          <Table striped bordered hover variant="dark">
         <thead>
@@ -39,6 +39,7 @@ return(
         
         </tbody>
       </Table>
+</div>
 </div>
 )
 
