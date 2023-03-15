@@ -60,7 +60,7 @@ export default function RouterComponent() {
                         <>
                             <Route path="/getUser" element={<GetUser />} />
                             <Route path="/reminderservices" element={<ReminderServices />} />
-                            <Route path="/addFile" element={<AddFile />} />
+                            <Route path="/addFile/:_id" element={<AddFile />} />
                             <Route path="/remindersetting" element={<ReminderSetting />} />
                             <Route path="/bizFiles" element={<BizFiles />} />
                             <Route path="/" element={< DashBoard />} />
