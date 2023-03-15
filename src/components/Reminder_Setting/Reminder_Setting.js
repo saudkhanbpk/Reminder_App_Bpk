@@ -32,9 +32,13 @@ const ReminderSetting = () => {
     firstReminder: '',
     secondReminder: '',
     finalReminder: '',
+    firstReminder1: '',
+    secondReminder2: '',
+    finalReminder3: '',
     income: false,
     annual: false,
-    fillingData: '',
+    ECIAndCITfillingDate: '',
+    annualFillingDate: '',
     addedPeople: [],
     fileId: id1
   })
@@ -183,19 +187,39 @@ const ReminderSetting = () => {
                 }} />
             </div>
             {
-              allData.income || allData.annual ? (
+              allData.income ? (
                 <div>
                   <div className="form-group  mt-4">
-                    <label htmlFor="exampleInputEmail1">What is your filling Date</label>
+                    <label htmlFor="exampleInputEmail1">What is your ECI AND CIT Filling Date</label>
                     <input type="date" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                       onChange={(e) => {
                         setAllData({
                           ...allData,
-                          fillingData: e.target.value
+                          ECIAndCITfillingDate: e.target.value
                         })
                       }
                       }
-                      value={allData.fillingData}
+                      value={allData.ECIAndCITfillingDate}
+                    />
+                  </div>
+                </div>
+              ) : null
+
+            }
+            {
+              allData.annual ? (
+                <div>
+                  <div className="form-group  mt-4">
+                    <label htmlFor="exampleInputEmail1">What Is Your Annual Filling Date</label>
+                    <input type="date" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      onChange={(e) => {
+                        setAllData({
+                          ...allData,
+                          annualFillingDate: e.target.value
+                        })
+                      }
+                      }
+                      value={allData.annualFillingDate}
                     />
                   </div>
                 </div>
@@ -552,76 +576,176 @@ const ReminderSetting = () => {
       {
         steps === '3' ? (
           <div>
-            <form className="card card-1" id="second__form" onSubmit={handleSubmit}>
-              <h5 className="text-center">Choose Reminder settings
-              </h5>
+            {
+              allData.income &&
+              <form className="card card-1" id="second__form" onSubmit={handleSubmit}>
+                <h5 className="text-center">Choose Reminder settings
+                </h5>
+                {
+                  allData.income && <h3>ECI and CIT Filing</h3>
+                }
+                <div className="form-group mt-3">
+                  <label htmlFor="firstReminder">First Reminder</label>
+                  <input
+                    type="datetime-local"
+                    className="form-control"
+                    id="firstReminder"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter Name"
+                    value={
+                      allData.firstReminder
+                    }
+                    onChange={(e) => {
+                      setAllData({
+                        ...allData,
+                        firstReminder: e.target.value
+                      })
+                    }}
+                  />
 
-              <div className="form-group mt-3">
-                <label htmlFor="firstReminder">First Reminder</label>
-                <input
-                  type="datetime-local"
-                  className="form-control"
-                  id="firstReminder"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter Name"
-                  value={
-                    allData.firstReminder
-                  }
-                  onChange={(e) => {
-                    setAllData({
-                      ...allData,
-                      firstReminder: e.target.value
-                    })
-                  }}
-                />
+                </div>
+                <div className="form-group  mt-3">
+                  <label htmlFor="secondReminder">Second Reminder</label>
+                  <input
+                    type="datetime-local"
+                    className="form-control"
+                    id="secondReminder"
+                    placeholder="Enter Name"
+                    value={
+                      allData.secondReminder
+                    }
+                    onChange={(e) => {
+                      setAllData({
+                        ...allData,
+                        secondReminder: e.target.value
+                      })
+                    }}
+                  />
+                </div>
+                <div className="form-group mt-3">
+                  <label htmlFor="finalReminder">Final Reminder</label>
+                  <input
+                    type="datetime-local"
+                    className="form-control"
+                    id="finalReminder"
+                    placeholder="Enter your email"
+                    value={
+                      allData.finalReminder
+                    }
+                    onChange={(e) => {
+                      setAllData({
+                        ...allData,
+                        finalReminder: e.target.value
+                      })
+                    }}
+                  />
+                </div>
+                {
+                  allData.annual ? (
+                    <div className="d-flex flex-row-reverse mt-5" style={{ gap: "4rem" }}>
+                      <button className="btn btn-primary" onClick={() => {
+                        setSteps('4')
+                      }} >Next</button>
+                      <button className="btn btn-danger ml-3" onClick={() => {
+                        setSteps('2')
+                      }}>Back</button>
+                    </div>
+                  ) : (
+                    <div className="d-flex flex-row-reverse mt-5" style={{ gap: "4rem" }}>
+                      <button className="btn btn-primary" >Submit</button>
+                      <button className="btn btn-danger ml-3" onClick={() => {
+                        setSteps('2')
+                      }}>Back</button>
+                    </div>
+                  )
+                }
 
-              </div>
-              <div className="form-group  mt-3">
-                <label htmlFor="secondReminder">Second Reminder</label>
-                <input
-                  type="datetime-local"
-                  className="form-control"
-                  id="secondReminder"
-                  placeholder="Enter Name"
-                  value={
-                    allData.secondReminder
-                  }
-                  onChange={(e) => {
-                    setAllData({
-                      ...allData,
-                      secondReminder: e.target.value
-                    })
-                  }}
-                />
-              </div>
-              <div className="form-group mt-3">
-                <label htmlFor="finalReminder">Final Reminder</label>
-                <input
-                  type="datetime-local"
-                  className="form-control"
-                  id="finalReminder"
-                  placeholder="Enter your email"
-                  value={
-                    allData.finalReminder
-                  }
-                  onChange={(e) => {
-                    setAllData({
-                      ...allData,
-                      finalReminder: e.target.value
-                    })
-                  }}
-                />
-              </div>
-              <div className="d-flex flex-row-reverse mt-5" style={{ gap: "4rem" }}>
-                <button className="btn btn-primary" >Submit</button>
-                <button className="btn btn-danger ml-3" onClick={() => {
-                  setSteps('2')
-                }}>Back</button>
-              </div>
-            </form>
+              </form>
+
+
+            }
+
           </div>
         ) : null
       }
+      {
+        steps === '4' && allData.annual ? (
+
+          <form className="card card-1" id="second__form" onSubmit={handleSubmit}>
+            <h5 className="text-center">Choose Reminder settings
+            </h5>
+            {
+              allData.annual && <h3>Annual Filling</h3>
+            }
+            <div className="form-group mt-3">
+              <label htmlFor="firstReminder">First Reminder</label>
+              <input
+                type="datetime-local"
+                className="form-control"
+                id="firstReminder"
+                aria-describedby="emailHelp"
+                placeholder="Enter Name"
+                value={
+                  allData.firstReminder1
+                }
+                onChange={(e) => {
+                  setAllData({
+                    ...allData,
+                    firstReminder1: e.target.value
+                  })
+                }}
+              />
+
+            </div>
+            <div className="form-group  mt-3">
+              <label htmlFor="secondReminder">Second Reminder</label>
+              <input
+                type="datetime-local"
+                className="form-control"
+                id="secondReminder"
+                placeholder="Enter Name"
+                value={
+                  allData.secondReminder2
+                }
+                onChange={(e) => {
+                  setAllData({
+                    ...allData,
+                    secondReminder2: e.target.value
+                  })
+                }}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label htmlFor="finalReminder">Final Reminder</label>
+              <input
+                type="datetime-local"
+                className="form-control"
+                id="finalReminder"
+                placeholder="Enter your email"
+                value={
+                  allData.finalReminder3
+                }
+                onChange={(e) => {
+                  setAllData({
+                    ...allData,
+                    finalReminder3: e.target.value
+                  })
+                }}
+              />
+            </div>
+            <div className="d-flex flex-row-reverse mt-5" style={{ gap: "4rem" }}>
+              <button className="btn btn-primary" >Submit</button>
+              <button className="btn btn-danger ml-3" onClick={() => {
+                setSteps('2')
+              }}>Back</button>
+            </div>
+          </form>
+        ) : null
+      }
+
+
+
+
       <ToastContainer />
 
     </div >

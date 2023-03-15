@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./AddFile.css"
-import { confirmAlert } from 'react-confirm-alert';
-
 import { GrAddCircle } from 'react-icons/gr';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { postFile } from "../../services/addFile/FilesApi";
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
 export default function AddFile() {
     let navigate = useNavigate();
     const [numPages, setNumPages] = useState(null);
@@ -422,47 +419,8 @@ export default function AddFile() {
                 theme: "colored"
 
             })
-            confirmAlert({
-                customUI: ({ onClose }) => {
-                    return (
-                        <div className='custom-ui'>
-                            <h2>You Need Reminder's Now</h2>
-                            {/* <p>You want to delete this file?</p> */}
-                            <button
-                                style={{
-                                    backgroundColor: "transparent",
-                                    border: "solid white 2px",
-                                    color: "white",
-                                    borderRadius: "5px",
-                                    padding: "5px 10px",
-                                    cursor: "pointer",
-                                    outline: "none",
+            localStorage.setItem('isFunctionCalled', false);
 
-                                }}
-
-                                onClick={onClose}>No</button>&nbsp;&nbsp;&nbsp;
-                            <button
-                                style={{
-                                    backgroundColor: "transparent",
-                                    border: "solid white 2px",
-                                    color: "white",
-                                    borderRadius: "5px",
-                                    padding: "5px 10px",
-                                    cursor: "pointer",
-                                    outline: "none",
-
-                                }}
-                                onClick={() => {
-                                    navigate('/remindersetting')
-                                    onClose();
-                                }}
-                            >
-                                Yes
-                            </button>
-                        </div>
-                    );
-                }
-            });
             navigate('/')
 
         }).catch((error) => {
