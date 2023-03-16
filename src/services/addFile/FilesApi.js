@@ -45,3 +45,13 @@ export function getAllFiles() {
     })
   })
 }
+
+export function deleteFile(payload) {
+  return new Promise((resolve, reject) => {
+    axios.post(`${API_URL}api/deleteFile`, payload).then(async (response) => {
+      resolve(response.data);
+    }).catch((error) => {
+      reject(error);
+    })
+  })
+}
