@@ -7,6 +7,7 @@ import { getUser } from "../../services/Auth/auth";
 import { deleteUser } from "../../services/Auth/auth";
 import { useNavigate } from "react-router-dom";
 import Pagination from "./Pagination";
+import {BsFileEarmarkCheckFill} from "react-icons/bs"
 export default function GetUser() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
@@ -43,8 +44,7 @@ export default function GetUser() {
   
   const currentPosts = filterUsers.slice(firstPostIndex, lastPostIndex);
   return (
-    <div>
-
+    <div className="container">
       <div className="Users">
         <button
           className="Create"
@@ -70,6 +70,7 @@ export default function GetUser() {
             <th>Name</th>
             <th>Email</th>
             <th>UserId</th>
+            <th>Assign File</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -81,6 +82,11 @@ export default function GetUser() {
                 <td>{item?.name}</td>
                 <td>{item.email}</td>
                 <td>{item._id}</td>
+                <td>
+                  <span className="fils" onClick={()=>navigate(`/addFile/${item._id}`)}>
+                  <BsFileEarmarkCheckFill />
+                  </span>
+                </td>
                 <td>
                   <span
                     className="Delete"

@@ -4,16 +4,19 @@ import Table from 'react-bootstrap/Table';
 import { AiFillDelete, AiOutlineEye, AiOutlinePlusSquare } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { getFile } from "../../services/addFile/FilesApi";
+import { deleteFile } from "../../services/addFile/FilesApi";
 import { useDispatch } from 'react-redux'
 import { addFormData } from "../../store/FormdataSlice";
 import { useNavigate } from "react-router-dom";
 import { confirmAlert } from 'react-confirm-alert';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function ReminderAlert() {
   let dispatch = useDispatch()
   const [data, setData] = useState([])
   const [fileId, setFileId] = useState('')
+  const [fetchData, setFetchData] = useState(false);
   let navigate = useNavigate();
   let userId = localStorage.getItem("userId")
   console.log("id", fileId)
@@ -44,7 +47,18 @@ export default function ReminderAlert() {
 
   useEffect(() => {
     getFiles()
-  }, [])
+  }, [fetchData])
+
+  const deleteDataFile = (_id) => {
+    deleteFile({ _id: _id }).then((res) => {
+      toast.success("File Deleted Successfully", {
+        theme: "colored"
+      })
+      setFetchData(!fetchData)
+    }).catch((error) => {
+      toast.error("Something Went Wrong", { theme: "colored" })
+    })
+  }
 
   const getAlertReminder = () => {
     confirmAlert({
@@ -144,7 +158,7 @@ export default function ReminderAlert() {
                     {/* <MdOutlineAddAlert /> */}
                   </td>
                   <td className="der" ><FaEdit />
-                    <AiFillDelete />
+                    &nbsp; <span className="settingIcon" onClick={() => deleteDataFile(item._id)}><AiFillDelete /></span>
                   </td>
                 </tr>
               )
@@ -153,6 +167,7 @@ export default function ReminderAlert() {
           }
         </tbody>
       </Table>
+      <ToastContainer />
     </div>
 
   )

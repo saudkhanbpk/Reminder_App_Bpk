@@ -13,9 +13,9 @@ export default function BizFiles() {
     }).catch((err) => {
       console.error(err);
     })
-  }
-  return (
-
+}
+return(
+<div className='container'>
     <div className='BizFil'>
       {/* <div className="container"> */}
       <Table striped bordered hover variant="dark">
@@ -26,11 +26,11 @@ export default function BizFiles() {
           </tr>
         </thead>
         <tbody>
-          {
-            data?.map((item, index) => {
+            {
+            data?.map((item, index) =>{
 
-              return <tr key={index}>
-                <td>{index}</td>
+           return   <tr key={index}>
+            <td>{index+1}</td>
                 <td>{item.companyName}</td>
 
               </tr>
@@ -40,8 +40,8 @@ export default function BizFiles() {
 
         </tbody>
       </Table>
-      {/* </div> */}
-    </div>
-  )
+</div>
+</div>
+)
 
 }

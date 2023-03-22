@@ -38,8 +38,8 @@ export default function Naavbar({ setToken, setGoogleToken, setPhoneId }) {
                     <Nav.Link onClick={() => navigate("/getUser")}><h6>Users</h6></Nav.Link>
                     <Nav.Link onClick={() => navigate("/bizFiles")}><h6>BizFiles</h6></Nav.Link>
                   </>
-                ) : null}
-              <Nav.Link onClick={() => navigate("/addFile")}><h6>Add File</h6></Nav.Link>
+                ) : <Nav.Link onClick={() => navigate("/addFile")}><h6>Add File</h6></Nav.Link>}
+             
             </Nav>
             {
               localStorage.getItem("email") || localStorage.getItem("loginToken") || localStorage.getItem('uid') ? (
