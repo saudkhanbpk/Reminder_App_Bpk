@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./ReminderAlert.css";
 import Table from 'react-bootstrap/Table';
 import { AiFillDelete, AiOutlineEye, AiOutlinePlusSquare } from "react-icons/ai";
-import { MdOutlineAddAlert } from 'react-icons/md'
 import { FaEdit } from "react-icons/fa";
 import { getFile } from "../../services/addFile/FilesApi";
 import { deleteFile } from "../../services/addFile/FilesApi";
@@ -16,24 +15,35 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function ReminderAlert() {
   let dispatch = useDispatch()
   const [data, setData] = useState([])
+  const [fileId, setFileId] = useState('')
   const [fetchData, setFetchData] = useState(false);
   let navigate = useNavigate();
   let userId = localStorage.getItem("userId")
-
+  console.log("id", fileId)
   const getFiles = () => {
     let payload = { userId: userId }
     getFile(payload).then((res) => {
-      console.log("res", res)
       setData(res.data)
       dispatch(
         addFormData(res.data)
+
       )
+
     }).catch((e) => {
       console.log("e", e)
     })
 
   }
 
+  useEffect(() => {
+    let Id = localStorage.getItem('fileId');
+    setFileId(Id)
+
+  }, [])
+
+
+  let id = localStorage.getItem("fileId")
+  console.log("id", id)
 
   useEffect(() => {
     getFiles()
@@ -50,9 +60,7 @@ export default function ReminderAlert() {
     })
   }
 
-  
-  const getAlertReminder = (id) => {
-    console.log("id in reminder", id)
+  const getAlertReminder = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -84,6 +92,7 @@ export default function ReminderAlert() {
 
               }}
               onClick={() => {
+                console.log("fileId", id)
                 navigate(`remindersetting/${id}`)
 
                 onClose();
@@ -104,7 +113,6 @@ export default function ReminderAlert() {
       // Call the function
       getAlertReminder();
 
-      // Set the flag in localStorage to indicate that the function has been called
       localStorage.removeItem('isFunctionCalled');
     }
   }, []);
@@ -115,7 +123,6 @@ export default function ReminderAlert() {
     const isFunctionCalled = localStorage.getItem('isFunctionCalled');
     if (isFunctionCalled) {
       // Call the function
-      getAlertReminder(id);
       // navigate(`remindersetting/${id}`)
     }
     else {

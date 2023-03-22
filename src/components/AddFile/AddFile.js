@@ -19,7 +19,7 @@ export default function AddFile() {
     const [step, setStep] = useState(1);
     const [counter, setCounter] = useState(0)
     const [counter1, setCounter1] = useState(0)
-    const [userId,setUserId]=useState('')
+    const [userId, setUserId] = useState('')
     const [newDataArray, setNewDataArray] = useState([
         {
             name: "",
@@ -32,16 +32,15 @@ export default function AddFile() {
             currency: "",
         }
     ])
-    const [officers, setOfficers] = useState([
-        {
-            name: "",
-            id: "",
-            nationality: "",
-            sourceOfAddress: "",
-            dateOfAppointment: "",
-            address: "",
-            positionHeld: ""
-        }
+    const [officers, setOfficers] = useState([{
+        name: "",
+        id: "",
+        nationality: "",
+        sourceOfAddress: "",
+        dateOfAppointment: "",
+        address: "",
+        positionHeld: ""
+    }
     ])
 
 
@@ -62,9 +61,9 @@ export default function AddFile() {
     const handleAddShareholder = () => {
         setCounter1(counter1 + 1)
     }
-    const handleAdd = () => {
-        setCounter(counter + 1)
-    }
+    // const handleAdd = () => {
+    //     setCounter(counter + 1)
+    // }
     const handleRemoveInput = () => {
         setCounter(counter - 1)
     }
@@ -398,15 +397,15 @@ export default function AddFile() {
         }
 
     }, [formData, formData1, formData2])
-    useEffect(()=>{
-    if (localStorage.getItem("role")==="admin"){
-    let userId=id
-    setUserId(userId)
-    }else{
-        let userId = localStorage.getItem("userId")
-        setUserId(userId)
- }
-},[])
+    useEffect(() => {
+        if (localStorage.getItem("role") === "admin") {
+            let userId = id
+            setUserId(userId)
+        } else {
+            let userId = localStorage.getItem("userId")
+            setUserId(userId)
+        }
+    }, [])
     const handleSubmit = (e) => {
         e.preventDefault();
         const filteredFormData = Object.keys(mainForm)
@@ -417,11 +416,10 @@ export default function AddFile() {
             }, {});
 
 
-        let payload = { filteredFormData, userId}
+        let payload = { filteredFormData, userId }
         postFile(
             payload
         ).then((res) => {
-            console.log(res.result._id)
             localStorage.setItem("fileId", res.result._id)
             toast.success("Thank you your record added successfully", {
                 position: toast.POSITION.TOP_CENTER,
@@ -484,28 +482,14 @@ export default function AddFile() {
                         </Document>
                         {files ?
                             <p>
-                                <button disabled={pageNumber <= 1} onClick={handlePrevPage} className="btn btn-primary" >
+                                <button onClick={handlePrevPage} className="btn btn-primary" >
                                     Previous
                                 </button>&nbsp;
-                                <button disabled={pageNumber >= numPages} onClick={handleNextPage} className="btn btn-success">
+                                <button onClick={handleNextPage} className="btn btn-success">
                                     Next
                                 </button>
                             </p> : null
                         }
-
-                        {/* <Document file={files}
-                            onLoadSuccess={({ numPages }) => setNumPages(numPages)}>
-                            {Array.from(new Array(numPages), (el, index) => (
-                                <Page
-                                    key={`page_${index + 1}`}
-                                    pageNumber={index + 1}
-                                    onRenderSuccess={handleRenderSuccess}
-                                />
-                            ),
-                            )
-
-                            }
-                        </Document> */}
                     </div>
                 </div>
                 {

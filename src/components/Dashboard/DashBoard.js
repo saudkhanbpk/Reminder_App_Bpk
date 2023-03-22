@@ -34,7 +34,6 @@ function DashBoard() {
   const getLengths = () => {
     getAllLength().then((res) => {
       setLength(res)
-      console.log(res)
     })
       .catch((e) => {
         console.log(e)

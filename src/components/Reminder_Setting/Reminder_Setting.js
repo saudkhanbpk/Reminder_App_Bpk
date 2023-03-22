@@ -14,11 +14,9 @@ const ReminderSetting = () => {
   const [shareholderName, setShareholderName] = useState([])
   const [officerNames, setOfficerNames] = useState([])
 
-  console.log("id", id._id)
 
   const reminder = useSelector((state) => state.data)
   let filteredData = reminder.formData.filter((item) => item._id === id._id)
-  console.log("filtered", filteredData)
   useEffect(() => {
     setData(reminder)
   }, [reminder])
@@ -43,7 +41,6 @@ const ReminderSetting = () => {
     fileId: id1
   })
 
-  console.log("allData", allData)
 
   const handleAddInput = (e) => {
     e.preventDefault();
