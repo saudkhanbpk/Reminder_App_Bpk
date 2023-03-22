@@ -4,7 +4,6 @@ import { Table } from "react-bootstrap";
 import { getAllFiles } from '../../services/addFile/FilesApi';
 export default function BizFiles() {
   const [data, setData] = useState([]);
-  console.log("bzfile", data);
   useEffect(() => {
     getAllData()
   }, [])

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getReminders } from '../../services/addFile/Reminder.js/Reminder'
 import { Table } from 'react-bootstrap';
-import { AiOutlineEye } from 'react-icons/ai';
 import { FaEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
 function RemindersPage() {
@@ -12,12 +11,9 @@ function RemindersPage() {
   useEffect(() => {
     getReminders(id._id).then((res) => {
       setData(res)
+    }).catch((error) => {
+      console.log("🚀 ~ file: RemindersPage.js:13 ~ useEffect ~ error:", error)
     })
-      .catch((error) => {
-        console.log("🚀 ~ file: RemindersPage.js:13 ~ useEffect ~ error:", error)
-
-      })
-
   }, [])
 
   return (
@@ -26,9 +22,7 @@ function RemindersPage() {
         <thead>
           <tr>
             <th>#</th>
-            {/* <th>Email</th> */}
             <th>First Reminder</th>
-            {/* <th>Phone Number</th> */}
             <th>Second Reminder</th>
             <th>Final Reminder</th>
             <th>Actions</th>
@@ -37,28 +31,19 @@ function RemindersPage() {
         <tbody>
           {
             data.map((item, index) => {
-              console.log("afte map:", item)
               return (
                 <tr>
                   <td>{index + 1}</td>
-                  {/* <td>{item.email}</td> */}
-                  {/* <td>{item.phone}</td> */}
-                  <td>{item.reminder.firstReminder}</td>
-                  <td>{item.reminder.secondReminder}</td>
-                  <td>{item.reminder.finalReminder}</td>
-                  {/* <td>{item.secondReminder}</td>
-                  <td>{item.finalReminder}</td> */}
-                  <td className="der" ><FaEdit />
+                  <td>{item.reminder[0].firstReminder}</td>
+                  <td>{item.reminder[0].secondReminder}</td>
+                  <td>{item.reminder[0].finalReminder}</td>
+
+                  {/* <td className="der" ><FaEdit />
                     <AiFillDelete />
-                  </td>
+                  </td> */}
                 </tr>
               )
-
-
-            })
-
-
-          }
+            })}
         </tbody>
       </Table>
     </React.Fragment>
