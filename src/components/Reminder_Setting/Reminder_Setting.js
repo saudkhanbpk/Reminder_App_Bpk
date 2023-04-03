@@ -3,8 +3,9 @@ import { postReminder } from "../../services/addFile/Reminder.js/Reminder";
 import "./Reminder_Setting.css";
 import { toast, ToastContainer } from 'react-toastify';
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 const ReminderSetting = () => {
+  let navigate = useNavigate();
   const id = useParams()
   const [data, setData] = useState([])
   const [email, setEmail] = useState([])
@@ -20,6 +21,48 @@ const ReminderSetting = () => {
   useEffect(() => {
     setData(reminder)
   }, [reminder])
+  console.log("date:", filteredData[0]?.FYEAsAtDateOfLastAR
+  )
+  // get the month from the above date
+  let month = filteredData[0]?.FYEAsAtDateOfLastAR?.split("/")[1]
+  console.log("month:", month)
+  //add 3 months to the month
+  let result = (parseInt(month) + 3) % 12
+
+  console.log("result:", result)
+
+  const annualDate = (parseInt(month) + 7) % 12
+  console.log("annualDate:", annualDate)
+
+  //before
+  let beforeMonth = filteredData[0]?.FYEAsAtDateOfLastAR?.split("/")[1]
+  let before = (parseInt(beforeMonth) - 3) % 12
+  let ninetyDaysReminder = (parseInt(before) + 3) % 12
+  //get current year
+  let currentYear = new Date().getFullYear()
+  console.log("ninetyDaysReminder:", `${currentYear}-${ninetyDaysReminder}-30T09:00`)
+  let sixtyDaysReminder = (parseInt(before) + 4) % 12
+  console.log("sixtyDaysReminder:", `${currentYear}-${sixtyDaysReminder}-30T09:00`)
+  let thirtyDaysReminder = (parseInt(before) + 5) % 12
+  console.log("thirtyDaysReminder:", `${currentYear}-${thirtyDaysReminder}-30T09:00`)
+
+  // CIT reminder
+  let CITNinetyDaysReminder = `${currentYear}-8-30T09:00`
+  let CITSixtyDaysReminder = `${currentYear}-9-30T09:00`
+  let CITThirtyDaysReminder = `${currentYear}-10-31T09:00`
+
+  //annual reminder
+  let annualbefore = (parseInt(annualDate) - 3) % 12
+  let annualNinetyDaysReminder1 = (parseInt(annualbefore) + 3) % 12
+  let annualSixtyDaysReminder2 = (parseInt(annualbefore) + 4) % 12
+  let annualThirtyDaysReminder3 = (parseInt(annualbefore) + 5) % 12
+  let annualNinetyDaysReminder = `${currentYear}-${annualNinetyDaysReminder1}-30T09:00`
+  let annualSixtyDaysReminder = `${currentYear}-${annualSixtyDaysReminder2}-30T09:00`
+  let annualThirtyDaysReminder = `${currentYear + 1}-${annualThirtyDaysReminder3}-31T09:00`
+
+
+
+
 
   let id1 = localStorage.getItem("fileId")
   const [steps, setSteps] = useState('1');
@@ -27,16 +70,21 @@ const ReminderSetting = () => {
   const [allData, setAllData] = useState({
     shareHoldersArray: [{ email: email }, { phone: phone }, { shareholderName: shareholderName }],
     officersArray: [{ officersEmail: officerEmail }, { officerPhone: officerPhone }, { officerNames: officerNames }],
-    firstReminder: '',
-    secondReminder: '',
-    finalReminder: '',
-    firstReminder1: '',
-    secondReminder2: '',
-    finalReminder3: '',
-    income: false,
+    ECIFirstReminder: '',
+    ECIsecondReminder: '',
+    ECIfinalReminder: '',
+    CITfirstReminder: '',
+    CITsecondReminder: '',
+    CITfinalReminder: '',
+    annualFirstReminder: '',
+    annualSecondReminder: '',
+    annualFinalReminder: '',
+    ECI: false,
+    CIT: false,
     annual: false,
-    ECIAndCITfillingDate: '',
-    annualFillingDate: '',
+    ECIfillingDate: `31-${result}-${currentYear}`,
+    CITfillingDate: `31th-11-${currentYear}`,
+    annualFillingDate: `31/${annualDate}-${currentYear}`,
     addedPeople: [],
     fileId: id1
   })
@@ -60,9 +108,7 @@ const ReminderSetting = () => {
         position: toast.POSITION.TOP_CENTER,
         theme: "colored"
       })
-      // setTimeout(() => {
-      //   localStorage.removeItem("fileId")
-      // }, 5000);
+      navigate("/")
     })
       .catch((e) => console.log(e))
 
@@ -156,22 +202,37 @@ const ReminderSetting = () => {
             <h4 className="text-center">Choose service to remind</h4>
 
             <div className="form-group d-flex justify-content-between mt-4">
-              <label htmlFor="exampleInputEmail1">1. ECI and CIT filings</label>
+              <label htmlFor="exampleInputEmail1">1. ECI Filings</label>
               <input type="checkbox" className="form-check-input" id="exampleCheck1"
                 checked={
-                  allData.income
+                  allData.ECI
                 }
                 onChange={(e) => {
                   setAllData({
                     ...allData,
-                    income: e.target.checked
+                    ECI: e.target.checked
                   })
 
                 }} />
 
             </div>
             <div className="form-group d-flex justify-content-between mt-4">
-              <label htmlFor="exampleInputPassword1">2. Annual Filling</label>
+              <label htmlFor="exampleInputEmail1">2. CIT filings</label>
+              <input type="checkbox" className="form-check-input" id="exampleCheck1"
+                checked={
+                  allData.CIT
+                }
+                onChange={(e) => {
+                  setAllData({
+                    ...allData,
+                    CIT: e.target.checked
+                  })
+
+                }} />
+
+            </div>
+            <div className="form-group d-flex justify-content-between mt-4">
+              <label htmlFor="exampleInputPassword1">3. Annual Filling</label>
               <input type="checkbox" className="form-check-input" id="exampleInputPassword1"
                 checked={
                   allData.annual
@@ -184,19 +245,40 @@ const ReminderSetting = () => {
                 }} />
             </div>
             {
-              allData.income ? (
+              allData.ECI ? (
                 <div>
                   <div className="form-group  mt-4">
-                    <label htmlFor="exampleInputEmail1">What is your ECI AND CIT Filling Date</label>
-                    <input type="date" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <label htmlFor="exampleInputEmail1">Your ECI Filling Date Is:</label>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      value={allData.ECIfillingDate}
+
                       onChange={(e) => {
                         setAllData({
                           ...allData,
-                          ECIAndCITfillingDate: e.target.value
+                          ECIfillingDate: e.target.value
                         })
-                      }
-                      }
-                      value={allData.ECIAndCITfillingDate}
+                      }}
+
+
+                    />
+                  </div>
+                </div>
+              ) : null
+
+            }
+            {
+              allData.CIT ? (
+                <div>
+                  <div className="form-group  mt-4">
+                    <label htmlFor="exampleInputEmail1">Your CIT Filling Date Is:</label>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      value={allData.CITfillingDate}
+                      onChange={(e) => {
+                        setAllData({
+                          ...allData,
+                          CITfillingDate: e.target.value
+                        })
+                      }}
                     />
                   </div>
                 </div>
@@ -207,16 +289,15 @@ const ReminderSetting = () => {
               allData.annual ? (
                 <div>
                   <div className="form-group  mt-4">
-                    <label htmlFor="exampleInputEmail1">What Is Your Annual Filling Date</label>
-                    <input type="date" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <label htmlFor="exampleInputEmail1">Your Annual Filling Date Is:</label>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      value={allData.annualFillingDate}
                       onChange={(e) => {
                         setAllData({
                           ...allData,
                           annualFillingDate: e.target.value
                         })
-                      }
-                      }
-                      value={allData.annualFillingDate}
+                      }}
                     />
                   </div>
                 </div>
@@ -225,7 +306,7 @@ const ReminderSetting = () => {
             }
             <div className="text-center mt-5">
               <button disabled={
-                !allData.income && !allData.annual
+                !allData.ECI && !allData.annual && !allData.CIT
               } className="btn btn-primary" onClick={() => {
                 setSteps('2')
               }}>Next</button>
@@ -406,71 +487,6 @@ const ReminderSetting = () => {
                   )
                 })
               }
-
-
-
-
-
-
-
-
-
-              {/* <div className="form-group mt-3">
-                <label htmlFor="exampleInputEmail1">Name (Shareholder)</label> */}
-              {/* {
-                  data.formData.map((item, index) => {
-                    let namesArr = []
-                    namesArr.push(item.ShareholderName,
-                      item.ShareholderName1,
-                      // item.ShareholderName2,
-                      // item.ShareholderName3,
-                      // item.ShareholderName4,
-                      item.officersName1,
-                      item.officersName2,
-                      item.officersName3,
-                      // item.officersName4,
-                      // item.officersName5,
-                    )
-                    return (
-                      namesArr.map((item, index) => {
-                        return (
-                          <div key={index}>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              placeholder="Enter Name"
-                              value={item}
-                              onChange={(e) => {
-                                setAllData({
-                                  ...allData,
-                                  shareHolderName: { name: e.target.value }
-                                })
-                              }}
-                            />
-                          </div>
-                        )
-                      }
-                      )
-                    )
-                  })
-                } */}
-              {/* <input
-                  type="text"
-                  className="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter Name"
-                  onChange={(e) => {
-                    setAllData({
-                      ...allData,
-                      shareHolderName: { name: e.target.value }
-                    })
-                  }}
-                />
-
-              </div> */}
               {
                 Array.from({ length: counter }, (_, index) => {
                   return (
@@ -550,10 +566,10 @@ const ReminderSetting = () => {
               <div className="d-flex flex-row-reverse
  mt-5" style={{ gap: "4rem" }}>
 
-                <button disabled={
-                  !allData.shareHoldersArray
-                } className="btn btn-primary" onClick={() => {
-                  setSteps('3')
+                <button className="btn btn-primary" onClick={() => {
+                  setSteps(
+                    allData.ECI && "3" || allData.CIT && "4" || allData.annual && "5"
+                  )
                 }}>Next</button>
                 <button className="btn btn-danger ml-3" onClick={() => {
                   setSteps('1')
@@ -574,74 +590,105 @@ const ReminderSetting = () => {
         steps === '3' ? (
           <div>
             {
-              allData.income &&
+              allData.ECI &&
               <form className="card card-1" id="second__form" onSubmit={handleSubmit}>
                 <h5 className="text-center">Choose Reminder settings
                 </h5>
                 {
-                  allData.income && <h3>ECI and CIT Filing</h3>
+                  allData.ECI && <h3>ECI Filing</h3>
                 }
+
                 <div className="form-group mt-3">
                   <label htmlFor="firstReminder">First Reminder</label>
-                  <input
+                  <select class="form-select" aria-label="Default select example"
+                    value={allData.ECIFirstReminder}
+                    onChange={(e) => {
+                      setAllData({
+                        ...allData,
+                        ECIFirstReminder: e.target.value
+                      })
+                    }}
+
+                  >
+                    <option selected >Open this select Reminder</option>
+                    <option value={`${currentYear}-${ninetyDaysReminder}-30T09:00`}>90 Days</option>
+                    <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
+                    <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+
+                  </select>
+                  {/* <input
                     type="datetime-local"
                     className="form-control"
                     id="firstReminder"
                     aria-describedby="emailHelp"
                     placeholder="Enter Name"
                     value={
-                      allData.firstReminder
+                      allData.ECIFirstReminder
                     }
                     onChange={(e) => {
                       setAllData({
                         ...allData,
-                        firstReminder: e.target.value
+                        ECIFirstReminder: e.target.value
                       })
                     }}
-                  />
-
+                  /> */}
                 </div>
                 <div className="form-group  mt-3">
                   <label htmlFor="secondReminder">Second Reminder</label>
-                  <input
+                  <select class="form-select" aria-label="Default select example"
+                    value={allData.ECIsecondReminder}
+                    onChange={(e) => {
+                      setAllData({
+                        ...allData,
+                        ECIsecondReminder: e.target.value
+                      })
+                    }}
+                  >
+                    <option selected disabled>Open this select Reminder</option>
+                    <option value={`${currentYear}-${ninetyDaysReminder}-30T09:00`}>90 Days</option>
+                    <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
+                    <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                  </select>
+                  {/* <input
                     type="datetime-local"
                     className="form-control"
                     id="secondReminder"
                     placeholder="Enter Name"
                     value={
-                      allData.secondReminder
+                      allData.ECIsecondReminder
                     }
                     onChange={(e) => {
                       setAllData({
                         ...allData,
-                        secondReminder: e.target.value
+                        ECIsecondReminder: e.target.value
                       })
                     }}
-                  />
+                  /> */}
                 </div>
                 <div className="form-group mt-3">
                   <label htmlFor="finalReminder">Final Reminder</label>
-                  <input
-                    type="datetime-local"
-                    className="form-control"
-                    id="finalReminder"
-                    placeholder="Enter your email"
-                    value={
-                      allData.finalReminder
-                    }
+                  <select class="form-select" aria-label="Default select example"
+                    value={allData.ECIfinalReminder}
                     onChange={(e) => {
                       setAllData({
                         ...allData,
-                        finalReminder: e.target.value
+                        ECIfinalReminder: e.target.value
                       })
                     }}
-                  />
+                  >
+                    <option selected disabled>Open this select Reminder</option>
+                    <option value={`${currentYear}-${ninetyDaysReminder}-30T09:00`}>90 Days</option>
+                    <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
+                    <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                  </select>
                 </div>
                 {
-                  allData.annual ? (
+                  allData.annual || allData.CIT ? (
                     <div className="d-flex flex-row-reverse mt-5" style={{ gap: "4rem" }}>
                       <button className="btn btn-primary" onClick={() => {
-                        setSteps('4')
+                        setSteps(
+                          allData.CIT ? '4' : '5'
+                        )
                       }} >Next</button>
                       <button className="btn btn-danger ml-3" onClick={() => {
                         setSteps('2')
@@ -656,18 +703,102 @@ const ReminderSetting = () => {
                     </div>
                   )
                 }
-
               </form>
-
-
             }
 
           </div>
         ) : null
       }
       {
-        steps === '4' && allData.annual ? (
+        steps === '4' ? (
+          <div>
+            {
+              allData.CIT &&
+              <form className="card card-1" id="second__form" onSubmit={handleSubmit}>
+                <h5 className="text-center">Choose Reminder settings
+                </h5>
+                {
+                  allData.CIT && <h3>CIT Filing</h3>
+                }
 
+                <div className="form-group mt-3">
+                  <label htmlFor="firstReminder">First Reminder</label>
+                  <select class="form-select" aria-label="Default select example"
+                    value={allData.CITfirstReminder}
+                    onChange={(e) => {
+                      setAllData({
+                        ...allData,
+                        CITfirstReminder: e.target.value
+                      })
+                    }}
+                  >
+                    <option selected disabled>Open this select Reminder</option>
+                    <option value={CITNinetyDaysReminder}>90 Days</option>
+                    <option value={CITSixtyDaysReminder}>60 Days</option>
+                    <option value={CITThirtyDaysReminder}>30 Days</option>
+                  </select>
+                </div>
+                <div className="form-group  mt-3">
+                  <label htmlFor="secondReminder">Second Reminder</label>
+                  <select class="form-select" aria-label="Default select example"
+                    value={allData.CITsecondReminder}
+                    onChange={(e) => {
+                      setAllData({
+                        ...allData,
+                        CITsecondReminder: e.target.value
+                      })
+                    }}
+                  >
+                    <option selected disabled>Open this select Reminder</option>
+                    <option value={CITNinetyDaysReminder}>90 Days</option>
+                    <option value={CITSixtyDaysReminder}>60 Days</option>
+                    <option value={CITThirtyDaysReminder}>30 Days</option>
+                  </select>
+                </div>
+                <div className="form-group mt-3">
+                  <label htmlFor="finalReminder">Final Reminder</label>
+                  <select class="form-select" aria-label="Default select example"
+                    value={allData.CITfinalReminder}
+                    onChange={(e) => {
+                      setAllData({
+                        ...allData,
+                        CITfinalReminder: e.target.value
+                      })
+                    }}
+                  >
+                    <option selected disabled>Open this select Reminder</option>
+                    <option value={CITNinetyDaysReminder}>90 Days</option>
+                    <option value={CITSixtyDaysReminder}>60 Days</option>
+                    <option value={CITThirtyDaysReminder}>30 Days</option>
+                  </select>
+                </div>
+                {
+                  allData.annual ? (
+                    <div className="d-flex flex-row-reverse mt-5" style={{ gap: "4rem" }}>
+                      <button className="btn btn-primary" onClick={() => {
+                        setSteps('5')
+                      }} >Next</button>
+                      <button className="btn btn-danger ml-3" onClick={() => {
+                        setSteps('3')
+                      }}>Back</button>
+                    </div>
+                  ) : (
+                    <div className="d-flex flex-row-reverse mt-5" style={{ gap: "4rem" }}>
+                      <button className="btn btn-primary" >Submit</button>
+                      <button className="btn btn-danger ml-3" onClick={() => {
+                        setSteps('3')
+                      }}>Back</button>
+                    </div>
+                  )
+                }
+              </form>
+            }
+
+          </div>
+        ) : null
+      }
+      {
+        steps === '5' && allData.annual ? (
           <form className="card card-1" id="second__form" onSubmit={handleSubmit}>
             <h5 className="text-center">Choose Reminder settings
             </h5>
@@ -676,59 +807,55 @@ const ReminderSetting = () => {
             }
             <div className="form-group mt-3">
               <label htmlFor="firstReminder">First Reminder</label>
-              <input
-                type="datetime-local"
-                className="form-control"
-                id="firstReminder"
-                aria-describedby="emailHelp"
-                placeholder="Enter Name"
-                value={
-                  allData.firstReminder1
-                }
+              <select class="form-select" aria-label="Default select example"
+                value={allData.annualFirstReminder}
                 onChange={(e) => {
                   setAllData({
                     ...allData,
-                    firstReminder1: e.target.value
+                    annualFirstReminder: e.target.value
                   })
                 }}
-              />
+              >
+                <option selected disabled>Open this select Reminder</option>
+                <option value={annualNinetyDaysReminder}>90 Days</option>
+                <option value={annualSixtyDaysReminder}>60 Days</option>
+                <option value={annualThirtyDaysReminder}>30 Days</option>
+              </select>
 
             </div>
             <div className="form-group  mt-3">
               <label htmlFor="secondReminder">Second Reminder</label>
-              <input
-                type="datetime-local"
-                className="form-control"
-                id="secondReminder"
-                placeholder="Enter Name"
-                value={
-                  allData.secondReminder2
-                }
+              <select class="form-select" aria-label="Default select example"
+                value={allData.annualSecondReminder}
                 onChange={(e) => {
                   setAllData({
                     ...allData,
-                    secondReminder2: e.target.value
+                    annualSecondReminder: e.target.value
                   })
                 }}
-              />
+              >
+                <option selected disabled>Open this select Reminder</option>
+                <option value={annualNinetyDaysReminder}>90 Days</option>
+                <option value={annualSixtyDaysReminder}>60 Days</option>
+                <option value={annualThirtyDaysReminder}>30 Days</option>
+              </select>
             </div>
             <div className="form-group mt-3">
               <label htmlFor="finalReminder">Final Reminder</label>
-              <input
-                type="datetime-local"
-                className="form-control"
-                id="finalReminder"
-                placeholder="Enter your email"
-                value={
-                  allData.finalReminder3
-                }
+              <select class="form-select" aria-label="Default select example"
+                value={allData.annualFinalReminder}
                 onChange={(e) => {
                   setAllData({
                     ...allData,
-                    finalReminder3: e.target.value
+                    annualFinalReminder: e.target.value
                   })
                 }}
-              />
+              >
+                <option selected disabled>Open this select Reminder</option>
+                <option value={annualNinetyDaysReminder}>90 Days</option>
+                <option value={annualSixtyDaysReminder}>60 Days</option>
+                <option value={annualThirtyDaysReminder}>30 Days</option>
+              </select>
             </div>
             <div className="d-flex flex-row-reverse mt-5" style={{ gap: "4rem" }}>
               <button className="btn btn-primary" >Submit</button>
@@ -739,8 +866,6 @@ const ReminderSetting = () => {
           </form>
         ) : null
       }
-
-
 
 
       <ToastContainer />
