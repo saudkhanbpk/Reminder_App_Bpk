@@ -606,32 +606,18 @@ const ReminderSetting = () => {
                       setAllData({
                         ...allData,
                         ECIFirstReminder: e.target.value
-                      })
-                    }}
 
-                  >
+                      })
+
+                    }}>
                     <option selected >Open this select Reminder</option>
                     <option value={`${currentYear}-${ninetyDaysReminder}-30T09:00`}>90 Days</option>
                     <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
                     <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
-
                   </select>
-                  {/* <input
-                    type="datetime-local"
-                    className="form-control"
-                    id="firstReminder"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter Name"
-                    value={
-                      allData.ECIFirstReminder
-                    }
-                    onChange={(e) => {
-                      setAllData({
-                        ...allData,
-                        ECIFirstReminder: e.target.value
-                      })
-                    }}
-                  /> */}
+                  {
+                    allData.ECIFirstReminder && <p>{allData.ECIFirstReminder}</p>
+                  }
                 </div>
                 <div className="form-group  mt-3">
                   <label htmlFor="secondReminder">Second Reminder</label>
@@ -649,6 +635,9 @@ const ReminderSetting = () => {
                     <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
                     <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
                   </select>
+                  {
+                    allData.ECIsecondReminder && <p>{allData.ECIsecondReminder}</p>
+                  }
                   {/* <input
                     type="datetime-local"
                     className="form-control"
@@ -681,6 +670,9 @@ const ReminderSetting = () => {
                     <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
                     <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
                   </select>
+                  {
+                    allData.ECIfinalReminder && <p>{allData.ECIfinalReminder}</p>
+                  }
                 </div>
                 {
                   allData.annual || allData.CIT ? (
@@ -737,6 +729,9 @@ const ReminderSetting = () => {
                     <option value={CITSixtyDaysReminder}>60 Days</option>
                     <option value={CITThirtyDaysReminder}>30 Days</option>
                   </select>
+                  {
+                    allData.CITfirstReminder && <p>{allData.CITfirstReminder}</p>
+                  }
                 </div>
                 <div className="form-group  mt-3">
                   <label htmlFor="secondReminder">Second Reminder</label>
@@ -754,6 +749,9 @@ const ReminderSetting = () => {
                     <option value={CITSixtyDaysReminder}>60 Days</option>
                     <option value={CITThirtyDaysReminder}>30 Days</option>
                   </select>
+                  {
+                    allData.CITsecondReminder && <p>{allData.CITsecondReminder}</p>
+                  }
                 </div>
                 <div className="form-group mt-3">
                   <label htmlFor="finalReminder">Final Reminder</label>
@@ -771,6 +769,9 @@ const ReminderSetting = () => {
                     <option value={CITSixtyDaysReminder}>60 Days</option>
                     <option value={CITThirtyDaysReminder}>30 Days</option>
                   </select>
+                  {
+                    allData.CITfinalReminder && <p>{allData.CITfinalReminder}</p>
+                  }
                 </div>
                 {
                   allData.annual ? (
@@ -821,7 +822,9 @@ const ReminderSetting = () => {
                 <option value={annualSixtyDaysReminder}>60 Days</option>
                 <option value={annualThirtyDaysReminder}>30 Days</option>
               </select>
-
+              {
+                allData.annualFirstReminder && <p>{allData.annualFirstReminder}</p>
+              }
             </div>
             <div className="form-group  mt-3">
               <label htmlFor="secondReminder">Second Reminder</label>
@@ -839,6 +842,9 @@ const ReminderSetting = () => {
                 <option value={annualSixtyDaysReminder}>60 Days</option>
                 <option value={annualThirtyDaysReminder}>30 Days</option>
               </select>
+              {
+                allData.annualSecondReminder && <p>{allData.annualSecondReminder}</p>
+              }
             </div>
             <div className="form-group mt-3">
               <label htmlFor="finalReminder">Final Reminder</label>
@@ -856,6 +862,9 @@ const ReminderSetting = () => {
                 <option value={annualSixtyDaysReminder}>60 Days</option>
                 <option value={annualThirtyDaysReminder}>30 Days</option>
               </select>
+              {
+                allData.annualFinalReminder && <p>{allData.annualFinalReminder}</p>
+              }
             </div>
             <div className="d-flex flex-row-reverse mt-5" style={{ gap: "4rem" }}>
               <button className="btn btn-primary" >Submit</button>
