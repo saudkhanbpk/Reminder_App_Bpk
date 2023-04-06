@@ -67,6 +67,16 @@ const ReminderSetting = () => {
   let id1 = localStorage.getItem("fileId")
   const [steps, setSteps] = useState('1');
   const [counter, setCounter] = useState(0)
+  const [showInput, setShowInput] = useState(false);
+  const [showInput1, setShowInput1] = useState(false);
+  const [showInput2, setShowInput2] = useState(false);
+  const [showInput3, setShowInput3] = useState(false);
+  const [showInput4, setShowInput4] = useState(false);
+  const [showInput5, setShowInput5] = useState(false);
+  const [showInput6, setShowInput6] = useState(false);
+  const [showInput7, setShowInput7] = useState(false);
+  const [showInput8, setShowInput8] = useState(false);
+
   const [allData, setAllData] = useState({
     shareHoldersArray: [{ email: email }, { phone: phone }, { shareholderName: shareholderName }],
     officersArray: [{ officersEmail: officerEmail }, { officerPhone: officerPhone }, { officerNames: officerNames }],
@@ -191,6 +201,122 @@ const ReminderSetting = () => {
   }
 
 
+  const handleChangeECI = (event) => {
+    const value = event.target.value;
+    if (value === "other") {
+      setShowInput(true);
+    } else {
+      setShowInput(false);
+      setAllData({
+        ...allData,
+        ECIFirstReminder: value
+      })
+    }
+  }
+
+  const handleChangeECI1 = (event) => {
+    const value = event.target.value;
+    if (value === "other") {
+      setShowInput1(true);
+    } else {
+      setShowInput1(false);
+      setAllData({
+        ...allData,
+        ECIsecondReminder: value
+      })
+    }
+  }
+
+  const handleChangeECI2 = (event) => {
+    const value = event.target.value;
+    if (value === "other") {
+      setShowInput2(true);
+    } else {
+      setShowInput2(false);
+      setAllData({
+        ...allData,
+        ECIfinalReminder: value
+      })
+    }
+  }
+
+  const handleChangeCIT = (event) => {
+    const value = event.target.value;
+    if (value === "other") {
+      setShowInput3(true);
+    } else {
+      setShowInput3(false);
+      setAllData({
+        ...allData,
+        CITfirstReminder: value
+      })
+    }
+  }
+
+  const handleChangeCIT1 = (event) => {
+    const value = event.target.value;
+    if (value === "other") {
+      setShowInput4(true);
+    } else {
+      setShowInput4(false);
+      setAllData({
+        ...allData,
+        CITsecondReminder: value
+      })
+    }
+  }
+
+  const handleChangeCIT2 = (event) => {
+    const value = event.target.value;
+    if (value === "other") {
+      setShowInput5(true);
+    } else {
+      setShowInput5(false);
+      setAllData({
+        ...allData,
+        CITfinalReminder: value
+      })
+    }
+  }
+
+  const handleChangeAnnual = (event) => {
+    const value = event.target.value;
+    if (value === "other") {
+      setShowInput6(true);
+    } else {
+      setShowInput6(false);
+      setAllData({
+        ...allData,
+        CITfirstReminder: value
+      })
+    }
+  }
+
+  const handleChangeAnnual1 = (event) => {
+    const value = event.target.value;
+    if (value === "other") {
+      setShowInput7(true);
+    } else {
+      setShowInput7(false);
+      setAllData({
+        ...allData,
+        CITsecondReminder: value
+      })
+    }
+  }
+
+  const handleChangeAnnual2 = (event) => {
+    const value = event.target.value;
+    if (value === "other") {
+      setShowInput8(true);
+    } else {
+      setShowInput8(false);
+      setAllData({
+        ...allData,
+        CITfinalReminder: value
+      })
+    }
+  }
 
 
 
@@ -603,76 +729,114 @@ const ReminderSetting = () => {
                   <select class="form-select" aria-label="Default select example"
                     value={allData.ECIFirstReminder}
                     onChange={(e) => {
-                      setAllData({
-                        ...allData,
-                        ECIFirstReminder: e.target.value
-
-                      })
-
+                      handleChangeECI(e)
                     }}>
-                    <option selected >Open this select Reminder</option>
+                    <option selected >Choose below options to receive reminder</option>
                     <option value={`${currentYear}-${ninetyDaysReminder}-30T09:00`}>90 Days</option>
                     <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
                     <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                    <option value="other">select date and time manually</option>
                   </select>
-                  {
+                  <br />
+                  {showInput ? (
+                    <input
+                      type="datetime-local"
+                      className="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter Name"
+                      value={allData.ECIFirstReminder}
+                      onChange={(e) => {
+                        setAllData({
+                          ...allData,
+                          ECIFirstReminder: e.target.value
+                        })
+                      }}
+                    />
+                  ) : (
                     allData.ECIFirstReminder && <p>{allData.ECIFirstReminder}</p>
-                  }
+                  )}
                 </div>
                 <div className="form-group  mt-3">
                   <label htmlFor="secondReminder">Second Reminder</label>
                   <select class="form-select" aria-label="Default select example"
                     value={allData.ECIsecondReminder}
                     onChange={(e) => {
-                      setAllData({
-                        ...allData,
-                        ECIsecondReminder: e.target.value
-                      })
+                      handleChangeECI1(e)
                     }}
                   >
-                    <option selected disabled>Open this select Reminder</option>
+                    <option selected >Choose below options to receive reminder</option>
                     <option value={`${currentYear}-${ninetyDaysReminder}-30T09:00`}>90 Days</option>
                     <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
                     <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                    <option value="other">select date and time manually</option>
+
                   </select>
+                  <br />
+
                   {
-                    allData.ECIsecondReminder && <p>{allData.ECIsecondReminder}</p>
+                    showInput1 ? (
+                      <input
+                        type="datetime-local"
+                        className="form-control"
+                        id="exampleInputEmail1"
+                        aria-describedby="emailHelp"
+                        placeholder="Enter Name"
+                        value={allData.ECIsecondReminder}
+                        onChange={(e) => {
+                          setAllData({
+                            ...allData,
+                            ECIsecondReminder: e.target.value
+                          })
+                        }
+                        }
+                      />
+                    ) : (
+                      allData.ECIsecondReminder && <p>{allData.ECIsecondReminder}</p>
+
+                    )
                   }
-                  {/* <input
-                    type="datetime-local"
-                    className="form-control"
-                    id="secondReminder"
-                    placeholder="Enter Name"
-                    value={
-                      allData.ECIsecondReminder
-                    }
-                    onChange={(e) => {
-                      setAllData({
-                        ...allData,
-                        ECIsecondReminder: e.target.value
-                      })
-                    }}
-                  /> */}
                 </div>
                 <div className="form-group mt-3">
                   <label htmlFor="finalReminder">Final Reminder</label>
                   <select class="form-select" aria-label="Default select example"
                     value={allData.ECIfinalReminder}
                     onChange={(e) => {
-                      setAllData({
-                        ...allData,
-                        ECIfinalReminder: e.target.value
-                      })
+                      handleChangeECI2(e)
                     }}
                   >
-                    <option selected disabled>Open this select Reminder</option>
+                    <option selected >Choose below options to receive reminder</option>
                     <option value={`${currentYear}-${ninetyDaysReminder}-30T09:00`}>90 Days</option>
                     <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
                     <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                    <option value="other">select date and time manually</option>
+
                   </select>
+                  <br />
+
                   {
-                    allData.ECIfinalReminder && <p>{allData.ECIfinalReminder}</p>
+                    showInput2 ? (
+                      <input
+                        type="datetime-local"
+                        className="form-control"
+                        id="exampleInputEmail1"
+                        aria-describedby="emailHelp"
+                        placeholder="Enter Name"
+                        value={allData.ECIfinalReminder}
+                        onChange={(e) => {
+                          setAllData({
+                            ...allData,
+                            ECIfinalReminder: e.target.value
+                          })
+                        }
+                        }
+                      />
+                    ) : (
+                      allData.ECIfinalReminder && <p>{allData.ECIfinalReminder}</p>
+
+                    )
                   }
+
                 </div>
                 {
                   allData.annual || allData.CIT ? (
@@ -718,39 +882,75 @@ const ReminderSetting = () => {
                   <select class="form-select" aria-label="Default select example"
                     value={allData.CITfirstReminder}
                     onChange={(e) => {
-                      setAllData({
-                        ...allData,
-                        CITfirstReminder: e.target.value
-                      })
+                      handleChangeCIT(e)
                     }}
                   >
-                    <option selected disabled>Open this select Reminder</option>
+                    <option selected >Choose below options to receive reminder</option>
                     <option value={CITNinetyDaysReminder}>90 Days</option>
                     <option value={CITSixtyDaysReminder}>60 Days</option>
                     <option value={CITThirtyDaysReminder}>30 Days</option>
+                    <option value="other">select date and time manually</option>
                   </select>
+                  <br />
+
                   {
-                    allData.CITfirstReminder && <p>{allData.CITfirstReminder}</p>
+                    showInput3 ? (
+                      <input
+                        type="datetime-local"
+                        className="form-control"
+                        id="finalReminder"
+                        placeholder="Enter date and time"
+                        value={allData.CITfirstReminder}
+                        onChange={(e) => {
+                          setAllData({
+                            ...allData,
+                            CITfirstReminder: e.target.value
+                          })
+                        }
+                        }
+                      />
+                    ) : (
+                      allData.CITfirstReminder && <p>{allData.CITfirstReminder}</p>
+
+                    )
                   }
+
                 </div>
                 <div className="form-group  mt-3">
                   <label htmlFor="secondReminder">Second Reminder</label>
                   <select class="form-select" aria-label="Default select example"
                     value={allData.CITsecondReminder}
                     onChange={(e) => {
-                      setAllData({
-                        ...allData,
-                        CITsecondReminder: e.target.value
-                      })
+                      handleChangeCIT1(e)
                     }}
                   >
-                    <option selected disabled>Open this select Reminder</option>
+                    <option selected >Choose below options to receive reminder</option>
                     <option value={CITNinetyDaysReminder}>90 Days</option>
                     <option value={CITSixtyDaysReminder}>60 Days</option>
                     <option value={CITThirtyDaysReminder}>30 Days</option>
+                    <option value="other">select date and time manually</option>
                   </select>
+                  <br />
+
                   {
-                    allData.CITsecondReminder && <p>{allData.CITsecondReminder}</p>
+                    showInput4 ? (
+                      <input
+                        type="datetime-local"
+                        className="form-control"
+                        id="finalReminder"
+                        placeholder="Enter date and time"
+                        value={allData.CITsecondReminder}
+                        onChange={(e) => {
+                          setAllData({
+                            ...allData,
+                            CITsecondReminder: e.target.value
+                          })
+                        }
+                        }
+                      />
+                    ) : (
+                      allData.CITsecondReminder && <p>{allData.CITsecondReminder}</p>
+                    )
                   }
                 </div>
                 <div className="form-group mt-3">
@@ -758,19 +958,39 @@ const ReminderSetting = () => {
                   <select class="form-select" aria-label="Default select example"
                     value={allData.CITfinalReminder}
                     onChange={(e) => {
-                      setAllData({
-                        ...allData,
-                        CITfinalReminder: e.target.value
-                      })
+                      handleChangeCIT2(e)
                     }}
                   >
-                    <option selected disabled>Open this select Reminder</option>
+                    <option selected >Choose below options to receive reminder</option>
                     <option value={CITNinetyDaysReminder}>90 Days</option>
                     <option value={CITSixtyDaysReminder}>60 Days</option>
                     <option value={CITThirtyDaysReminder}>30 Days</option>
+                    <option value="other">select date and time manually</option>
                   </select>
+                  <br />
+
                   {
-                    allData.CITfinalReminder && <p>{allData.CITfinalReminder}</p>
+                    showInput5 ? (
+                      <input
+                        type="datetime-local"
+                        className="form-control"
+                        id="finalReminder"
+                        placeholder="Enter date and time"
+                        value={allData.CITfinalReminder}
+                        onChange={(e) => {
+                          setAllData({
+                            ...allData,
+                            CITfinalReminder: e.target.value
+                          })
+                        }
+                        }
+                      />
+                    ) : (
+                      allData.CITfinalReminder && <p>{allData.CITfinalReminder}</p>
+
+                    )
+                  }
+                  {
                   }
                 </div>
                 {
@@ -811,39 +1031,75 @@ const ReminderSetting = () => {
               <select class="form-select" aria-label="Default select example"
                 value={allData.annualFirstReminder}
                 onChange={(e) => {
-                  setAllData({
-                    ...allData,
-                    annualFirstReminder: e.target.value
-                  })
+                  handleChangeAnnual(e)
                 }}
               >
-                <option selected disabled>Open this select Reminder</option>
+                <option selected >Choose below options to receive reminder</option>
                 <option value={annualNinetyDaysReminder}>90 Days</option>
                 <option value={annualSixtyDaysReminder}>60 Days</option>
                 <option value={annualThirtyDaysReminder}>30 Days</option>
+                <option value="other">select date and time manually</option>
               </select>
+              <br />
+
               {
-                allData.annualFirstReminder && <p>{allData.annualFirstReminder}</p>
+                showInput6 ? (
+                  <input
+                    type="datetime-local"
+                    className="form-control"
+                    id="annaulFirstReminder"
+                    placeholder="Enter date and time"
+                    value={allData.annualFirstReminder}
+                    onChange={(e) => {
+                      setAllData({
+                        ...allData,
+                        annualFirstReminder: e.target.value
+                      })
+                    }
+                    }
+                  />
+                ) : (
+                  allData.annualFirstReminder && <p>{allData.annualFirstReminder}</p>
+                )
               }
+
             </div>
             <div className="form-group  mt-3">
               <label htmlFor="secondReminder">Second Reminder</label>
               <select class="form-select" aria-label="Default select example"
                 value={allData.annualSecondReminder}
                 onChange={(e) => {
-                  setAllData({
-                    ...allData,
-                    annualSecondReminder: e.target.value
-                  })
+                  handleChangeAnnual1(e)
                 }}
               >
-                <option selected disabled>Open this select Reminder</option>
+                <option selected >Choose below options to receive reminder</option>
                 <option value={annualNinetyDaysReminder}>90 Days</option>
                 <option value={annualSixtyDaysReminder}>60 Days</option>
                 <option value={annualThirtyDaysReminder}>30 Days</option>
+                <option value="other">select date and time manually</option>
               </select>
+              <br />
+
               {
-                allData.annualSecondReminder && <p>{allData.annualSecondReminder}</p>
+                showInput7 ? (
+                  <input
+                    type="datetime-local"
+                    className="form-control"
+                    id="finalReminder"
+                    placeholder="Enter date and time"
+                    value={allData.annualSecondReminder}
+                    onChange={(e) => {
+                      setAllData({
+                        ...allData,
+                        annualSecondReminder: e.target.value
+                      })
+                    }
+                    }
+                  />
+                ) : (
+                  allData.annualSecondReminder && <p>{allData.annualSecondReminder}</p>
+
+                )
               }
             </div>
             <div className="form-group mt-3">
@@ -851,20 +1107,38 @@ const ReminderSetting = () => {
               <select class="form-select" aria-label="Default select example"
                 value={allData.annualFinalReminder}
                 onChange={(e) => {
-                  setAllData({
-                    ...allData,
-                    annualFinalReminder: e.target.value
-                  })
+                  handleChangeAnnual2(e)
                 }}
               >
-                <option selected disabled>Open this select Reminder</option>
+                <option selected >Choose below options to receive reminder</option>
                 <option value={annualNinetyDaysReminder}>90 Days</option>
                 <option value={annualSixtyDaysReminder}>60 Days</option>
                 <option value={annualThirtyDaysReminder}>30 Days</option>
+                <option value="other">select date and time manually</option>
               </select>
+              <br />
+
               {
-                allData.annualFinalReminder && <p>{allData.annualFinalReminder}</p>
+                showInput8 ? (
+                  <input
+                    type="datetime-local"
+                    className="form-control"
+                    id="finalReminder"
+                    placeholder="Enter date and time"
+                    value={allData.annualFinalReminder}
+                    onChange={(e) => {
+                      setAllData({
+                        ...allData,
+                        annualFinalReminder: e.target.value
+                      })
+                    }
+                    }
+                  />
+                ) : (
+                  allData.annualFinalReminder && <p>{allData.annualFinalReminder}</p>
+                )
               }
+
             </div>
             <div className="d-flex flex-row-reverse mt-5" style={{ gap: "4rem" }}>
               <button className="btn btn-primary" >Submit</button>
@@ -875,10 +1149,7 @@ const ReminderSetting = () => {
           </form>
         ) : null
       }
-
-
       <ToastContainer />
-
     </div >
   );
 };

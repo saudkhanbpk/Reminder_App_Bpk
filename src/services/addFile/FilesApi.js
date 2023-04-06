@@ -55,3 +55,24 @@ export function deleteFile(payload) {
     })
   })
 }
+
+
+export function getFileById(id) {
+  return new Promise((resolve, reject) => {
+    axios.post(`${API_URL}api/getFileById/${id}`).then(async (response) => {
+      resolve(response.data);
+    }).catch((error) => {
+      reject(error);
+    })
+  })
+}
+
+export function updateFile(id, payload) {
+  return new Promise((resolve, reject) => {
+    axios.put(`${API_URL}api/updateFile/${id}`, payload).then(async (response) => {
+      resolve(response.data);
+    }).catch((error) => {
+      reject(error);
+    })
+  })
+}

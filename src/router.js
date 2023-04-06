@@ -21,6 +21,7 @@ import GetUser from "./components/CreateUser/GetUser";
 import DashBoard from "./components/Dashboard/DashBoard";
 import BizFiles from "./components/AddFile/BizFiles";
 import ForgetPassword from "./components/User_Login/ForgetPassword";
+import UpdateFIle from "./components/updateFile/UpdateFIle";
 
 export default function RouterComponent() {
     const [token, setToken] = useState(null)
@@ -71,6 +72,7 @@ export default function RouterComponent() {
                             <Route path="/" element={<ReminderAlert />} />
                             <Route path="/reminderservices" element={<ReminderServices />} />
                             <Route path="/reminders/:_id" element={<RemindersPage />} />
+                            <Route path="/update/:_id" element={<UpdateFIle />} />
 
                         </>
                     }
