@@ -157,7 +157,7 @@ export default function ReminderAlert() {
 
                     {/* <MdOutlineAddAlert /> */}
                   </td>
-                  <td className="der" onClick={() => navigate(`/update/$`)} ><FaEdit />
+                  <td className="der" onClick={() => navigate(`/update/${item._id}`)} ><FaEdit />
                     &nbsp; <span className="settingIcon" onClick={() => deleteDataFile(item._id)}><AiFillDelete /></span>
                   </td>
                 </tr>

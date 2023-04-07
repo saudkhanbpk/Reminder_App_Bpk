@@ -37,7 +37,7 @@ const ReminderSetting = () => {
   //before
   let beforeMonth = filteredData[0]?.FYEAsAtDateOfLastAR?.split("/")[1]
   let before = (parseInt(beforeMonth) - 3) % 12
-  let ninetyDaysReminder = (parseInt(before) + 3) % 12
+  let ninetyDaysReminder = (before) + 3 % 12
   //get current year
   let currentYear = new Date().getFullYear()
   console.log("ninetyDaysReminder:", `${currentYear}-${ninetyDaysReminder}-30T09:00`)
@@ -47,18 +47,22 @@ const ReminderSetting = () => {
   console.log("thirtyDaysReminder:", `${currentYear}-${thirtyDaysReminder}-30T09:00`)
 
   // CIT reminder
-  let CITNinetyDaysReminder = `${currentYear}-8-30T09:00`
-  let CITSixtyDaysReminder = `${currentYear}-9-30T09:00`
-  let CITThirtyDaysReminder = `${currentYear}-10-31T09:00`
+  // let CITNinetyDaysReminder = `${currentYear}-8-30T09:00`
+  // let CITSixtyDaysReminder = `${currentYear}-9-30T09:00`
+  // let CITThirtyDaysReminder = `${currentYear}-10-31T09:00`
+
+  let CITNinetyDaysReminder = `8-30T09:00`
+  let CITSixtyDaysReminder = `9-30T09:00`
+  let CITThirtyDaysReminder = `10-31T09:00`
 
   //annual reminder
   let annualbefore = (parseInt(annualDate) - 3) % 12
   let annualNinetyDaysReminder1 = (parseInt(annualbefore) + 3) % 12
   let annualSixtyDaysReminder2 = (parseInt(annualbefore) + 4) % 12
   let annualThirtyDaysReminder3 = (parseInt(annualbefore) + 5) % 12
-  let annualNinetyDaysReminder = `${currentYear}-${annualNinetyDaysReminder1}-30T09:00`
-  let annualSixtyDaysReminder = `${currentYear}-${annualSixtyDaysReminder2}-30T09:00`
-  let annualThirtyDaysReminder = `${currentYear + 1}-${annualThirtyDaysReminder3}-31T09:00`
+  let annualNinetyDaysReminder = `${annualNinetyDaysReminder1}-30T09:00`
+  let annualSixtyDaysReminder = `${annualSixtyDaysReminder2}-30T09:00`
+  let annualThirtyDaysReminder = `${annualThirtyDaysReminder3}-31T09:00`
 
 
 
@@ -99,6 +103,7 @@ const ReminderSetting = () => {
     fileId: id1
   })
 
+  console.log("annual", allData.annualFirstReminder)
 
   const handleAddInput = (e) => {
     e.preventDefault();
@@ -287,7 +292,7 @@ const ReminderSetting = () => {
       setShowInput6(false);
       setAllData({
         ...allData,
-        CITfirstReminder: value
+        annualFirstReminder: value
       })
     }
   }
@@ -300,7 +305,7 @@ const ReminderSetting = () => {
       setShowInput7(false);
       setAllData({
         ...allData,
-        CITsecondReminder: value
+        annualSecondReminder: value
       })
     }
   }
@@ -313,7 +318,7 @@ const ReminderSetting = () => {
       setShowInput8(false);
       setAllData({
         ...allData,
-        CITfinalReminder: value
+        annualFinalReminder: value
       })
     }
   }
@@ -732,9 +737,9 @@ const ReminderSetting = () => {
                       handleChangeECI(e)
                     }}>
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={`${currentYear}-${ninetyDaysReminder}-30T09:00`}>90 Days</option>
-                    <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
-                    <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                    <option value={`${ninetyDaysReminder}-30T09:00`}>90 Days</option>
+                    <option value={`${sixtyDaysReminder}-30T09:00`}>60 Days</option>
+                    <option value={`${thirtyDaysReminder}-30T09:00`}>30 Days</option>
                     <option value="other">select date and time manually</option>
                   </select>
                   <br />
@@ -766,9 +771,9 @@ const ReminderSetting = () => {
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={`${currentYear}-${ninetyDaysReminder}-30T09:00`}>90 Days</option>
-                    <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
-                    <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                    <option value={`${ninetyDaysReminder}-30T09:00`}>90 Days</option>
+                    <option value={`${sixtyDaysReminder}-30T09:00`}>60 Days</option>
+                    <option value={`${thirtyDaysReminder}-30T09:00`}>30 Days</option>
                     <option value="other">select date and time manually</option>
 
                   </select>
@@ -806,9 +811,9 @@ const ReminderSetting = () => {
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={`${currentYear}-${ninetyDaysReminder}-30T09:00`}>90 Days</option>
-                    <option value={`${currentYear}-${sixtyDaysReminder}-30T09:00`}>60 Days</option>
-                    <option value={`${currentYear}-${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                    <option value={`${ninetyDaysReminder}-30T09:00`}>90 Days</option>
+                    <option value={`${sixtyDaysReminder}-30T09:00`}>60 Days</option>
+                    <option value={`${thirtyDaysReminder}-30T09:00`}>30 Days</option>
                     <option value="other">select date and time manually</option>
 
                   </select>
