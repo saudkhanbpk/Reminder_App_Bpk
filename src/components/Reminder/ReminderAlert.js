@@ -148,14 +148,21 @@ export default function ReminderAlert() {
         <tbody>
           {
             data.map((item, index) => {
+              console.log("item", item)
               return (
-                <tr>
+                <tr key={item}>
                   <td>{index + 1}</td>
                   <td>{item.companyName}</td>
-                  <td className="der" ><AiOutlineEye onClick={() => navigate(`reminders/${item._id}`)} />&nbsp;&nbsp;
-                    <span className="settingIcon" onClick={() => handleNavigate(item._id)}> <AiOutlinePlusSquare /></span>
+                  <td className="der" >
+                    {
+                      item.reminder === 1 ? (
+                        <AiOutlineEye onClick={() => navigate(`reminders/${item._id}`)} />
+                      ) : (
+                        <span className="settingIcon" onClick={() => handleNavigate(item._id)}> <AiOutlinePlusSquare /></span>
+                      )
+                    }
 
-                    {/* <MdOutlineAddAlert /> */}
+
                   </td>
                   <td className="der" onClick={() => navigate(`/update/${item._id}`)} ><FaEdit />
                     &nbsp; <span className="settingIcon" onClick={() => deleteDataFile(item._id)}><AiFillDelete /></span>

@@ -96,9 +96,9 @@ const ReminderSetting = () => {
     ECI: false,
     CIT: false,
     annual: false,
-    ECIfillingDate: `31-${result}-${currentYear}`,
-    CITfillingDate: `31th-11-${currentYear}`,
-    annualFillingDate: `31/${annualDate}-${currentYear}`,
+    ECIfillingDate: `31-${result}`,
+    CITfillingDate: `31-11`,
+    annualFillingDate: `31-${annualDate}`,
     addedPeople: [],
     fileId: id1
   })
@@ -731,17 +731,6 @@ const ReminderSetting = () => {
 
                 <div className="form-group mt-3">
                   <label htmlFor="firstReminder">First Reminder</label>
-                  <select class="form-select" aria-label="Default select example"
-                    value={allData.ECIFirstReminder}
-                    onChange={(e) => {
-                      handleChangeECI(e)
-                    }}>
-                    <option selected >Choose below options to receive reminder</option>
-                    <option value={`${ninetyDaysReminder}-30T09:00`}>90 Days</option>
-                    <option value={`${sixtyDaysReminder}-30T09:00`}>60 Days</option>
-                    <option value={`${thirtyDaysReminder}-30T09:00`}>30 Days</option>
-                    <option value="other">select date and time manually</option>
-                  </select>
                   <br />
                   {showInput ? (
                     <input
@@ -761,22 +750,21 @@ const ReminderSetting = () => {
                   ) : (
                     allData.ECIFirstReminder && <p>{allData.ECIFirstReminder}</p>
                   )}
-                </div>
-                <div className="form-group  mt-3">
-                  <label htmlFor="secondReminder">Second Reminder</label>
                   <select class="form-select" aria-label="Default select example"
-                    value={allData.ECIsecondReminder}
+                    value={allData.ECIFirstReminder}
                     onChange={(e) => {
-                      handleChangeECI1(e)
-                    }}
-                  >
+                      handleChangeECI(e)
+                    }}>
                     <option selected >Choose below options to receive reminder</option>
                     <option value={`${ninetyDaysReminder}-30T09:00`}>90 Days</option>
                     <option value={`${sixtyDaysReminder}-30T09:00`}>60 Days</option>
                     <option value={`${thirtyDaysReminder}-30T09:00`}>30 Days</option>
                     <option value="other">select date and time manually</option>
-
                   </select>
+
+                </div>
+                <div className="form-group  mt-3">
+                  <label htmlFor="secondReminder">Second Reminder</label>
                   <br />
 
                   {
@@ -801,13 +789,10 @@ const ReminderSetting = () => {
 
                     )
                   }
-                </div>
-                <div className="form-group mt-3">
-                  <label htmlFor="finalReminder">Final Reminder</label>
                   <select class="form-select" aria-label="Default select example"
-                    value={allData.ECIfinalReminder}
+                    value={allData.ECIsecondReminder}
                     onChange={(e) => {
-                      handleChangeECI2(e)
+                      handleChangeECI1(e)
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
@@ -817,6 +802,10 @@ const ReminderSetting = () => {
                     <option value="other">select date and time manually</option>
 
                   </select>
+
+                </div>
+                <div className="form-group mt-3">
+                  <label htmlFor="finalReminder">Final Reminder</label>
                   <br />
 
                   {
@@ -841,6 +830,20 @@ const ReminderSetting = () => {
 
                     )
                   }
+                  <select class="form-select" aria-label="Default select example"
+                    value={allData.ECIfinalReminder}
+                    onChange={(e) => {
+                      handleChangeECI2(e)
+                    }}
+                  >
+                    <option selected >Choose below options to receive reminder</option>
+                    <option value={`${ninetyDaysReminder}-30T09:00`}>90 Days</option>
+                    <option value={`${sixtyDaysReminder}-30T09:00`}>60 Days</option>
+                    <option value={`${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                    <option value="other">select date and time manually</option>
+
+                  </select>
+
 
                 </div>
                 {
@@ -884,18 +887,6 @@ const ReminderSetting = () => {
 
                 <div className="form-group mt-3">
                   <label htmlFor="firstReminder">First Reminder</label>
-                  <select class="form-select" aria-label="Default select example"
-                    value={allData.CITfirstReminder}
-                    onChange={(e) => {
-                      handleChangeCIT(e)
-                    }}
-                  >
-                    <option selected >Choose below options to receive reminder</option>
-                    <option value={CITNinetyDaysReminder}>90 Days</option>
-                    <option value={CITSixtyDaysReminder}>60 Days</option>
-                    <option value={CITThirtyDaysReminder}>30 Days</option>
-                    <option value="other">select date and time manually</option>
-                  </select>
                   <br />
 
                   {
@@ -919,14 +910,10 @@ const ReminderSetting = () => {
 
                     )
                   }
-
-                </div>
-                <div className="form-group  mt-3">
-                  <label htmlFor="secondReminder">Second Reminder</label>
                   <select class="form-select" aria-label="Default select example"
-                    value={allData.CITsecondReminder}
+                    value={allData.CITfirstReminder}
                     onChange={(e) => {
-                      handleChangeCIT1(e)
+                      handleChangeCIT(e)
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
@@ -935,8 +922,12 @@ const ReminderSetting = () => {
                     <option value={CITThirtyDaysReminder}>30 Days</option>
                     <option value="other">select date and time manually</option>
                   </select>
-                  <br />
 
+
+                </div>
+                <div className="form-group  mt-3">
+                  <label htmlFor="secondReminder">Second Reminder</label>
+                  <br />
                   {
                     showInput4 ? (
                       <input
@@ -957,13 +948,10 @@ const ReminderSetting = () => {
                       allData.CITsecondReminder && <p>{allData.CITsecondReminder}</p>
                     )
                   }
-                </div>
-                <div className="form-group mt-3">
-                  <label htmlFor="finalReminder">Final Reminder</label>
                   <select class="form-select" aria-label="Default select example"
-                    value={allData.CITfinalReminder}
+                    value={allData.CITsecondReminder}
                     onChange={(e) => {
-                      handleChangeCIT2(e)
+                      handleChangeCIT1(e)
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
@@ -972,6 +960,11 @@ const ReminderSetting = () => {
                     <option value={CITThirtyDaysReminder}>30 Days</option>
                     <option value="other">select date and time manually</option>
                   </select>
+
+
+                </div>
+                <div className="form-group mt-3">
+                  <label htmlFor="finalReminder">Final Reminder</label>
                   <br />
 
                   {
@@ -995,8 +988,19 @@ const ReminderSetting = () => {
 
                     )
                   }
-                  {
-                  }
+                  <select class="form-select" aria-label="Default select example"
+                    value={allData.CITfinalReminder}
+                    onChange={(e) => {
+                      handleChangeCIT2(e)
+                    }}
+                  >
+                    <option selected >Choose below options to receive reminder</option>
+                    <option value={CITNinetyDaysReminder}>90 Days</option>
+                    <option value={CITSixtyDaysReminder}>60 Days</option>
+                    <option value={CITThirtyDaysReminder}>30 Days</option>
+                    <option value="other">select date and time manually</option>
+                  </select>
+
                 </div>
                 {
                   allData.annual ? (
@@ -1033,18 +1037,6 @@ const ReminderSetting = () => {
             }
             <div className="form-group mt-3">
               <label htmlFor="firstReminder">First Reminder</label>
-              <select class="form-select" aria-label="Default select example"
-                value={allData.annualFirstReminder}
-                onChange={(e) => {
-                  handleChangeAnnual(e)
-                }}
-              >
-                <option selected >Choose below options to receive reminder</option>
-                <option value={annualNinetyDaysReminder}>90 Days</option>
-                <option value={annualSixtyDaysReminder}>60 Days</option>
-                <option value={annualThirtyDaysReminder}>30 Days</option>
-                <option value="other">select date and time manually</option>
-              </select>
               <br />
 
               {
@@ -1067,14 +1059,10 @@ const ReminderSetting = () => {
                   allData.annualFirstReminder && <p>{allData.annualFirstReminder}</p>
                 )
               }
-
-            </div>
-            <div className="form-group  mt-3">
-              <label htmlFor="secondReminder">Second Reminder</label>
               <select class="form-select" aria-label="Default select example"
-                value={allData.annualSecondReminder}
+                value={allData.annualFirstReminder}
                 onChange={(e) => {
-                  handleChangeAnnual1(e)
+                  handleChangeAnnual(e)
                 }}
               >
                 <option selected >Choose below options to receive reminder</option>
@@ -1083,6 +1071,11 @@ const ReminderSetting = () => {
                 <option value={annualThirtyDaysReminder}>30 Days</option>
                 <option value="other">select date and time manually</option>
               </select>
+
+
+            </div>
+            <div className="form-group  mt-3">
+              <label htmlFor="secondReminder">Second Reminder</label>
               <br />
 
               {
@@ -1106,13 +1099,10 @@ const ReminderSetting = () => {
 
                 )
               }
-            </div>
-            <div className="form-group mt-3">
-              <label htmlFor="finalReminder">Final Reminder</label>
               <select class="form-select" aria-label="Default select example"
-                value={allData.annualFinalReminder}
+                value={allData.annualSecondReminder}
                 onChange={(e) => {
-                  handleChangeAnnual2(e)
+                  handleChangeAnnual1(e)
                 }}
               >
                 <option selected >Choose below options to receive reminder</option>
@@ -1121,6 +1111,10 @@ const ReminderSetting = () => {
                 <option value={annualThirtyDaysReminder}>30 Days</option>
                 <option value="other">select date and time manually</option>
               </select>
+
+            </div>
+            <div className="form-group mt-3">
+              <label htmlFor="finalReminder">Final Reminder</label>
               <br />
 
               {
@@ -1143,6 +1137,19 @@ const ReminderSetting = () => {
                   allData.annualFinalReminder && <p>{allData.annualFinalReminder}</p>
                 )
               }
+              <select class="form-select" aria-label="Default select example"
+                value={allData.annualFinalReminder}
+                onChange={(e) => {
+                  handleChangeAnnual2(e)
+                }}
+              >
+                <option selected >Choose below options to receive reminder</option>
+                <option value={annualNinetyDaysReminder}>90 Days</option>
+                <option value={annualSixtyDaysReminder}>60 Days</option>
+                <option value={annualThirtyDaysReminder}>30 Days</option>
+                <option value="other">select date and time manually</option>
+              </select>
+
 
             </div>
             <div className="d-flex flex-row-reverse mt-5" style={{ gap: "4rem" }}>

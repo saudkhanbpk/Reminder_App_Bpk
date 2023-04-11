@@ -13,7 +13,7 @@ function RemindersPage() {
   const handleShow = () => setShow(true);
   const [updateData, setUpdateData] = useState({
     CITfirstReminder: "", CITsecondReminder: "",
-    CITfinalReminder: "", ECIfirstReminder: "",
+    CITfinalReminder: "", ECIFirstReminder: "",
     ECIsecondReminder: "", ECIFinalReminder: "",
     annualFirstReminder: "", annualSecondReminder: "",
     annualFinalReminder: "",
@@ -88,7 +88,8 @@ function RemindersPage() {
                       <td>{item.reminder[0].CITfirstReminder}</td>
                       <td>{item.reminder[0].CITsecondReminder}</td>
                       <td>{item.reminder[0].CITfinalReminder}</td>
-                      <td>{item.reminder[0].ECIfirstReminder}</td>
+                      <td>{item.reminder[0].ECIFirstReminder
+                      }</td>
                       <td>{item.reminder[0].ECIsecondReminder}</td>
                       <td>{item.reminder[0].ECIfinalReminder}</td>
                       <td>{item.reminder[0].annualFirstReminder}</td>
@@ -98,7 +99,7 @@ function RemindersPage() {
                         () => {
                           setUpdateData({
                             CITfirstReminder: item.reminder[0].CITfirstReminder, CITsecondReminder: item.reminder[0].CITsecondReminder,
-                            CITfinalReminder: item.reminder[0].CITfinalReminder, ECIfirstReminder: item.reminder[0].ECIfirstReminder,
+                            CITfinalReminder: item.reminder[0].CITfinalReminder, ECIFirstReminder: item.reminder[0].ECIFirstReminder,
                             ECIsecondReminder: item.reminder[0].ECIsecondReminder, ECIFinalReminder: item.reminder[0].ECIfinalReminder,
                             annualFirstReminder: item.reminder[0].annualFirstReminder, annualSecondReminder: item.reminder[0].annualSecondReminder,
                             annualFinalReminder: item.reminder[0].annualFinalReminder,
@@ -138,7 +139,7 @@ function RemindersPage() {
           </div>
           <div className="form-group">
             <label htmlFor="ECIfirstReminder">ECI First Reminder</label>
-            <input type="text" className="form-control" id="ECIfirstReminder" value={updateData.ECIfirstReminder} onChange={(e) => setUpdateData({ ...updateData, ECIfirstReminder: e.target.value })} />
+            <input type="text" className="form-control" id="ECIfirstReminder" value={updateData.ECIFirstReminder} onChange={(e) => setUpdateData({ ...updateData, ECIFirstReminder: e.target.value })} />
           </div>
           <div className="form-group">
             <label htmlFor="ECIsecondReminder">ECI Second Reminder</label>
