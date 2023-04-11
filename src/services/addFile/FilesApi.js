@@ -76,3 +76,4 @@ export function updateFile(id, payload) {
     })
   })
 }
+
