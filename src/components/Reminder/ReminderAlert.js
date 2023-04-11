@@ -158,7 +158,7 @@ export default function ReminderAlert() {
                       item.reminder === 1 ? (
                         <AiOutlineEye onClick={() => navigate(`reminders/${item._id}`)} />
                       ) : (
-                        <span className="settingIcon" onClick={() => handleNavigate(item._id)}> <AiOutlinePlusSquare /></span>
+                        <span className="settingIcon"> <AiOutlinePlusSquare  onClick={() => handleNavigate(item._id)} /></span>
                       )
                     }
 
