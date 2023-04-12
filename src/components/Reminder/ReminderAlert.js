@@ -132,10 +132,7 @@ export default function ReminderAlert() {
 
 
   return (
-
     <div>
-      {/* <div className="serch"><span className="typ">search</span> <input type="search" /></div>
-   <h5>Recently Added Files</h5> <br></br> */}
       <Table className="tbl mt-3" striped bordered hover variant="dark">
         <thead>
           <tr>
@@ -158,7 +155,7 @@ export default function ReminderAlert() {
                       item.reminder === 1 ? (
                         <AiOutlineEye onClick={() => navigate(`reminders/${item._id}`)} />
                       ) : (
-                        <span className="settingIcon" onClick={() => handleNavigate(item._id)}> <AiOutlinePlusSquare /></span>
+                        <span className="settingIcon" > <AiOutlinePlusSquare onClick={() => handleNavigate(item._id)} /></span>
                       )
                     }
 
