@@ -23,7 +23,6 @@ function RemindersPage() {
 
   const getRemindersData = () => {
     getReminders(id._id).then((res) => {
-      console.log(res.message)
       setData(res)
     }).catch((error) => {
       console.log("🚀 ~ file: RemindersPage.js:13 ~ useEffect ~ error:", error)
@@ -36,7 +35,6 @@ function RemindersPage() {
 
   const deleteReminders = (id) => {
     deleteReminder(id).then((res) => {
-      console.log(res.message)
       getRemindersData()
     }).catch((error) => {
       console.log("🚀 ~ file: RemindersPage.js:13 ~ useEffect ~ error:", error)
@@ -45,7 +43,6 @@ function RemindersPage() {
 
   const handleUpdate = () => {
     updateReminder(id._id, updateData).then((res) => {
-      console.log(res)
       handleClose()
       getRemindersData()
     }

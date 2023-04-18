@@ -14,61 +14,39 @@ const ReminderSetting = () => {
   const [officerPhone, setOfficerPhone] = useState([])
   const [shareholderName, setShareholderName] = useState([])
   const [officerNames, setOfficerNames] = useState([])
-
-
+  const [disableReminder, setDisableReminder] = useState(false)
+  const [disableReminder1, setDisableReminder1] = useState(false)
   const reminder = useSelector((state) => state.data)
   let filteredData = reminder.formData.filter((item) => item._id === id._id)
   useEffect(() => {
     setData(reminder)
   }, [reminder])
-  console.log("date:", filteredData[0]?.FYEAsAtDateOfLastAR
-  )
   // get the month from the above date
   let month = filteredData[0]?.FYEAsAtDateOfLastAR?.split("/")[1]
-  console.log("month:", month)
   //add 3 months to the month
   let result = (parseInt(month) + 3) % 12
-
-  console.log("result:", result)
-
   const annualDate = (parseInt(month) + 7) % 12
-  console.log("annualDate:", annualDate)
-
   //before
   let beforeMonth = filteredData[0]?.FYEAsAtDateOfLastAR?.split("/")[1]
   let before = (parseInt(beforeMonth) - 3) % 12
   let ninetyDaysReminder = (before) + 3 % 12
+
   //get current year
   let currentYear = new Date().getFullYear()
-  console.log("ninetyDaysReminder:", `${currentYear}-${ninetyDaysReminder}-30T09:00`)
   let sixtyDaysReminder = (parseInt(before) + 4) % 12
-  console.log("sixtyDaysReminder:", `${currentYear}-${sixtyDaysReminder}-30T09:00`)
   let thirtyDaysReminder = (parseInt(before) + 5) % 12
-  console.log("thirtyDaysReminder:", `${currentYear}-${thirtyDaysReminder}-30T09:00`)
-
-  // CIT reminder
-  // let CITNinetyDaysReminder = `${currentYear}-8-30T09:00`
-  // let CITSixtyDaysReminder = `${currentYear}-9-30T09:00`
-  // let CITThirtyDaysReminder = `${currentYear}-10-31T09:00`
-
-  let CITNinetyDaysReminder = `8-30T09:00`
-  let CITSixtyDaysReminder = `9-30T09:00`
-  let CITThirtyDaysReminder = `10-31T09:00`
-
+  let CITNinetyDaysReminder = `${currentYear}-08-30T01:00`
+  let CITSixtyDaysReminder = `${currentYear}-09-30T01:00`
+  let CITThirtyDaysReminder = `${currentYear}-10-30T01:00`
+  let id1 = localStorage.getItem("fileId")
   //annual reminder
   let annualbefore = (parseInt(annualDate) - 3) % 12
   let annualNinetyDaysReminder1 = (parseInt(annualbefore) + 3) % 12
   let annualSixtyDaysReminder2 = (parseInt(annualbefore) + 4) % 12
   let annualThirtyDaysReminder3 = (parseInt(annualbefore) + 5) % 12
-  let annualNinetyDaysReminder = `${annualNinetyDaysReminder1}-30T09:00`
-  let annualSixtyDaysReminder = `${annualSixtyDaysReminder2}-30T09:00`
-  let annualThirtyDaysReminder = `${annualThirtyDaysReminder3}-31T09:00`
-
-
-
-
-
-  let id1 = localStorage.getItem("fileId")
+  let annualNinetyDaysReminder = `${currentYear}-0${annualNinetyDaysReminder1}-30T01:00`
+  let annualSixtyDaysReminder = `${currentYear}-0${annualSixtyDaysReminder2}-30T01:00`
+  let annualThirtyDaysReminder = `${currentYear}-0${annualThirtyDaysReminder3}-30T01:00`
   const [steps, setSteps] = useState('1');
   const [counter, setCounter] = useState(0)
   const [showInput, setShowInput] = useState(false);
@@ -80,7 +58,8 @@ const ReminderSetting = () => {
   const [showInput6, setShowInput6] = useState(false);
   const [showInput7, setShowInput7] = useState(false);
   const [showInput8, setShowInput8] = useState(false);
-
+  const [disabledInputs, setDisabledInputs] = useState([]);
+  const [disabledInputs1, setDisabledInputs1] = useState([]);
   const [allData, setAllData] = useState({
     shareHoldersArray: [{ email: email }, { phone: phone }, { shareholderName: shareholderName }],
     officersArray: [{ officersEmail: officerEmail }, { officerPhone: officerPhone }, { officerNames: officerNames }],
@@ -103,22 +82,65 @@ const ReminderSetting = () => {
     fileId: id1
   })
 
-  console.log("annual", allData.annualFirstReminder)
-
   const handleAddInput = (e) => {
     e.preventDefault();
     setCounter(counter + 1)
   }
 
+  console.log(disabledInputs)
   const handleRemoveInput = (e) => {
     e.preventDefault();
     if (counter !== 0)
       setCounter(counter - 1)
   }
-
   const handleSubmit = (e) => {
-    e.preventDefault()
-    postReminder(allData).then((res) => {
+    e.preventDefault();
+    const shareHoldersArray = allData.shareHoldersArray.map((shareHolders) => {
+      const filteredEmail = shareHolders.email?.filter((email) => {
+        return !disabledInputs.includes(email);
+      });
+      const filteredPhone = shareHolders.phone?.filter((phone) => {
+        return !disabledInputs.includes(phone);
+      });
+      return {
+        ...shareHolders,
+        email: filteredEmail,
+        phone: filteredPhone,
+      };
+    }).filter((shareHolders) => {
+      // Remove shareHolders objects that have no emails or phones left
+      return shareHolders.email?.length || shareHolders.phone?.length;
+    });
+    const officersArray = allData.officersArray.map((officers) => {
+      const filteredEmail = officers.officersEmail?.filter((email) => {
+        return !disabledInputs1.includes(email);
+      });
+      const filteredPhone = officers.officerPhone?.filter((phone) => {
+        return !disabledInputs1.includes(phone)
+      });
+      return {
+        ...officers,
+        officersEmail: filteredEmail,
+        officerPhone: filteredPhone,
+      };
+    }).filter((officers) => {
+      // Remove officers objects that have no emails or phones left
+      return officers.officersEmail?.length || officers.officerPhone?.length;
+    })
+    let itemEmail = shareHoldersArray.map((item) => item.email)
+    let itemPhone = shareHoldersArray.map((item) => item.phone)
+    let itemEmail1 = officersArray.map((item) => item.officersEmail)
+    let itemPhone1 = officersArray.map((item) => item.officerPhone)
+    let shareHolderEmail = itemEmail.flat()
+    let shareHolderPhone = itemPhone.flat()
+    let officersEmail = itemEmail1.flat()
+    let officersPhone = itemPhone1.flat()
+    let newAlldata = {
+      ...allData,
+      shareHoldersArray: [{ email: shareHolderEmail[0] }, { phone: shareHolderPhone[1] }],
+      officersArray: [{ officersEmail: officersEmail[0] }, { officerPhone: officersPhone[1] }]
+    }
+    postReminder(newAlldata).then((res) => {
       toast.success("Reminder Set Successfully", {
         position: toast.POSITION.TOP_CENTER,
         theme: "colored"
@@ -126,7 +148,6 @@ const ReminderSetting = () => {
       navigate("/")
     })
       .catch((e) => console.log(e))
-
   }
 
   const handleChangeEmail = (event, index) => {
@@ -323,7 +344,26 @@ const ReminderSetting = () => {
     }
   }
 
+  const handleDisable = (e, index, email, phone) => {
+    let newDisabledInputs = [...disabledInputs];
+    if (e === true) {
+      newDisabledInputs.push(email, phone);
+    } else if (e === false) {
+      newDisabledInputs = newDisabledInputs.filter((i) => i !== email, phone);
+    }
+    setDisabledInputs(newDisabledInputs);
+  }
 
+  const handleOfficersDisable = (e, index, email, phone) => {
+    let newDisabledInputs = [...disabledInputs1];
+    if (e === true) {
+      newDisabledInputs.push(email, phone);
+    } else if (e === false) {
+      newDisabledInputs = newDisabledInputs.filter((i) => i !== email, phone);
+    }
+    setDisabledInputs1(newDisabledInputs);
+  }
+  console.log("disabledInputs1:", disabledInputs1)
 
   return (
     <div className="main_dev">
@@ -348,7 +388,7 @@ const ReminderSetting = () => {
 
             </div>
             <div className="form-group d-flex justify-content-between mt-4">
-              <label htmlFor="exampleInputEmail1">2. CIT filings</label>
+              <label htmlFor="exampleInputEmail1">2. CIT Filings</label>
               <input type="checkbox" className="form-check-input" id="exampleCheck1"
                 checked={
                   allData.CIT
@@ -466,14 +506,19 @@ const ReminderSetting = () => {
                   )
                   return (
                     shareHoldersArray.map((item, index) => {
-                      //if item value is undeifned then stop the excetuin
+                      const isDisabled = disabledInputs.includes(
+                        email[index],
+                        phone[index],
+                        item
+
+                      );
                       if (item === undefined) {
                         return null
                       } else {
 
                         return (
                           <div className="row">
-                            <div className="col-md-4">
+                            <div className="col-md-3">
                               <div className="form-group mt-3">
                                 <label htmlFor="exampleInputEmail1">Name (Shareholder)</label>
                                 <input
@@ -487,11 +532,15 @@ const ReminderSetting = () => {
                                     handleChangeShareholderName(e, index)
 
                                   }}
+                                  disabled={
+                                    // disableReminder === true ? true : false
+                                    isDisabled
+                                  }
                                 />
 
                               </div>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-3">
                               <div className="form-group mt-3">
                                 <label htmlFor="emailInput">Email</label>
                                 <input
@@ -504,18 +553,18 @@ const ReminderSetting = () => {
                                   }
                                   onChange={(e) => {
                                     handleChangeEmail(e, index)
-                                    // setAllData({
-                                    //   ...allData,
-                                    //   email: e.target.value
-                                    // })
                                   }}
+                                  disabled={
+                                    // disableReminder === true ? true : false
+                                    isDisabled
+                                  }
                                 />
                                 <small id="emailInput" className="form-text text-muted">We'll never share your email with anyone else.</small>
 
                               </div>
 
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-3">
                               <div className="form-group mt-3">
                                 <label htmlFor="phoneInput">Phone Number</label>
                                 <input
@@ -527,10 +576,31 @@ const ReminderSetting = () => {
                                   onChange={(e) => {
                                     handleChangePhone(e, index)
                                   }}
+                                  disabled={
+                                    isDisabled
+                                  }
+
                                 />
                                 <small id="phoneInput" className="form-text text-muted">Enter Your Phone Number With Country Code.</small>
 
                               </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-check mt-5">
+                                <input className="form-check-input" type="checkbox" defaultValue id="defaultCheck1"
+                                  value={
+                                    disableReminder
+                                  }
+                                  onChange={(e) => {
+                                    handleDisable(e.target.checked, index, email[index], phone[index])
+                                  }}
+
+                                />
+                                <label className="form-check-label" htmlFor="defaultCheck1">
+                                  No Reminder
+                                </label>
+                              </div>
+
                             </div>
                           </div>
                         )
@@ -553,13 +623,15 @@ const ReminderSetting = () => {
                   )
                   return (
                     officersArray.map((item, index) => {
+                      const isDisabled = disabledInputs1.includes(officerEmail[index], officerPhone[index],
+                        item);
                       if (item === undefined) {
                         return null
                       } else {
 
                         return (
                           <div className="row">
-                            <div className="col-md-4">
+                            <div className="col-md-3">
                               <div className="form-group mt-3">
                                 <label htmlFor="exampleInputEmail1">Name (Officers)</label>
                                 <input
@@ -572,11 +644,12 @@ const ReminderSetting = () => {
                                   onChange={(e) => {
                                     handleChangeOfficerNames(e, index)
                                   }}
+                                  disabled={isDisabled}
                                 />
 
                               </div>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-3">
                               <div className="form-group mt-3">
                                 <label htmlFor="emailInput">Email</label>
                                 <input
@@ -588,13 +661,15 @@ const ReminderSetting = () => {
                                   onChange={(e) => {
                                     handleChangeOfficerEmail(e, index)
                                   }}
+                                  disabled={isDisabled}
+
                                 />
                                 <small id="emailInput" className="form-text text-muted">We'll never share your email with anyone else.</small>
 
                               </div>
 
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-3">
                               <div className="form-group mt-3">
                                 <label htmlFor="phoneInput">Phone Number</label>
                                 <input
@@ -606,10 +681,23 @@ const ReminderSetting = () => {
                                   onChange={(e) => {
                                     handleChangeOfficerPhone(e, index)
                                   }}
+                                  disabled={isDisabled}
+
                                 />
                                 <small id="phoneInput" className="form-text text-muted">Enter Your Phone Number With Country Code.</small>
 
                               </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="form-check mt-5">
+                                <input className="form-check-input" type="checkbox" defaultValue id="defaultCheck" value={disableReminder1} onChange={(e) => handleOfficersDisable(e.target.checked, index,
+                                  officerEmail[index], officerPhone[index]
+                                )} />
+                                <label className="form-check-label" htmlFor="defaultCheck">
+                                  No Reminder
+                                </label>
+                              </div>
+
                             </div>
                           </div>
                         )
@@ -734,21 +822,27 @@ const ReminderSetting = () => {
                   <br />
                   {showInput ? (
                     <input
-                      type="datetime-local"
+                      type="date"
                       className="form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
                       placeholder="Enter Name"
                       value={allData.ECIFirstReminder}
                       onChange={(e) => {
+                        const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
+                        const date = new Date(inputDate);
+                        const month = date.getMonth() + 1 // get the month abbreviation
+                        const day = date.getDate();
+                        const year = date.getFullYear();
                         setAllData({
                           ...allData,
-                          ECIFirstReminder: e.target.value
+                          ECIFirstReminder: `${year}-0${month}-${day}T01:00`
                         })
+                        setShowInput(false)
                       }}
                     />
                   ) : (
-                    allData.ECIFirstReminder && <p>{allData.ECIFirstReminder}</p>
+                    allData.ECIFirstReminder && <p>{allData.ECIFirstReminder.split('T')[0].split('-').slice(1).join('-')}</p>
                   )}
                   <select class="form-select" aria-label="Default select example"
                     value={allData.ECIFirstReminder}
@@ -756,9 +850,10 @@ const ReminderSetting = () => {
                       handleChangeECI(e)
                     }}>
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={`${ninetyDaysReminder}-30T09:00`}>90 Days</option>
-                    <option value={`${sixtyDaysReminder}-30T09:00`}>60 Days</option>
-                    <option value={`${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                    <option value={`${currentYear}-0${ninetyDaysReminder}-30T01:00`
+                    }>90 Days</option>
+                    <option value={`${currentYear}-0${sixtyDaysReminder}-30T01:00`}>60 Days</option>
+                    <option value={`${currentYear}-0${thirtyDaysReminder}-30T01:00`}>30 Days</option>
                     <option value="other">select date and time manually</option>
                   </select>
 
@@ -777,15 +872,21 @@ const ReminderSetting = () => {
                         placeholder="Enter Name"
                         value={allData.ECIsecondReminder}
                         onChange={(e) => {
+                          const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
+                          const date = new Date(inputDate);
+                          const month = date.getMonth() + 1 // get the month abbreviation
+                          const day = date.getDate();
+                          const year = date.getFullYear();
                           setAllData({
                             ...allData,
-                            ECIsecondReminder: e.target.value
+                            ECIsecondReminder: `${year}-0${month}-${day}T01:00`
                           })
+                          setShowInput1(false)
                         }
                         }
                       />
                     ) : (
-                      allData.ECIsecondReminder && <p>{allData.ECIsecondReminder}</p>
+                      allData.ECIsecondReminder && <p>{allData.ECIsecondReminder.split('T')[0].split('-').slice(1).join('-')}</p>
 
                     )
                   }
@@ -796,11 +897,11 @@ const ReminderSetting = () => {
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={`${ninetyDaysReminder}-30T09:00`}>90 Days</option>
-                    <option value={`${sixtyDaysReminder}-30T09:00`}>60 Days</option>
-                    <option value={`${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                    <option value={`${currentYear}-0${ninetyDaysReminder}-30T01:00`
+                    }>90 Days</option>
+                    <option value={`${currentYear}-0${sixtyDaysReminder}-30T01:00`}>60 Days</option>
+                    <option value={`${currentYear}-0${thirtyDaysReminder}-30T01:00`}>30 Days</option>
                     <option value="other">select date and time manually</option>
-
                   </select>
 
                 </div>
@@ -818,15 +919,21 @@ const ReminderSetting = () => {
                         placeholder="Enter Name"
                         value={allData.ECIfinalReminder}
                         onChange={(e) => {
+                          const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
+                          const date = new Date(inputDate);
+                          const month = date.getMonth() + 1 // get the month abbreviation
+                          const day = date.getDate();
+                          const year = date.getFullYear();
                           setAllData({
                             ...allData,
-                            ECIfinalReminder: e.target.value
+                            ECIfinalReminder: `${year}-0${month}-${day}T01:00`
                           })
+                          setShowInput2(false)
                         }
                         }
                       />
                     ) : (
-                      allData.ECIfinalReminder && <p>{allData.ECIfinalReminder}</p>
+                      allData.ECIfinalReminder && <p>{allData.ECIfinalReminder.split('T')[0].split('-').slice(1).join('-')}</p>
 
                     )
                   }
@@ -837,9 +944,10 @@ const ReminderSetting = () => {
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={`${ninetyDaysReminder}-30T09:00`}>90 Days</option>
-                    <option value={`${sixtyDaysReminder}-30T09:00`}>60 Days</option>
-                    <option value={`${thirtyDaysReminder}-30T09:00`}>30 Days</option>
+                    <option value={`${currentYear}-0${ninetyDaysReminder}-30T01:00`
+                    }>90 Days</option>
+                    <option value={`${currentYear}-0${sixtyDaysReminder}-30T01:00`}>60 Days</option>
+                    <option value={`${currentYear}-0${thirtyDaysReminder}-30T01:00`}>30 Days</option>
                     <option value="other">select date and time manually</option>
 
                   </select>
@@ -898,15 +1006,21 @@ const ReminderSetting = () => {
                         placeholder="Enter date and time"
                         value={allData.CITfirstReminder}
                         onChange={(e) => {
+                          const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
+                          const date = new Date(inputDate);
+                          const month = date.getMonth() + 1 // get the month abbreviation
+                          const day = date.getDate();
+                          const year = date.getFullYear();
                           setAllData({
                             ...allData,
-                            CITfirstReminder: e.target.value
+                            CITfirstReminder: `${year}-0${month}-${day}T01:00`
                           })
+                          setShowInput3(false)
                         }
                         }
                       />
                     ) : (
-                      allData.CITfirstReminder && <p>{allData.CITfirstReminder}</p>
+                      allData.CITfirstReminder && <p>{allData.CITfirstReminder.split('T')[0].split('-').slice(1).join('-')}</p>
 
                     )
                   }
@@ -917,9 +1031,10 @@ const ReminderSetting = () => {
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={CITNinetyDaysReminder}>90 Days</option>
-                    <option value={CITSixtyDaysReminder}>60 Days</option>
-                    <option value={CITThirtyDaysReminder}>30 Days</option>
+                    <option value={`${CITNinetyDaysReminder}
+                    `}>90 Days</option>
+                    <option value={`${CITSixtyDaysReminder}`}>60 Days</option>
+                    <option value={`${CITThirtyDaysReminder}`}>30 Days</option>
                     <option value="other">select date and time manually</option>
                   </select>
 
@@ -937,15 +1052,21 @@ const ReminderSetting = () => {
                         placeholder="Enter date and time"
                         value={allData.CITsecondReminder}
                         onChange={(e) => {
+                          const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
+                          const date = new Date(inputDate);
+                          const month = date.getMonth() + 1 // get the month abbreviation
+                          const day = date.getDate();
+                          const year = date.getFullYear();
                           setAllData({
                             ...allData,
-                            CITsecondReminder: e.target.value
+                            CITsecondReminder: `${year}-${month}-${day}T01:00`
                           })
+                          setShowInput4(false)
                         }
                         }
                       />
                     ) : (
-                      allData.CITsecondReminder && <p>{allData.CITsecondReminder}</p>
+                      allData.CITsecondReminder && <p>{allData.CITsecondReminder.split('T')[0].split('-').slice(1).join('-')}</p>
                     )
                   }
                   <select class="form-select" aria-label="Default select example"
@@ -955,9 +1076,10 @@ const ReminderSetting = () => {
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={CITNinetyDaysReminder}>90 Days</option>
-                    <option value={CITSixtyDaysReminder}>60 Days</option>
-                    <option value={CITThirtyDaysReminder}>30 Days</option>
+                    <option value={`${CITNinetyDaysReminder}
+                    `}>90 Days</option>
+                    <option value={`${CITSixtyDaysReminder}`}>60 Days</option>
+                    <option value={`${CITThirtyDaysReminder}`}>30 Days</option>
                     <option value="other">select date and time manually</option>
                   </select>
 
@@ -976,15 +1098,21 @@ const ReminderSetting = () => {
                         placeholder="Enter date and time"
                         value={allData.CITfinalReminder}
                         onChange={(e) => {
+                          const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
+                          const date = new Date(inputDate);
+                          const month = date.getMonth() + 1 // get the month abbreviation
+                          const day = date.getDate();
+                          const year = date.getFullYear();
                           setAllData({
                             ...allData,
-                            CITfinalReminder: e.target.value
+                            CITfinalReminder: `${year}-${month}-${day}T01:00`
                           })
+                          setShowInput5(false)
                         }
                         }
                       />
                     ) : (
-                      allData.CITfinalReminder && <p>{allData.CITfinalReminder}</p>
+                      allData.CITfinalReminder && <p>{allData.CITfinalReminder.split('T')[0].split('-').slice(1).join('-')}</p>
 
                     )
                   }
@@ -995,9 +1123,10 @@ const ReminderSetting = () => {
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={CITNinetyDaysReminder}>90 Days</option>
-                    <option value={CITSixtyDaysReminder}>60 Days</option>
-                    <option value={CITThirtyDaysReminder}>30 Days</option>
+                    <option value={`${CITNinetyDaysReminder}
+                    `}>90 Days</option>
+                    <option value={`${CITSixtyDaysReminder}`}>60 Days</option>
+                    <option value={`${CITThirtyDaysReminder}`}>30 Days</option>
                     <option value="other">select date and time manually</option>
                   </select>
 
@@ -1048,15 +1177,21 @@ const ReminderSetting = () => {
                     placeholder="Enter date and time"
                     value={allData.annualFirstReminder}
                     onChange={(e) => {
+                      const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
+                      const date = new Date(inputDate);
+                      const month = date.getMonth() + 1 // get the month abbreviation
+                      const day = date.getDate();
+                      const year = date.getFullYear();
                       setAllData({
                         ...allData,
-                        annualFirstReminder: e.target.value
+                        annualFirstReminder: `${year}-${month}-${day}T01:00`
                       })
+                      setShowInput6(false)
                     }
                     }
                   />
                 ) : (
-                  allData.annualFirstReminder && <p>{allData.annualFirstReminder}</p>
+                  allData.annualFirstReminder && <p>{allData.annualFirstReminder.split('T')[0].split('-').slice(1).join('-')}</p>
                 )
               }
               <select class="form-select" aria-label="Default select example"
@@ -1071,13 +1206,10 @@ const ReminderSetting = () => {
                 <option value={annualThirtyDaysReminder}>30 Days</option>
                 <option value="other">select date and time manually</option>
               </select>
-
-
             </div>
             <div className="form-group  mt-3">
               <label htmlFor="secondReminder">Second Reminder</label>
               <br />
-
               {
                 showInput7 ? (
                   <input
@@ -1087,15 +1219,21 @@ const ReminderSetting = () => {
                     placeholder="Enter date and time"
                     value={allData.annualSecondReminder}
                     onChange={(e) => {
+                      const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
+                      const date = new Date(inputDate);
+                      const month = date.getMonth() + 1 // get the month abbreviation
+                      const day = date.getDate();
+                      const year = date.getFullYear();
                       setAllData({
                         ...allData,
-                        annualSecondReminder: e.target.value
+                        annualSecondReminder: `${year}-${month}-${day}T01:00`
                       })
+                      setShowInput7(false)
                     }
                     }
                   />
                 ) : (
-                  allData.annualSecondReminder && <p>{allData.annualSecondReminder}</p>
+                  allData.annualSecondReminder && <p>{allData.annualSecondReminder.split('T')[0].split('-').slice(1).join('-')}</p>
 
                 )
               }
@@ -1120,21 +1258,27 @@ const ReminderSetting = () => {
               {
                 showInput8 ? (
                   <input
-                    type="datetime-local"
+                    type="date"
                     className="form-control"
                     id="finalReminder"
                     placeholder="Enter date and time"
                     value={allData.annualFinalReminder}
                     onChange={(e) => {
+                      const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
+                      const date = new Date(inputDate);
+                      const month = date.getMonth() + 1 // get the month abbreviation
+                      const day = date.getDate();
+                      const year = date.getFullYear();
                       setAllData({
                         ...allData,
-                        annualFinalReminder: e.target.value
+                        annualFinalReminder: `${year}-${month}-${day}T01:00`
                       })
+                      setShowInput8(false)
                     }
                     }
                   />
                 ) : (
-                  allData.annualFinalReminder && <p>{allData.annualFinalReminder}</p>
+                  allData.annualFinalReminder && <p>{allData.annualFinalReminder.split('T')[0].split('-').slice(1).join('-')}</p>
                 )
               }
               <select class="form-select" aria-label="Default select example"

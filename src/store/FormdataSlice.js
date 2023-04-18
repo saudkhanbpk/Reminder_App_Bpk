@@ -13,7 +13,6 @@ export const formDataSlice = createSlice({
       state.formData = action.payload;
     },
     addId: (state, action) => {
-      console.log("action.payload", action.payload)
       state.id = action.payload;
     }
 

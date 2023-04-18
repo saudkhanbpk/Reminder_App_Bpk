@@ -7,7 +7,7 @@ import { getUser } from "../../services/Auth/auth";
 import { deleteUser } from "../../services/Auth/auth";
 import { useNavigate } from "react-router-dom";
 import Pagination from "./Pagination";
-import {BsFileEarmarkCheckFill} from "react-icons/bs"
+import { BsFileEarmarkCheckFill } from "react-icons/bs"
 export default function GetUser() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
@@ -24,7 +24,7 @@ export default function GetUser() {
         setData(res.users);
       })
       .catch((err) => {
-        console.log("welcom", err);
+        console.log(err);
       });
   };
   const deleteUsers = (id) => {
@@ -33,7 +33,7 @@ export default function GetUser() {
         setFetchHandle(!fetchHandle);
       })
       .catch((err) => {
-        console.log("welcom", err);
+        console.log(err);
       });
   };
   const filterUsers = data.filter((user) => user.name.toLowerCase().includes(search.toLowerCase())
@@ -41,7 +41,7 @@ export default function GetUser() {
   const lastPostIndex = currentPage * postsPerPage;
 
   const firstPostIndex = lastPostIndex - postsPerPage;
-  
+
   const currentPosts = filterUsers.slice(firstPostIndex, lastPostIndex);
   return (
     <div className="container">
@@ -83,8 +83,8 @@ export default function GetUser() {
                 <td>{item.email}</td>
                 <td>{item._id}</td>
                 <td>
-                  <span className="fils" onClick={()=>navigate(`/addFile/${item._id}`)}>
-                  <BsFileEarmarkCheckFill />
+                  <span className="fils" onClick={() => navigate(`/addFile/${item._id}`)}>
+                    <BsFileEarmarkCheckFill />
                   </span>
                 </td>
                 <td>
