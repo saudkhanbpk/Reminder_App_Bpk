@@ -17,12 +17,10 @@ const UpdateFIle = () => {
     getData()
 
   }, [])
-  console.log("formData", formData)
 
   const handleUpdate = () => {
     let payload = { _id, formData: formData }
     updateFile(_id, formData).then((res) => {
-      console.log("res", res)
     }).catch((e) => {
       console.log("e", e)
     })

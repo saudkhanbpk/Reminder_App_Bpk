@@ -19,7 +19,6 @@ export default function BizFiles() {
   }
 
   const deleteData = (_id) => {
-    console.log("id", _id)
     deleteFile({ _id: _id }).then((res) => {
       toast.success("File Deleted Successfully", {
         theme: "colored"
@@ -44,7 +43,6 @@ export default function BizFiles() {
           <tbody>
             {
               data?.map((item, index) => {
-                console.log("item", item._id)
                 return <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.companyName}</td>

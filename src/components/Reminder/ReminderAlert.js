@@ -19,16 +19,12 @@ export default function ReminderAlert() {
   const [fetchData, setFetchData] = useState(false);
   let navigate = useNavigate();
   let userId = localStorage.getItem("userId")
-  console.log("id", fileId)
   const getFiles = () => {
     let payload = { userId: userId }
     getFile(payload).then((res) => {
       setData(res.data)
       dispatch(
-        addFormData(res.data)
-
-      )
-
+        addFormData(res.data))
     }).catch((e) => {
       console.log("e", e)
     })
@@ -41,9 +37,7 @@ export default function ReminderAlert() {
 
   }, [])
 
-
   let id = localStorage.getItem("fileId")
-  console.log("id", id)
 
   useEffect(() => {
     getFiles()
@@ -54,6 +48,7 @@ export default function ReminderAlert() {
       toast.success("File Deleted Successfully", {
         theme: "colored"
       })
+      getFiles();
       setFetchData(!fetchData)
     }).catch((error) => {
       toast.error("Something Went Wrong", { theme: "colored" })
@@ -66,7 +61,6 @@ export default function ReminderAlert() {
         return (
           <div className='custom-ui'>
             <h2>You Need Reminder's Now</h2>
-            {/* <p>You want to delete this file?</p> */}
             <button
               style={{
                 backgroundColor: "transparent",
@@ -76,9 +70,7 @@ export default function ReminderAlert() {
                 padding: "5px 10px",
                 cursor: "pointer",
                 outline: "none",
-
               }}
-
               onClick={onClose}>No</button>&nbsp;&nbsp;&nbsp;
             <button
               style={{
@@ -92,9 +84,7 @@ export default function ReminderAlert() {
 
               }}
               onClick={() => {
-                console.log("fileId", id)
                 navigate(`remindersetting/${id}`)
-
                 onClose();
               }}
             >
@@ -105,25 +95,18 @@ export default function ReminderAlert() {
       }
     });
   }
+
   useEffect(() => {
-    // Check if the function has already been called
     const isFunctionCalled = localStorage.getItem('isFunctionCalled');
-
     if (isFunctionCalled) {
-      // Call the function
       getAlertReminder();
-
       localStorage.removeItem('isFunctionCalled');
     }
   }, []);
 
-
-
   const handleNavigate = (id) => {
     const isFunctionCalled = localStorage.getItem('isFunctionCalled');
     if (isFunctionCalled) {
-      // Call the function
-      // navigate(`remindersetting/${id}`)
     }
     else {
       navigate(`remindersetting/${id}`)
@@ -145,7 +128,6 @@ export default function ReminderAlert() {
         <tbody>
           {
             data.map((item, index) => {
-              console.log("item", item)
               return (
                 <tr key={item}>
                   <td>{index + 1}</td>
@@ -155,14 +137,11 @@ export default function ReminderAlert() {
                       item.reminder === 1 ? (
                         <AiOutlineEye onClick={() => navigate(`reminders/${item._id}`)} />
                       ) : (
-                        <span className="settingIcon" > <AiOutlinePlusSquare onClick={() => handleNavigate(item._id)} /></span>
-                      )
-                    }
-
-
+                        <AiOutlinePlusSquare onClick={() => handleNavigate(item._id)} />
+                      )}
                   </td>
-                  <td className="der" onClick={() => navigate(`/update/${item._id}`)} ><FaEdit />
-                    &nbsp; <span className="settingIcon" onClick={() => deleteDataFile(item._id)}><AiFillDelete /></span>
+                  <td className="der"  ><FaEdit onClick={() => navigate(`/update/${item._id}`)} />
+                    &nbsp; <span className="settingIcon" ><AiFillDelete onClick={() => deleteDataFile(item._id)} /></span>
                   </td>
                 </tr>
               )
