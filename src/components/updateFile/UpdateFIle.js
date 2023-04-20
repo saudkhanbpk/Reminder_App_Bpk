@@ -22,7 +22,10 @@ const UpdateFIle = () => {
   const handleUpdate = () => {
     let payload = { _id, formData: formData }
     updateFile(_id, formData).then((res) => {
-      navigate('/')
+      if (res.msg === "Update file Success") {
+        alert(res.msg)
+        navigate('/')
+      }
     }).catch((e) => {
       console.log("e", e)
     })
