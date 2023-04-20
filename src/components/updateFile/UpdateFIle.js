@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { getFileById, updateFile } from '../../services/addFile/FilesApi';
 const UpdateFIle = () => {
   const [step, setStep] = useState(4);
   const [formData, setFormData] = useState({})
 
   let { _id } = useParams();
+  let navigate = useNavigate();
   const getData = () => {
     getFileById(_id).then((res) => {
       setFormData(res.data)
@@ -21,6 +22,7 @@ const UpdateFIle = () => {
   const handleUpdate = () => {
     let payload = { _id, formData: formData }
     updateFile(_id, formData).then((res) => {
+      navigate('/')
     }).catch((e) => {
       console.log("e", e)
     })
