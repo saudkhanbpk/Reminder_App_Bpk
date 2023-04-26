@@ -44,9 +44,9 @@ const ReminderSetting = () => {
   let annualNinetyDaysReminder1 = (parseInt(annualbefore) + 3) % 12
   let annualSixtyDaysReminder2 = (parseInt(annualbefore) + 4) % 12
   let annualThirtyDaysReminder3 = (parseInt(annualbefore) + 5) % 12
-  let annualNinetyDaysReminder = `${currentYear}-0${annualNinetyDaysReminder1}-30T01:00`
-  let annualSixtyDaysReminder = `${currentYear}-0${annualSixtyDaysReminder2}-30T01:00`
-  let annualThirtyDaysReminder = `${currentYear}-0${annualThirtyDaysReminder3}-30T01:00`
+  let annualNinetyDaysReminder = `${currentYear}-${(annualNinetyDaysReminder1).toString().padStart(2, '0')}-30T01:00`;
+  let annualSixtyDaysReminder = `${currentYear}-${(annualSixtyDaysReminder2).toString().padStart(2, '0')}-30T01:00`;
+  let annualThirtyDaysReminder = `${currentYear}-${(annualThirtyDaysReminder3).toString().padStart(2, '0')}-30T01:00`;
   const [steps, setSteps] = useState('1');
   const [counter, setCounter] = useState(0)
   const [showInput, setShowInput] = useState(false);
@@ -831,12 +831,12 @@ const ReminderSetting = () => {
                       onChange={(e) => {
                         const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
                         const date = new Date(inputDate);
-                        const month = date.getMonth() + 1 // get the month abbreviation
-                        const day = date.getDate();
+                        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                        const day = date.getDate().toString().padStart(2, '0');
                         const year = date.getFullYear();
                         setAllData({
                           ...allData,
-                          ECIFirstReminder: `${year}-0${month}-${day}T01:00`
+                          ECIFirstReminder: `${year}-${month}-${day}T01:00`
                         })
                         setShowInput(false)
                       }}
@@ -850,10 +850,10 @@ const ReminderSetting = () => {
                       handleChangeECI(e)
                     }}>
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={`${currentYear}-0${ninetyDaysReminder}-30T01:00`
+                    <option value={`${currentYear}-${(ninetyDaysReminder).toString().padStart(2, '0')}-30T01:00`
                     }>90 Days</option>
-                    <option value={`${currentYear}-0${sixtyDaysReminder}-30T01:00`}>60 Days</option>
-                    <option value={`${currentYear}-0${thirtyDaysReminder}-30T01:00`}>30 Days</option>
+                    <option value={`${currentYear}-${(sixtyDaysReminder).toString().padStart(2, '0')}-30T01:00`}>60 Days</option>
+                    <option value={`${currentYear}-${(thirtyDaysReminder).toString().padStart(2, '0')}-30T01:00`}>30 Days</option>
                     <option value="other">select date and time manually</option>
                   </select>
 
@@ -874,12 +874,12 @@ const ReminderSetting = () => {
                         onChange={(e) => {
                           const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
                           const date = new Date(inputDate);
-                          const month = date.getMonth() + 1 // get the month abbreviation
-                          const day = date.getDate();
+                          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                          const day = date.getDate().toString().padStart(2, '0');
                           const year = date.getFullYear();
                           setAllData({
                             ...allData,
-                            ECIsecondReminder: `${year}-0${month}-${day}T01:00`
+                            ECIsecondReminder: `${year}-${month}-${day}T01:00`
                           })
                           setShowInput1(false)
                         }
@@ -897,10 +897,10 @@ const ReminderSetting = () => {
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={`${currentYear}-0${ninetyDaysReminder}-30T01:00`
+                    <option value={`${currentYear}-${(ninetyDaysReminder).toString().padStart(2, '0')}-30T01:00`
                     }>90 Days</option>
-                    <option value={`${currentYear}-0${sixtyDaysReminder}-30T01:00`}>60 Days</option>
-                    <option value={`${currentYear}-0${thirtyDaysReminder}-30T01:00`}>30 Days</option>
+                    <option value={`${currentYear}-${(sixtyDaysReminder).toString().padStart(2, '0')}-30T01:00`}>60 Days</option>
+                    <option value={`${currentYear}-${(thirtyDaysReminder).toString().padStart(2, '0')}-30T01:00`}>30 Days</option>
                     <option value="other">select date and time manually</option>
                   </select>
 
@@ -921,12 +921,12 @@ const ReminderSetting = () => {
                         onChange={(e) => {
                           const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
                           const date = new Date(inputDate);
-                          const month = date.getMonth() + 1 // get the month abbreviation
-                          const day = date.getDate();
+                          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                          const day = date.getDate().toString().padStart(2, '0');
                           const year = date.getFullYear();
                           setAllData({
                             ...allData,
-                            ECIfinalReminder: `${year}-0${month}-${day}T01:00`
+                            ECIfinalReminder: `${year}-${month}-${day}T01:00`
                           })
                           setShowInput2(false)
                         }
@@ -944,10 +944,10 @@ const ReminderSetting = () => {
                     }}
                   >
                     <option selected >Choose below options to receive reminder</option>
-                    <option value={`${currentYear}-0${ninetyDaysReminder}-30T01:00`
+                    <option value={`${currentYear}-${(ninetyDaysReminder).toString().padStart(2, '0')}-30T01:00`
                     }>90 Days</option>
-                    <option value={`${currentYear}-0${sixtyDaysReminder}-30T01:00`}>60 Days</option>
-                    <option value={`${currentYear}-0${thirtyDaysReminder}-30T01:00`}>30 Days</option>
+                    <option value={`${currentYear}-${(sixtyDaysReminder).toString().padStart(2, '0')}-30T01:00`}>60 Days</option>
+                    <option value={`${currentYear}-${(thirtyDaysReminder).toString().padStart(2, '0')}-30T01:00`}>30 Days</option>
                     <option value="other">select date and time manually</option>
 
                   </select>
@@ -1008,12 +1008,12 @@ const ReminderSetting = () => {
                         onChange={(e) => {
                           const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
                           const date = new Date(inputDate);
-                          const month = date.getMonth() + 1 // get the month abbreviation
-                          const day = date.getDate();
+                          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                          const day = date.getDate().toString().padStart(2, '0');
                           const year = date.getFullYear();
                           setAllData({
                             ...allData,
-                            CITfirstReminder: `${year}-0${month}-${day}T01:00`
+                            CITfirstReminder: `${year}-${month}-${day}T01:00`
                           })
                           setShowInput3(false)
                         }
@@ -1100,8 +1100,8 @@ const ReminderSetting = () => {
                         onChange={(e) => {
                           const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
                           const date = new Date(inputDate);
-                          const month = date.getMonth() + 1 // get the month abbreviation
-                          const day = date.getDate();
+                          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                          const day = date.getDate().toString().padStart(2, '0');
                           const year = date.getFullYear();
                           setAllData({
                             ...allData,
@@ -1179,8 +1179,8 @@ const ReminderSetting = () => {
                     onChange={(e) => {
                       const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
                       const date = new Date(inputDate);
-                      const month = date.getMonth() + 1 // get the month abbreviation
-                      const day = date.getDate();
+                      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                      const day = date.getDate().toString().padStart(2, '0');
                       const year = date.getFullYear();
                       setAllData({
                         ...allData,
@@ -1221,8 +1221,8 @@ const ReminderSetting = () => {
                     onChange={(e) => {
                       const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
                       const date = new Date(inputDate);
-                      const month = date.getMonth() + 1 // get the month abbreviation
-                      const day = date.getDate();
+                      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                      const day = date.getDate().toString().padStart(2, '0');
                       const year = date.getFullYear();
                       setAllData({
                         ...allData,
@@ -1266,8 +1266,8 @@ const ReminderSetting = () => {
                     onChange={(e) => {
                       const inputDate = e.target.value; // assuming the input value is in the format "yyyy-MM-dd"
                       const date = new Date(inputDate);
-                      const month = date.getMonth() + 1 // get the month abbreviation
-                      const day = date.getDate();
+                      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                      const day = date.getDate().toString().padStart(2, '0');
                       const year = date.getFullYear();
                       setAllData({
                         ...allData,
