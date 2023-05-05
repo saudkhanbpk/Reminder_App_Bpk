@@ -292,6 +292,8 @@ const ReminderSetting = () => {
     }
   }
 
+
+
   const handleChangeCIT2 = (event) => {
     const value = event.target.value;
     if (value === "other") {
@@ -364,7 +366,7 @@ const ReminderSetting = () => {
     setDisabledInputs1(newDisabledInputs);
   }
   console.log("disabledInputs1:", disabledInputs1)
-
+  console.log("allData:", !allData.shareHoldersArray[0] && !allData.shareHoldersArray[1] && !allData.officersArray[0] && !allData.officersArray[1])
   return (
     <div className="main_dev">
       {
@@ -789,7 +791,20 @@ const ReminderSetting = () => {
                   setSteps(
                     allData.ECI && "3" || allData.CIT && "4" || allData.annual && "5"
                   )
-                }}>Next</button>
+                }}
+                  disabled={
+                    !(
+                      allData.shareHoldersArray &&
+                      allData.shareHoldersArray.length === 2 &&
+                      allData.shareHoldersArray[0].email &&
+                      allData.shareHoldersArray[1].phone &&
+                      allData.officersArray &&
+                      allData.officersArray.length === 2 &&
+                      allData.officersArray[0].officersEmail &&
+                      allData.officersArray[1].officerPhone
+                    )
+                  }
+                >Next</button>
                 <button className="btn btn-danger ml-3" onClick={() => {
                   setSteps('1')
                 }}>Back</button>
@@ -801,7 +816,7 @@ const ReminderSetting = () => {
                 </button>
               </div>
             </form>
-          </div>
+          </div >
 
         ) : null
       }
