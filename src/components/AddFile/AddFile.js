@@ -451,7 +451,7 @@ export default function AddFile() {
     }
 
     function handleNextPage() {
-        formData1.FYEAsAtDateOfLastAR === "" ? alert("Please Fill the FYE field ") : ""
+        // formData1.FYEAsAtDateOfLastAR === "" ? alert("Please Fill the FYE field ") : ""
         setPageNumber(prevPageNumber => prevPageNumber + 1);
         setStep(step + 1)
     }
