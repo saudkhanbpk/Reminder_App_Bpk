@@ -34,6 +34,17 @@ export default function AddFile() {
       currency: "",
     },
   ]);
+  let formattedDate 
+  //   checkFYE?.FYEAsAtDateOfLastAR &&
+
+if(checkFYE?.FYEAsAtDateOfLastAR){
+    const currentDate = new Date(checkFYE?.FYEAsAtDateOfLastAR);
+  currentDate.setDate(currentDate.getDate() + 1);
+   formattedDate= currentDate.toISOString().substring(0, 10);}
+
+  // const [month, day, year] =
+  //   checkFYE?.FYEAsAtDateOfLastAR && checkFYE?.FYEAsAtDateOfLastAR.split("/");
+  // const formattedDate =checkFYE?.FYEAsAtDateOfLastAR &&(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
   const [officers, setOfficers] = useState([
     {
       name: "",
@@ -354,13 +365,24 @@ export default function AddFile() {
     setStep(step - 1);
   }
   console.log(
-    "date files ",
-    formData,
-    "form data 1",
-    formData1,
-    "form data 2",
-    formData2
+    "date files "
+    // formData,
+    // "form data 1",
+    // formData1,
+    // "form data 2",
+    // formData2
+    // formattedDate
   );
+  const handleChangeFYE=(e)=>{
+ let selectedDate = new Date(e.target.value);
+    selectedDate.setDate(selectedDate.getDate() - 1);
+    setCheckFYE({
+                        
+      ...checkFYE,
+      FYEAsAtDateOfLastAR:selectedDate
+//                     
+    })
+  }
   return (
     <div>
       <span className="heading">
@@ -833,21 +855,19 @@ export default function AddFile() {
                 </div>
                 <div className="col-md-6">
                   <input
-                    type="text"
+                    type="date"
                     placeholder="mm/dd/yyy"
                     className="form-control"
                     id="inputCity"
-                    value={checkFYE?.FYEAsAtDateOfLastAR}
-                    onChange={(e) =>
+                    value={formattedDate}
+                    onChange={(e) => 
+                    handleChangeFYE(e)
                       // setFormData({
                       //   ...formData,
-                      //   FYEAsAtDateOfLastAR: e.target.value,
-                      // })
-                      setCheckFYE({
-                        ...checkFYE,
-                        FYEAsAtDateOfLastAR: e.target.value,
-                      })
+                      //    : e.target.value,
+                     
                     }
+                    
                   />
                 </div>
                 <p>Audit Firms</p>
