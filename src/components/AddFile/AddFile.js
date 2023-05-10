@@ -37,10 +37,11 @@ export default function AddFile() {
   let formattedDate
   //   checkFYE?.FYEAsAtDateOfLastAR &&
 
-if(checkFYE?.FYEAsAtDateOfLastAR){
+  if (checkFYE?.FYEAsAtDateOfLastAR) {
     const currentDate = new Date(checkFYE?.FYEAsAtDateOfLastAR);
-  currentDate.setDate(currentDate.getDate() + 1);
-   formattedDate= currentDate.toISOString().substring(0, 10);}
+    currentDate.setDate(currentDate.getDate() + 1);
+    formattedDate = currentDate.toISOString().substring(0, 10);
+  }
 
   // const [month, day, year] =
   //   checkFYE?.FYEAsAtDateOfLastAR && checkFYE?.FYEAsAtDateOfLastAR.split("/");
@@ -116,9 +117,9 @@ if(checkFYE?.FYEAsAtDateOfLastAR){
             companyType: textData[[textData.indexOf("Company Type") + 1]],
             FYEAsAtDateOfLastAR:
               textData[
-                [textData.indexOf("FYE As At Date of Last AR")] != -1
-                  ? [textData.indexOf("FYE As At Date of Last AR") + 1]
-                  : undefined
+              [textData.indexOf("FYE As At Date of Last AR")] != -1
+                ? [textData.indexOf("FYE As At Date of Last AR") + 1]
+                : undefined
               ],
             status: textData[[textData.indexOf("Status") + 1]],
             statusDate: textData[[textData.indexOf("Status Date") + 1]],
@@ -143,9 +144,9 @@ if(checkFYE?.FYEAsAtDateOfLastAR){
           setCheckFYE({
             FYEAsAtDateOfLastAR:
               textData[
-                [textData.indexOf("FYE As At Date of Last AR")] != -1
-                  ? [textData.indexOf("FYE As At Date of Last AR") + 1]
-                  : undefined
+              [textData.indexOf("FYE As At Date of Last AR")] != -1
+                ? [textData.indexOf("FYE As At Date of Last AR") + 1]
+                : undefined
               ],
           });
         }, 1000);
@@ -373,14 +374,13 @@ if(checkFYE?.FYEAsAtDateOfLastAR){
     // formData2
     // formattedDate
   );
-  const handleChangeFYE=(e)=>{
- let selectedDate = new Date(e.target.value);
-    selectedDate.setDate(selectedDate.getDate() - 1);
+  const handleChangeFYE = (e) => {
+    let selectedDate = new Date(e.target.value);
+    selectedDate.setDate(selectedDate.getDate() - 1);
     setCheckFYE({
 
       ...checkFYE,
-      FYEAsAtDateOfLastAR:selectedDate
-//
+      FYEAsAtDateOfLastAR: selectedDate
     })
   }
   return (
@@ -861,7 +861,7 @@ if(checkFYE?.FYEAsAtDateOfLastAR){
                     id="inputCity"
                     value={formattedDate}
                     onChange={(e) =>
-                    handleChangeFYE(e)
+                      handleChangeFYE(e)
                       // setFormData({
                       //   ...formData,
                       //    : e.target.value,
