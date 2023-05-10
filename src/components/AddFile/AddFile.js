@@ -20,6 +20,7 @@ export default function AddFile() {
   const [counter, setCounter] = useState(0);
   const [counter1, setCounter1] = useState(0);
   const [userId, setUserId] = useState("");
+  const [checkFYE, setCheckFYE] = useState({});
   const [fyeDatecheck, setFyeDatecheck] = useState("");
   const [newDataArray, setNewDataArray] = useState([
     {
@@ -77,6 +78,7 @@ export default function AddFile() {
     setFiles(file);
   };
   const handleRenderSuccess = async (page) => {
+    console.log("redering :;;;@@@@@@@@@@@");
     setFormData({});
     setFormData1({});
     setFormData2({});
@@ -95,14 +97,18 @@ export default function AddFile() {
         setTimeout(() => {
           setFormData({
             ...formData,
-            FYEAsAtDateOfLastAR:
-              textData[[textData.indexOf("FYE As At Date of Last AR") + 1]],
             uen: textData[[textData.indexOf("UEN") + 1]],
             companyName: textData[[textData.indexOf("Company Name.") + 1]],
             formerName: textData[[textData.indexOf("Former Name if any")]],
             incorporationDate:
               textData[[textData.indexOf("Incorporation Date.") + 1]],
             companyType: textData[[textData.indexOf("Company Type") + 1]],
+            FYEAsAtDateOfLastAR:
+              textData[
+                [textData.indexOf("FYE As At Date of Last AR")] != -1
+                  ? [textData.indexOf("FYE As At Date of Last AR") + 1]
+                  : undefined
+              ],
             status: textData[[textData.indexOf("Status") + 1]],
             statusDate: textData[[textData.indexOf("Status Date") + 1]],
             // principal activities
@@ -123,6 +129,14 @@ export default function AddFile() {
             currency2: textData[[textData.indexOf("Paid-Up Capital") + 5]],
             shareType2: textData[[textData.indexOf("Paid-Up Capital") + 6]],
           });
+          setCheckFYE({
+            FYEAsAtDateOfLastAR:
+              textData[
+                [textData.indexOf("FYE As At Date of Last AR")] != -1
+                  ? [textData.indexOf("FYE As At Date of Last AR") + 1]
+                  : undefined
+              ],
+          });
         }, 1000);
 
         break;
@@ -137,7 +151,7 @@ export default function AddFile() {
             DateOfLastAGM: textData[[textData.indexOf("Date of Last AGM") + 1]],
             DateOfLastAR: textData[[textData.indexOf("Date of Last AR") + 1]],
             FYEAsAtDateOfLastAR:
-              textData[[textData.indexOf("FYE As At Date of Last AR") + 1]],
+              textData[[textData.indexOf("FYE As At Date of Last AR")]],
             // auditFirms
             Name: textData[[textData.indexOf("Audit Firms") + 2]],
             // charges
@@ -327,12 +341,8 @@ export default function AddFile() {
   }
 
   function handleNextPage() {
-    // console.log("next page ;", formData);
-    if (
-      !formData1.FYEAsAtDateOfLastAR &&
-      !formData.FYEAsAtDateOfLastAR &&
-      !formData2.FYEAsAtDateOfLastAR
-    ) {
+    console.log("next page ;", checkFYE);
+    if (!checkFYE?.FYEAsAtDateOfLastAR && pageNumber == 2) {
       return alert("Please Fill the FYE field ");
     }
     setPageNumber((prevPageNumber) => prevPageNumber + 1);
@@ -824,12 +834,17 @@ export default function AddFile() {
                 <div className="col-md-6">
                   <input
                     type="text"
+                    placeholder="mm/dd/yyy"
                     className="form-control"
                     id="inputCity"
-                    value={formData1.FYEAsAtDateOfLastAR}
+                    value={checkFYE?.FYEAsAtDateOfLastAR}
                     onChange={(e) =>
-                      setFormData1({
-                        ...formData1,
+                      // setFormData({
+                      //   ...formData,
+                      //   FYEAsAtDateOfLastAR: e.target.value,
+                      // })
+                      setCheckFYE({
+                        ...checkFYE,
                         FYEAsAtDateOfLastAR: e.target.value,
                       })
                     }
@@ -2706,10 +2721,21 @@ export default function AddFile() {
                       type="text"
                       className="form-control"
                       id="inputCity"
-                      value={formData1.FYEAsAtDateOfLastAR}
+                      // value={formData1.FYEAsAtDateOfLastAR}
+                      // onChange={(e) =>
+                      //   setFormData1({
+                      //     ...formData1,
+                      //     FYEAsAtDateOfLastAR: e.target.value,
+                      //   })
+                      // }
+                      value={checkFYE?.FYEAsAtDateOfLastAR}
                       onChange={(e) =>
-                        setFormData1({
-                          ...formData1,
+                        // setFormData({
+                        //   ...formData,
+                        //   FYEAsAtDateOfLastAR: e.target.value,
+                        // })
+                        setCheckFYE({
+                          ...checkFYE,
                           FYEAsAtDateOfLastAR: e.target.value,
                         })
                       }
