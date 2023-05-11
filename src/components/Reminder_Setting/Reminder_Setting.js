@@ -799,7 +799,7 @@ const ReminderSetting = () => {
                       allData.shareHoldersArray[0].email &&
                       allData.shareHoldersArray[1].phone &&
                       allData.officersArray &&
-                      allData.officersArray.length === 3 &&
+                      allData.officersArray.length === 2 &&
                       allData.officersArray[0].officersEmail &&
                       allData.officersArray[1].officerPhone
                     )
